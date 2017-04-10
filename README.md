@@ -1,6 +1,6 @@
 # Intelligent Training Portal - FrontEnd
 
-This is the front end for Intelligent Training Portal (ITPORTAL)  
+This is the frontend for Intelligent Training Portal (ITPORTAL)  
 You'll need the [backend implementation for ITPORTAL](https://github.com/imadx/itportal-backend-express) for complete functionality.
 
 Get the ITPORTAL backend implementation using express from  [github.com/imadx/itportal-backend-express](https://github.com/imadx/itportal-backend-express).  
