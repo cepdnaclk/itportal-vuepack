@@ -8,7 +8,7 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="#" style="margin-right: 0">
-                <img class="rounded-circle" :src="(restbaseurl + 'photo/user/small-' + user.photo) || '/img/user.png'" style="height: 1.5em; border-radius: 1.5em" alt="" />
+                <img class="rounded-circle" :src="user.photo ? (restbaseurl + 'photo/user/small-' + user.photo) : '/img/user.png'" style="height: 1.5em; border-radius: 1.5em" alt="" />
             </a>
             <div class="collapse navbar-collapse" id="navbarNavSecondary">
                 <ul class="navbar-nav d-flex">
@@ -47,7 +47,7 @@
                             <form @submit.prevent="photo_upload">
                                 <canvas v-show="photo_user" id="photo_user" class="rounded-circle  m-auto large-profilePicture"  width="256" height="256"></canvas>
                                 <label for="photo_user_file_input">
-                                    <img v-show="!photo_user" id="photo_user_img"  :src="(restbaseurl + 'photo/user/large-' + user.photo) || '/img/user.png'" class="rounded-circle  m-auto large-profilePicture" />
+                                    <img v-show="!photo_user" id="photo_user_img"  :src="user.photo ? (restbaseurl + 'photo/user/large-' + user.photo) : '/img/user.png'" class="rounded-circle  m-auto large-profilePicture" />
                                     <a v-show="getEditing('intro')" class="btn btn-primary">Change Image</a>
                                 </label>
                                 <input class="hidden-sm-up" id="photo_user_file_input" type="file" accept="image/*" @change="photo_changed">

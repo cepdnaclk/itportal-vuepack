@@ -32,7 +32,7 @@
 			</router-link>
 		</ul>
 		<ul class="navbar-nav" v-else>
-			<img :src="(restbaseurl + 'photo/user/small-' + state.user.photo) || '/img/user.png'" class="rounded-circle hidden-lg-down" style="width: 40px; height: 40px;">
+			<img :src="state.user.photo ? (restbaseurl + '/photo/user/small-' + state.user.photo) : '/img/user.png'" class="rounded-circle hidden-lg-down" style="width: 40px; height: 40px;">
 			<router-link tag="li" class="nav-item" to="/dashboard" v-if="user" exact>
 			<a class="nav-link d-flex hidden-lg-down">{{state.user.name}}</a>
 			</router-link>
