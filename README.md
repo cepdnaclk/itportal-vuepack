@@ -6,7 +6,7 @@ You'll need the [backend implementation for ITPORTAL](https://github.com/imadx/i
 Get the ITPORTAL backend implementation using express from  [github.com/imadx/itportal-backend-express](https://github.com/imadx/itportal-backend-express).  
 
 ## Installation
-To start:a
+To start:
 
 ```bash
 $ npm install
