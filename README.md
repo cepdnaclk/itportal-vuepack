@@ -1,5 +1,11 @@
-# itportal-vuepack
+# Intelligent Training Portal - FrontEnd
 
+This is the front end for Intelligent Training Portal (ITPORTAL)  
+You'll need the [backend implementation for ITPORTAL](https://github.com/imadx/itportal-backend-express) for complete functionality.
+
+Get the ITPORTAL backend implementation using express from  [github.com/imadx/itportal-backend-express](https://github.com/imadx/itportal-backend-express).  
+
+## Installation
 To start:
 
 ```bash
@@ -9,7 +15,8 @@ $ npm install
 To develop:
 
 ```bash
-$ npm run dev```
+$ npm run dev
+```
 
 To build for production:
 
@@ -22,6 +29,7 @@ To lint you code:
 ```bash
 $ npm run lint
 ```
+
 
 
 ---
