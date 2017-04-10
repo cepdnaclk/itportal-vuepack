@@ -1,0 +1,12 @@
+footer.page-footer.footer-itportal{
+	color: #1c262b !important;
+
+	.all-links a,
+	.footer-copyright a,
+	{
+		color: #1c262b !important;
+		&:hover{
+			color: $primary-color !important;
+		}
+	}
+}

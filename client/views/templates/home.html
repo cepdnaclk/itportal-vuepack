@@ -1,0 +1,116 @@
+<div>
+    <!--Navbar-->
+    <div class="container-fluid">
+            <AppHeaderLinks class="navbar navbar-home navbar-toggleable-md navbar-dark fixed-top scrolling-navbar"></AppHeaderLinks>
+    </div>
+    <!--/.Navbar-->
+    
+    
+    
+    <!--Mask-->
+    <div class="view full-bg-img" style="position: relative; height: 100vh">
+        <div class="mask pattern-1">
+        </div>
+        <div class="full-bg-img d-flex flex-center flex-column white-text"  style="position: relative;">
+            <ul class="animated fadeIn">
+                <li>
+                    <img src="/img/logo_main.png" alt="" class="d-inline">
+                    <h1 class="h1-responsive marginless">Industrial Training Portal</h1>
+                </li>
+                <li>
+                    <p>Department of Computer Engineering, University of Peradeniya</p>
+                </li>
+                <li v-if="!state.loggedIn">
+                    <router-link :to="{name: 'Auth_signup'}" class="btn btn-outline-white btn-lg">Sign up</router-link>
+                    <router-link :to="{name: 'Auth_login'}" class="btn btn-outline-white btn-lg">Login</router-link>
+                </li>
+                <li v-else>
+                    <router-link :to="{name: 'Auth_select_dashboard'}" class="btn btn-outline-white btn-lg">View Dashboard</router-link>
+                </li>
+            </ul>
+            <ul class="intro-stats">
+                <li class=""><span class="d-flex flex-center"><i class="material-icons">account_balance</i><big>38</big></span> <span class="description">Organizations</span></li>
+                <li class=""><span class="d-flex flex-center"><i class="material-icons">face</i><big>62</big></span> <span class="description">Students</span></li>
+                <li class=""><span class="d-flex flex-center"><i class="material-icons">assignment_ind</i><big>38</big></span> <span class="description">Assigned Trainees</span></li>
+            </ul>
+        </div>
+    </div>
+    <!--/.Mask-->
+    <div class="container-fluid white">
+        <br>
+        <div class="container">
+            <h3>Content</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo repudiandae neque, incidunt ratione ad nesciunt! Fugiat quaerat quisquam possimus veniam tenetur consequuntur, laborum nisi aspernatur minus accusamus aliquam cumque ipsa.</p>
+        </div>
+        <br>
+    </div>
+    <!--Footer-->
+    <footer class="page-footer center-on-small-only">
+        <!--Footer Links-->
+        <div class="container-fluid">
+            <br><br>
+            <div class="row">
+                <!--First column-->
+                <div class="col-md-3 offset-lg-1 hidden-lg-down">
+                    <h5 class="title">Industrial Training Portal</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet assumenda ipsum dolores nihil aliquam dicta in corporis perferendis minus cum. Eaque eligendi blanditiis error sit esse, fugiat pariatur ex officiis! </p>
+                </div>
+                <!--/.First column-->
+                <hr class="hidden-md-up">
+                <!--Second column-->
+                <div class="col-lg-2 col-md-6 offset-lg-3">
+                    <h5 class="title">Students</h5>
+                    <ul>
+                        <li><a href="#!">View All Students</a></li>
+                        <li><a href="#!">Link 2</a></li>
+                        <li><a href="#!">Link 3</a></li>
+                        <li><a href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+                <!--/.Second column-->
+                <hr class="hidden-md-up">
+                <!--Third column-->
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="title">Organizations</h5>
+                    <ul>
+                        <li><a href="#!">Link 1</a></li>
+                        <li><a href="#!">Link 2</a></li>
+                        <li><a href="#!">Link 3</a></li>
+                        <li><a href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+                <!--/.Third column-->
+            </div>
+        </div>
+        <!--/.Footer Links-->
+        <hr>
+        <!--Call to action-->
+        <div class="call-to-action blue-grey darken-4 p-0 m-0">
+            <div class="col-lg-12 p-2 m-0 bg-primary  wow pulse">
+                <p>
+                    <h5 class="h5-responsive m-0 mb-1">Industrial Training will be commenced on 24<sup>th</sup> September, 2017</h5>
+                    <h5 class="h5-responsive m-0">Sign up your organization <a target="_blank" href="/auth/signup-company" rel="nofollow" class="btn btn-primary">Sign up now</a></h5>
+                </p>
+            </div>
+            <br>
+        </div>
+        <div class="call-to-action blue-grey darken-4">
+            <div>
+                <p>
+                    <img src="/img/logo_pera.png" alt="">
+                    <h6 class="h6-responsive m-0 sma">An initiative of Department of Computer Engineering, University of Peradeniya</h6>
+                </p>
+            </div>
+            <br>
+        </div>
+        <!--/.Call to action-->
+        <!--Copyright-->
+        <div class="footer-copyright">
+            <div class="container-fluid small">
+                © 2015 Copyright. <a href="http://www.ce.pdn.ac.lk/" rel="nofollow"> Department of Computer Engineering, University of Peradeniya </a>
+            </div>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+</div>

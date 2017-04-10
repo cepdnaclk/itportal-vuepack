@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+		<title><%= htmlWebpackPlugin.options.title %></title>
+		<!-- global css -->
+		<link rel="stylesheet" href="/font/material-icons/material-icons.css">
+		<link href="/css/bootstrap.css" rel="stylesheet">
+		<link href="/css/mdb.css" rel="stylesheet">
+		<link href="/css/chartist.min.css" rel="stylesheet">
+		<link href="/css/style.css" rel="stylesheet">
+	</head>
+	<body class="blue-grey lighten-5 full-height" data-spy="scroll" data-target="#navbar-scrollspy" data-offset="300">
+		<div id="app"></div>
+	</body>
+	
+	<script type="text/javascript" src="/js/jquery-2.2.3.min.js"></script>
+	<script type="text/javascript" src="/js/tether.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/mdb.min.js"></script>
+	<script>
+	new WOW().init();
+	$(function () {
+		$('a[href*="#"]:not([href="#"])').click(function () {
+			if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+				var target = $(this.hash);
+				target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+				if (target.length) {
+					$('html, body').animate({
+						scrollTop: target.offset().top
+					}, 300, 'easeInOutExpo');
+					return false;
+				}
+			}
+		});
+	});
+	</script>
+</html>

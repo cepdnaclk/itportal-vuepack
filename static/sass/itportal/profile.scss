@@ -1,0 +1,62 @@
+.card.profile-summary{
+	.links-view{
+		a{
+			padding: 0.5rem !important;
+			border-radius: 10rem !important;
+		}
+	}
+}
+
+.profile-cards{
+	.card{
+		margin: 2rem 0rem 2rem 0rem;
+	}
+	a{
+		color: $primary-color-dark;
+	}
+}
+.tagline{
+    padding: 0.5em 1rem;
+    display: inline-flex;
+    margin-top: 1em;
+    font-size: 1.2rem;
+	background-color: color('blue-grey', 'lighten-5');
+	color: color('blue-grey', 'darken-2');
+	position: relative;
+
+	&:before{    
+		content: '';
+		display: block;
+		width: 0;
+		height: 0;
+		position: absolute;
+		border-top: 1.5rem solid transparent;
+		/* border-bottom: 8px solid transparent; */
+		border-right: 1.5rem solid color('blue-grey', 'lighten-5');
+		left: calc(-1.5rem + 1px);
+		bottom: 0;
+	}
+}
+.tag{
+	display: inline-flex;
+	margin: .2em !important;
+	.custom-badge{
+		border-radius: 2rem;
+		padding: 0.3rem;
+		display: inline-block;
+		background: #fff;
+		margin-left: 1em;
+
+		&.primary-custom-badge{
+			color: color('green', 'base') !important;
+		}
+
+		&.warning-custom-badge{
+			color: color('orange', 'base') !important;
+		}
+
+		&.danger-custom-badge{
+			color: color('red', 'base') !important;
+		}
+	}
+}

@@ -1,0 +1,37 @@
+/ (home)
+/auth
+	/login
+	/signup
+		/student
+		/company representative
+		/staff
+	/forgotpassword
+	/confirm
+
+/student (dashboard)
+	/editprofile
+	/tasks
+	/settings
+
+/company-rep (dashboard)
+	/company
+		/add
+		/edit
+	/editprofile
+	/tasks
+	/settings
+
+/staff (dashboard)
+	/students
+	/company
+
+	/admin
+		/confirm
+			/student
+			/company
+			/clubs
+			/sports
+			/sports
+			/projects
+
+		/interviews
