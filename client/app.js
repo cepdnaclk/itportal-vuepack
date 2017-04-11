@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { sync } from 'vuex-router-sync'
 import App from './components/App'
 import LiveEdit from 'vue-live-edit'
+import PhotoUpload from 'vue-photo-upload'
 import router from './router'
 import store from './store'
 
@@ -11,6 +12,7 @@ import rest from 'restclient';
 import VeeValidate from 'vee-validate';
 Vue.use(VeeValidate);
 Vue.use(LiveEdit);
+Vue.use(PhotoUpload);
 
 Vue.auth = auth;
 Vue.rest = rest;

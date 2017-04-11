@@ -43,17 +43,15 @@
                 <div class="card-block">
                     <div class="row container">
                         <div class="col-lg-3 m-auto">
-                            <vue-photo-upload 
-                                class="vue-photo-uploader" 
+                            <photo-upload 
                                 :enableEdits="getEditing('intro')"
                                 :photoDefault="user.photo ? restbaseurl + 'photo/user/large-' + user.photo : '/img/user.png'"
                                 :buttonClass="'btn btn-primary'"
+                                :showMessages="true"
                                 @photo-submit="photo_upload"
                                 @photo-change="photo_changed"
                                 >
-                                
-
-                            </vue-photo-upload>
+                            </photo-upload>
                             
                         </div>
                         <div class="col-lg-4">
@@ -352,7 +350,7 @@
 <script>
     import Vue from 'vue';
     import restconfig from 'config/rest'
-    import VuePhotoUpload from 'components/VuePhotoUpload'
+    // import VuePhotoUpload from 'components/VuePhotoUpload'
 
     function getOffsetTop( elem )
     {
@@ -383,16 +381,11 @@
     let edit_profile_student_top_interests;
 
     export default {
-        components: {VuePhotoUpload},
         data(){
             return {
                 activeSection: 'intro',
                 user: Vue.auth.getUser(),
                 editingSection: null,
-                photo_user: null,
-                photo_user_canvas_id: 'photo_user',
-                photo_user_file: null,
-                photo_canvas_events_enabled: false,
                 restbaseurl: restconfig.url,
             }
         },
@@ -416,7 +409,6 @@
 
                         vm.user = data.user;
                         Vue.auth.setUser(data.user);
-                        vm.photo_user = null;
 
                     });
                 }
