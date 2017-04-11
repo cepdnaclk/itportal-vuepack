@@ -124,6 +124,11 @@ var auth = {
             store.commit('LOGIN');
             store.dispatch('showMessage', 'Successfully signed in.')
             store.commit('CHANGE_USER', __user);
+
+            setTimeout(function(){
+                Vue.auth.refreshToken(__user);
+            }, 600000);
+            
             router.push({
                 name: 'Auth_select_dashboard'
             })
@@ -136,14 +141,20 @@ var auth = {
         let _url = this.getAuthUrl(this.authBaseUrl, 'auth/refreshtoken');
 
         Vue.axios.post(
-            _url
+            _url, {data: 'Refresh please'}
         ).then(res => {
             console.log('token updated', res.data);
+
             let _token = res.data.token;
-            localStorage.setItem('user', JSON.stringify(__user));
             localStorage.setItem('token', _token);
+            store.dispatch('showMessage', 'Successfully refreshed your auth tokens')
+
+            setTimeout(function(){
+                Vue.auth.refreshToken(__user);
+            }, 600000);
 
         }).catch((msg) => {
+            console.log(msg);
             store.dispatch('showMessage', 'Failed to refresh your token. Signing you out.')
             setTimeout(function() {
                 Vue.auth.logout();
