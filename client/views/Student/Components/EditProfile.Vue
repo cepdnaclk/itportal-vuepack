@@ -43,18 +43,17 @@
                 <div class="card-block">
                     <div class="row container">
                         <div class="col-lg-3 m-auto">
-                            <div class="vue-img-uploader">
-                            <form @submit.prevent="photo_upload">
-                                <canvas v-show="photo_user" id="photo_user" class="rounded-circle  m-auto large-profilePicture"  width="256" height="256"></canvas>
-                                <label for="photo_user_file_input">
-                                    <img v-show="!photo_user" id="photo_user_img"  :src="user.photo ? (restbaseurl + 'photo/user/large-' + user.photo) : '/img/user.png'" class="rounded-circle  m-auto large-profilePicture" />
-                                    <a v-show="getEditing('intro')" class="btn btn-primary">Change Image</a>
-                                </label>
-                                <input class="hidden-sm-up" id="photo_user_file_input" type="file" accept="image/*" @change="photo_changed">
-                                <input type="hidden" name="email" v-model="user.email">
-                                <input class="btn btn-primary" v-if="photo_user" type="submit" value="Upload Image">
-                            </form>
-                            </div>
+                            <vue-photo-upload 
+                                class="vue-photo-uploader" 
+                                :enableEdits="getEditing('intro')"
+                                :photoDefault="user.photo ? restbaseurl + 'photo/user/large-' + user.photo : '/img/user.png'"
+                                :buttonClass="'btn btn-primary'"
+                                @photo-submit="photo_upload"
+                                @photo-change="photo_changed"
+                                >
+                                
+
+                            </vue-photo-upload>
                             
                         </div>
                         <div class="col-lg-4">
@@ -353,6 +352,7 @@
 <script>
     import Vue from 'vue';
     import restconfig from 'config/rest'
+    import VuePhotoUpload from 'components/VuePhotoUpload'
 
     function getOffsetTop( elem )
     {
@@ -383,6 +383,7 @@
     let edit_profile_student_top_interests;
 
     export default {
+        components: {VuePhotoUpload},
         data(){
             return {
                 activeSection: 'intro',
@@ -397,136 +398,17 @@
         },
         methods: {
             photo_changed: function(e){
-
-                if (e.srcElement.files && e.srcElement.files[0]) {
-
-                    this.photo_user_file = e.srcElement.files[0];
-
-                    
-                    let reader = new FileReader();
-                    let vm = this;
-                    reader.onload = function (e) {
-
-                        let img = new Image();
-                        img.src = e.target.result;
-
-                        img.onload = function(){ 
-                            vm.drawImageOnCanvas(img);
-                        };
-                    }
-                    reader.readAsDataURL(e.srcElement.files[0]);
-                } else {
-                    this.photo_user = null;
-                    this.photo_user_file = null;
-                }
-            },
-            drawImageOnCanvas: function(_img, x, y, zoom){
-
-                let vm = this;
-
-                let canvas = document.getElementById("photo_user");
-                let ctx=canvas.getContext("2d");
-
-                if(!vm.photo_canvas_events_enabled){
-                    canvas.__dragging = false;
-                    canvas.__zoom = 1;
-                    canvas.__position_x = canvas.width/2;
-                    canvas.__position_y = canvas.height/2;
-                    canvas.__last_positionX = canvas.height/2;
-                    canvas.__last_positionY = canvas.height/2;
-                    
-
-                    canvas.addEventListener('mousedown', function(e){
-                        canvas.__dragging = true;
-
-                        canvas.__last_positionX = e.offsetX;
-                        canvas.__last_positionY = e.offsetY;
-
-                    })
-                    canvas.addEventListener('mouseout', function(e){
-                        canvas.__dragging = false;
-                    });
-
-                    canvas.addEventListener('mouseup', function(e){
-                        canvas.__dragging = false;
-                    })
-                    canvas.addEventListener('mousemove', function(e){
-                        if(canvas.__dragging){
-                            canvas.__position_x += (e.offsetX - canvas.__last_positionX);
-                            canvas.__position_y += (e.offsetY - canvas.__last_positionY);
-
-                            canvas.__last_positionX = e.offsetX;
-                            canvas.__last_positionY = e.offsetY;
-
-                            console.log('clicked on canvas', canvas.__position_x, canvas.__position_y)
-                            vm.drawImageOnCanvas(null, canvas.__position_x, canvas.__position_y, canvas.__zoom);
-                        }
-                    })
-
-                    canvas.addEventListener('wheel', function(e){
-                        e.preventDefault();
-                        if(e.deltaY < 0){
-                            canvas.__zoom *= 1.1;
-                        } else {
-                            canvas.__zoom *= 0.9;                            
-                        }
-                        vm.drawImageOnCanvas(null, canvas.__position_x, canvas.__position_y, canvas.__zoom);
-                    })
-
-                    vm.photo_canvas_events_enabled = true;
-                    
-                }
-
-
-                let img;
-                if(_img) {
-                    img = _img;
-                    this.photo_user = _img;
-                }else{
-                    img = this.photo_user;
-                }
-
-                let _dimension = Math.min(img.width, img.height);
-
-                let _canvas_dimension = 256;
-
-
-                let _x = x || _canvas_dimension/2;
-                let _y = y || _canvas_dimension/2;
-                let _zoom = zoom || 1;
-
-                let _dimension_scaled_x = _canvas_dimension;
-                let _dimension_scaled_y = _canvas_dimension;
-
-                if(img.width < img.height){
-                    _dimension_scaled_y = img.height * _canvas_dimension / img.width ;
-                } else {
-                    _dimension_scaled_x = img.width * _canvas_dimension / img.height ;
-                }
-
-                ctx.drawImage(img,
-                    0,
-                    0,
-                    img.width,
-                    img.height,
-                    -(_dimension_scaled_x - _canvas_dimension - _x*_zoom)/2,
-                    -(_dimension_scaled_y - _canvas_dimension - _y*_zoom)/2,
-                    _dimension_scaled_x*_zoom,
-                    _dimension_scaled_y*_zoom);
-
-                // set canvas image as uploading image file
-                canvas.toBlob(function(blob){
-                    vm.photo_user_file = blob;
-                });
+                console.log('photo_changed');
+                console.log(e);
             },
 
-            photo_upload: function(e){
-
+            photo_upload: function(e, file){
+                console.log(e, file);
                 let vm = this;
 
-                if(this.photo_user){
+                if(file){
                     Vue.rest.putImageUpload({
-                        photo: this.photo_user_file,
+                        photo: file,
                         email: this.user.email,
                     },
                     'user', function(data){
@@ -605,14 +487,6 @@
 </script>
 
 <style>
-.vue-img-uploader{
-    position: relative;
-    cursor: pointer;
-}
-.vue-img-uploader canvas{
-    cursor: move;
-
-}
 .tagline{
     font-size: 1.1rem !important;
     text-align: center;
