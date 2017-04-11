@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-7 container px-3">
                 <div class="welcome d-flex justify-content-start align-items-center">
-                    <img :src="user.photo ? (restbaseurl + '/photo/user/large-' + user.photo) : '/img/user.png'" class="mr-2 rounded-circle" style="border-radius: 80px; height: 80px; width: 80px;">
+                    <img :src="user.photo ? (restbaseurl + 'photo/user/large-' + user.photo) : '/img/user.png'" class="mr-2 rounded-circle" style="border-radius: 80px; height: 80px; width: 80px;">
                     <div>
                         <h4 class="h4-responsive mb-0 font-weight-normal" style="padding-bottom: 6px">Good day, {{state.user.name}}!</h4>
                         <h6 class="h6-responsive mb-0 text-uppercase small">Last accessed 23 days ago. Profile updated 40 days ago.</h6>
