@@ -87,6 +87,9 @@ var auth = {
                 store.dispatch('showMessage', _data.message)
                 localStorage.setItem('token', res.data.token);
                 setTimeout(function() {
+                    let __user = Auth.getUser();
+                    __user.emailConfirmed = true;
+                    Auth.setUser(__user);
                     router.push({
                         name: 'Auth_select_dashboard'
                     })
