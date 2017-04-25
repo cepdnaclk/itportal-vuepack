@@ -122,7 +122,7 @@ var router = new Router({
                     next()
                 } else {
                     if(_.isEqual(_role[0], 'STUDENT')){ next({name: 'Student_dashboard_summary'}) }
-                    else if(_.isEqual(_role[0], 'COMPANY')){ next({name: 'Organization_dashboard'}) }
+                    else if(_.isEqual(_role[0], 'COMPANY')){ next({name: 'Organization_dashboard_summary'}) }
                     else if(_.isEqual(_role[0], 'STAFF')){ next({name: 'Staff_dashboard'}) }
                     else if(_.isEqual(_role[0], 'ADMIN')){ next({name: 'Admin_dashboard'}) }
                     else{ console.log('_role', _role); next() }
