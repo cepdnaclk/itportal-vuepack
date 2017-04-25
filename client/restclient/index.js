@@ -7,10 +7,10 @@ var rest = {
     restBaseUrl: config.url,
 
     getRestUrl: function(model, options) {
-        return this.restBaseUrl + 'secure/api/v1/' + model + (options ? options : '');
+        return this.restBaseUrl + 'api/api/v1/' + model + (options ? options : '');
     },
     getPhotoUploadUrl: function(model) {
-        return this.restBaseUrl + 'secure/photo/' + model;
+        return this.restBaseUrl + 'api/photo/' + model;
     },
 
     getData(model, options, cb) {
@@ -38,6 +38,40 @@ var rest = {
                 setTimeout(function() {
                     cb(model);
                 }, 1000);
+            }
+        });
+    },
+    insertData(data, model, options, cb) {
+        let _url = this.getRestUrl(model, options);
+
+        Vue.axios.post(
+            _url, data
+        ).then(res => {
+            let _data = (res.data);
+            store.dispatch('showMessage', 'Data updated');
+            if (cb) cb(_data);
+            return;
+
+        }).catch(function(err) {
+            console.log(err);
+            if (err.response) {
+                var _err = err.response.data;
+                store.dispatch('showMessage', _err.flashMessage || _err);
+                if (!(_err.signedIn)) {
+                    setTimeout(function() {
+                        Vue.auth.logout();
+                    }, 1000);
+                } else if (!(_err.tokenValid)) {
+                    Vue.auth.refreshToken();
+
+                    var cb = this.getData;
+                    setTimeout(function() {
+                        cb(model);
+                    }, 1000);
+                }
+
+            } else {
+                store.dispatch('showMessage', 'Something was not right, when updating your data');
             }
         });
     },
