@@ -4,6 +4,7 @@
     <div class="col">
         <div class="container m-2">
             <h3>Company Profile</h3>
+            <p>Join an existing company on ITPortal, or create a brand new profile for your company on ITPortal.</p>
         </div>
         <nav id="navbar-scrollspy" class="sticky-top navbar navbar-toggleable-md navbar-light nav-secondary-itportal white lighten-5 hidden-md-down">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavSecondary"
