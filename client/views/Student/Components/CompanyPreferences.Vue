@@ -17,7 +17,7 @@
 
                     <hr class="my-1">
                     <div class="container companies-selected">
-                        <h5 class="my-1">Liked Companies <span class="badge badge-success">{{companies_selected.length}} Companies</span> <span class="badge badge-primary">selected preference {{activeSlot + 1}}</span></h5>
+                        <h5 class="my-1">Liked Companies <span class="badge badge-success">{{companies_selected.length - 1}} Companies</span> <span class="badge badge-default">selected preference {{activeSlot + 1}}</span></h5>
                         <transition-group name="component-fade" mode="out-in">
                             <div v-for="(company, index) in companies_selected"
                                 :key="company"
@@ -39,7 +39,7 @@
                     <div class="container companies-not-selected">
 
                         <h5 class="my-1">Other Companies</h5>
-                        <p>Choose a company for the selected slot (<span class="badge badge-primary">{{activeSlot + 1}}</span>) above, from the following list</p>
+                        <p>Choose a company for the selected slot (<span class="badge badge-success">{{activeSlot + 1}}</span>) above, from the following list</p>
                         <!-- <transition-group name="component-fade" mode="out-in"> -->
                         	<div v-for="company in sorted_notSelected" 
                             :id="company"
@@ -51,6 +51,7 @@
                             </div >
                         <!-- </transition-group> -->
                     </div>
+                    <hr>
                 </div>
 
             </div>
@@ -68,6 +69,9 @@
         background: #fff;
         display: inline-flex;
         cursor: pointer;
+        border-radius: 4px;
+        border: solid thin #ccc;
+        margin: 2px;
 
         .image{
             height: 1.5em;
