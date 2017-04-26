@@ -21,6 +21,7 @@ import StudentDashboard_Summary from '../views/Student/Components/Summary'
 import StudentDashboard_Tasks from '../views/Student/Components/Tasks'
 import StudentDashboard_EditProfile from '../views/Student/Components/EditProfile'
 import StudentDashboard_Settings from '../views/Student/Components/Settings'
+import StudentDashboard_CompanyPreferences from '../views/Student/Components/CompanyPreferences'
 
 import OrganizationDashboard_Summary from '../views/Organization/Components/Summary'
 import OrganizationDashboard_Tasks from '../views/Organization/Components/Tasks'
@@ -141,6 +142,7 @@ var router = new Router({
                 {name: 'Student_dashboard_tasks', path: 'tasks', component: StudentDashboard_Tasks },
                 {name: 'Student_dashboard_editprofile', path: 'editprofile', component: StudentDashboard_EditProfile },
                 {name: 'Student_dashboard_settings', path: 'settings', component: StudentDashboard_Settings },
+                {name: 'Student_dashboard_companyPreferences', path: 'company', component: StudentDashboard_CompanyPreferences },
             ]
         }, {
             path: '/organization',
