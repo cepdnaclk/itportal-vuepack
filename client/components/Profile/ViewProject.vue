@@ -5,10 +5,8 @@
     </div>
     <div class="col-md-6">
         <hr class="hidden-sm-up">
-        <h4 class="h4-responsive my-1 my-md-0">Project Title</h4>
-        <p class="text-truncate my-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae magnam a, amet id
-            minus libero repellendus, earum. Quidem ipsum veritatis voluptas sit natus autem,
-        hic cumque explicabo in, eius blanditiis.</p>
+        <h4 class="h4-responsive my-1 my-md-0">{{project.title}}</h4>
+        <p class="text-truncate my-0">{{project.description}}</p>
         <div class="">
             <div class="badge badge-success">Java</div>
             <div class="badge badge-success">Java</div>

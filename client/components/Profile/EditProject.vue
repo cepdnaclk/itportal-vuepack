@@ -1,10 +1,14 @@
 <template>
 <div>
     
-<div class="row">
-    <div class="btn btn-primary with-icon flex-center full-width"><i class="material-icons">add</i> Add New Project</div>
+<div class="row" @click="toggleEditing" v-if="isEditing">
+    <div class="btn btn-primary with-icon flex-center full-width" ><i class="material-icons">arrow_back</i> Dismiss</div>
 </div>
-<form @submit.prevent="addFormData">
+<div class="row" @click="toggleEditing" v-else>
+    <div class="btn btn-primary with-icon flex-center full-width" ><i class="material-icons">add</i> Add New Project</div>
+</div>   
+<form @submit.prevent="addFormData" v-show="isEditing">
+    <hr>
     <div class="row">
             <div class="col-md-2">
                 <img src="/img/project.png" class="img-thumbnail mx-auto align-content-center">
@@ -30,6 +34,7 @@
 
 <script>
 import Vue from 'vue';
+
 export default{
     
     data(){
@@ -39,7 +44,12 @@ export default{
                 description: '',
                 dateStarted: null,
                 dateEnded: null,
-            }
+                authorEmail: Vue.auth.getUser().email,
+            },
+
+            isEditing: false
+
+
         }
     },
      methods: {
@@ -47,11 +57,14 @@ export default{
             let vm = this;
             Vue.rest.insertData(this.project, 'project', null, function(res){
                 if(res){
-                    vm.user = res;
-                    Vue.auth.setUser(res);
+                    vm.$emit('project-uploaded', res);
                 }
             });
         },
+        toggleEditing: function(){
+            this.isEditing = !this.isEditing;
+            console.log(isEditing);
+        }
     }
 }
 </script>

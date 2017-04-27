@@ -117,9 +117,9 @@
                 <div class="card-block">
                     <h3 class="h3-responsive marginless">Projects</h3>
                     <hr class="my-2">
-                    <view-project></view-project>
+                    <view-project v-for="(project, index) in projects" :project="project" :key="'project'+index"></view-project>
                     <hr class="my-1">
-                    <edit-project></edit-project>
+                    <edit-project @project-uploaded="projectUploaded"></edit-project>
                 </div>
             </div>
             <div class="card">
@@ -345,7 +345,9 @@
             return {
                 activeSection: 'intro',
                 user: Vue.auth.getUser(),
+                student_id: null,
                 editingSection: null,
+                projects: [],
                 restbaseurl: restconfig.url,
             }
         },
@@ -409,6 +411,18 @@
                     Vue.auth.setUser(_user);
                 }
                 console.log(this.user);
+
+                let vm = this;
+
+                Vue.rest.getData('student', '?query={"email":"' + this.user.email + '"}', function(_student){
+                    console.log(_student[0]);
+                    console.log(_student[0]._id);
+                    vm.student_id = _student[0]._id;
+
+                    Vue.rest.getData('student', '/' + vm.student_id + '?populate=["projects"]', function(_student){
+                        vm.projects = _student.projects;
+                    })
+                });
             },
             saveUserInfo: function(){
                 let vm = this;
@@ -419,6 +433,12 @@
                     }
                 });
             },
+            projectUploaded: function(e){
+                if(!this.user.projects){
+                    this.user.projects = [];
+                }
+                this.projects.push(e);
+            }
         },
         watch: {
             'user.name': function(){
@@ -429,7 +449,7 @@
             window.addEventListener('scroll', this.handleScroll);
         },
         mounted(){
-            Vue.rest.getData('user', '/' + this.user._id , this.getUserInfo);
+            Vue.rest.getData('user', '/' + this.user._id + '?populate=[\'StudentDetails\']', this.getUserInfo);
         },
         destroyed () {
             window.removeEventListener('scroll', this.handleScroll);
