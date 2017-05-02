@@ -4,14 +4,14 @@
         <hr>
         <div class="row">
                 <div class="col-md-2">
-                    <img src="/img/project.png" class="img-thumbnail mx-auto align-content-center">
+                    <img src="/img/award.png" class="img-thumbnail mx-auto align-content-center">
                 </div>
                 <div class="col-md-6">
                     <hr class="hidden-sm-up">
-                    <h4 class="h4-responsive my-1 my-md-0"><input type="text" placeholder="Project Title" v-model="project.title"></h4>
-                    <textarea placeholder="Project Description"  v-model="project.description"></textarea>
-                    <input type="date"  v-model="project.dateStarted">
-                    <input type="date"  v-model="project.dateEnded">
+                    <h4 class="h4-responsive my-1 my-md-0"><input type="text" placeholder="Project Title" v-model="award.title"></h4>
+                    <textarea placeholder="Project Description"  v-model="award.description"></textarea>
+                    <input type="date"  v-model="award.dateStarted">
+                    <input type="date"  v-model="award.dateEnded">
                     <div class="with-icon d-flex my-1 text-uppercase small"><i class="material-icons responsive">code</i> Individual Project</div>
                 </div>
                 <div class="col-md-4">

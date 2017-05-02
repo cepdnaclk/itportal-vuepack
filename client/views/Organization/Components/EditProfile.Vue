@@ -69,9 +69,10 @@
                 <div class="card-block">
                     <h3 class="h3-responsive marginless">Projects</h3>
                     <hr class="my-2">
-                    <view-project></view-project>
+                    <div v-if="projects.length == 0" class="flex-center h5 text-warning"><i class="material-icons responsive">info</i> No projects to show</div>
+                    <view-project v-for="(project, index) in projects" :project="project" :key="'project'+index"></view-project>
                     <hr class="my-1">
-                    <edit-project></edit-project>
+                    <edit-project @project-uploaded="projectUploaded" author-type="companyRep"></edit-project>
                 </div>
             </div>
             <div class="card">
@@ -197,6 +198,8 @@
                 user: Vue.auth.getUser(),
                 editingSection: null,
                 restbaseurl: restconfig.url,
+
+                projects: [],
             }
         },
         methods: {
@@ -269,6 +272,9 @@
                     }
                 });
             },
+            projectUploaded: function(e){
+                 this.projects.push(e);
+            }
         },
         watch: {
             'user.name': function(){

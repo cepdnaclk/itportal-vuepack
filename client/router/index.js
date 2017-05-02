@@ -29,10 +29,14 @@ import OrganizationDashboard_EditProfile from '../views/Organization/Components/
 import OrganizationDashboard_EditCompany from '../views/Organization/Components/EditCompany'
 import OrganizationDashboard_Settings from '../views/Organization/Components/Settings'
 
+import OrganizationDashboard_EditCompany_create from '../views/Organization/Components/EditCompany/Create'
+import OrganizationDashboard_EditCompany_join from '../views/Organization/Components/EditCompany/Join'
+
 
 import GettingStarted from '../views/Misc/GettingStarted'
 import AllStudents from '../views/Misc/AllStudents'
 import AllOrganizations from '../views/Misc/AllOrganizations'
+import NotImplemented from '../views/Misc/NotImplemented'
 
 Vue.use(Router)
 Vue.use(VueAxios, axios)
@@ -155,7 +159,13 @@ var router = new Router({
                 {name: 'Organization_dashboard_summary', path: '', component: OrganizationDashboard_Summary },
                 {name: 'Organization_dashboard_tasks', path: 'tasks', component: OrganizationDashboard_Tasks },
                 {name: 'Organization_dashboard_editprofile', path: 'editprofile', component: OrganizationDashboard_EditProfile },
-                {name: 'Organization_dashboard_editcompany', path: 'editcompany', component: OrganizationDashboard_EditCompany },
+                {name: 'Organization_dashboard_editcompany', path: 'editcompany', component: OrganizationDashboard_EditCompany,
+                    children: [
+                        {name: 'Organization_dashboard_editcompany_create', path: 'create', component: OrganizationDashboard_EditCompany_create },
+                        {name: 'Organization_dashboard_editcompany_join', path: 'join', component: OrganizationDashboard_EditCompany_join },
+                        {name: 'Organization_dashboard_editcompany_edit', path: 'edit', component: NotImplemented }
+                    ]
+                 },
                 {name: 'Organization_dashboard_settings', path: 'settings', component: OrganizationDashboard_Settings },
             ]
         }, {

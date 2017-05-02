@@ -119,7 +119,7 @@
                     <hr class="my-2">
                     <view-project v-for="(project, index) in projects" :project="project" :key="'project'+index"></view-project>
                     <hr class="my-1">
-                    <edit-project @project-uploaded="projectUploaded"></edit-project>
+                    <edit-project @project-uploaded="projectUploaded" author-type="student"></edit-project>
                 </div>
             </div>
             <div class="card">
@@ -434,10 +434,7 @@
                 });
             },
             projectUploaded: function(e){
-                if(!this.user.projects){
-                    this.user.projects = [];
-                }
-                this.projects.push(e);
+                 this.projects.push(e);
             }
         },
         watch: {

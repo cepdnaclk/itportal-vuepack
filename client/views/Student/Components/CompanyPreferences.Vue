@@ -151,13 +151,13 @@
     }
 
     .component-fade-enter-active, .component-fade-leave-active {
-        transition: all .3s ease;
+        transition: all .3s ease, width .2s ease, padding .2s ease, margin .2s ease;
         width: 300px;
-        transform: scale(1,1);
+        transform: translateX(0px) scale(1,1);
     }
     .component-fade-enter, .component-fade-leave-to{
         width: 0px;
-        transform: scale(0,0);
+        transform: translateX(-30px) scale(0.5,0.5);
         opacity: 0;
         padding: 0;
         margin: 0;
