@@ -8,13 +8,15 @@
                 </div>
                 <div class="col-md-6">
                     <hr class="hidden-sm-up">
-                    <h4 class="h4-responsive my-1 my-md-0"><input type="text" placeholder="Award Title" v-model="award.title"></h4>
-                    <textarea placeholder="Award Description"  v-model="award.description"></textarea>
-                    <input type="date"  v-model="award.date">
+                    <h4 class="h4-responsive my-1 my-md-0"><input type="text" placeholder="Co-Curricular Activity" v-model="cocurricular.title"></h4>
+                    <textarea placeholder="Co-Curricular Description"  v-model="cocurricular.description"></textarea>
+                    <input type="date"  v-model="cocurricular.dateStarted">
+                    <input type="date"  v-model="cocurricular.dateEnded">
+                    
                 </div>
                 <div class="col-md-4">
                     <div class="actions d-flex justify-content-md-end  justify-content-sm-center">
-                        <button type="submit" class="btn btn-primary px-2 flex-center  with-icon"><i class="material-icons responsive">add</i> Add Award</button>
+                        <button type="submit" class="btn btn-primary px-2 flex-center  with-icon"><i class="material-icons responsive">add</i> Add Co-Curricular Activity</button>
                         <button type="reset" @click.prevent="resetFormData" class="btn btn-primary px-2 flex-center  with-icon"><i class="material-icons responsive">undo</i> Reset</button>
                     </div>
                 </div>
@@ -25,7 +27,7 @@
         <div class="btn btn-primary with-icon flex-center full-width" ><i class="material-icons">arrow_back</i> Dismiss</div>
     </div>
     <div class="row" @click="toggleEditing" v-else>
-        <div class="btn btn-primary with-icon flex-center full-width" ><i class="material-icons">add</i> Add New Award</div>
+        <div class="btn btn-primary with-icon flex-center full-width" ><i class="material-icons">add</i> Add New Co-Curricular Activity</div>
     </div>   
 </div>
 </template>
@@ -44,24 +46,22 @@ export default{
 
         return{
             isEditing: false,
-            award: {
+            cocurricular: {
                 title: '',
                 description: '',
-                date: null,
+                dateStarted: null,
+                dateEnded: null,
                 authorEmail: Vue.auth.getUser().email,
                 authorType: this.authorType,
             },
-
-
-
         }
     },
      methods: {
         addFormData: function(){
             let vm = this;
-            Vue.rest.insertData(this.award, 'award', null, function(res){
+            Vue.rest.insertData(this.cocurricular, 'cocurricular', null, function(res){
                 if(res){
-                    vm.$emit('award-uploaded', res);
+                    vm.$emit('cocurricular-uploaded', res);
                     vm.resetFormData();
                     vm.isEditing = false;
                 }
@@ -73,7 +73,7 @@ export default{
             this.resetFormData();
         },
         resetFormData: function(){
-            this.award = {
+            this.cocurricular = {
                 title: '',
                 description: '',
                 dateStarted: null,

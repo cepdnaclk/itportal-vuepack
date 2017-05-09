@@ -122,142 +122,55 @@
                     <edit-project @project-uploaded="projectUploaded" author-type="student"></edit-project>
                 </div>
             </div>
-            <div class="card">
+
+            <div class="card" >
                 <a id="competitions" class='spy-anchor'></a>
                 <div class="card-block">
-                    <h3>Competitions</h3>
+                    <h3 class="h3-responsive marginless">Competitions</h3>
                     <hr class="my-2">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="/img/project.png" class="img-thumbnail mx-auto align-content-center">
-                        </div>
-                        <div class="col-md-6">
-                            <hr class="hidden-sm-up">
-                            <h4 class="h4-responsive my-1 my-md-0">Competition Title</h4>
-                            <p class="text-truncate my-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae magnam a, amet id
-                                minus libero repellendus, earum. Quidem ipsum veritatis voluptas sit natus autem,
-                            hic cumque explicabo in, eius blanditiis.</p>
-                            <div class="">
-                                <div class="badge badge-success">Java</div>
-                                <div class="badge badge-success">Java</div>
-                                <div class="badge badge-success">Java</div>
-                            </div>
-                            <div class="with-icon d-flex my-1 text-uppercase small"><i class="material-icons responsive">code</i> Individual Project</div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="actions d-flex justify-content-md-end  justify-content-sm-center">
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">remove_red_eye</i></button>
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">edit</i></button>
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">link</i></button>
-                            </div>
-                        </div>
-                    </div>
+                    <view-competition v-for="(competition, index) in competitions" :competition="competition" :key="'competition'+index"></view-competition>
                     <hr class="my-1">
-                    <div class="btn btn-primary with-icon flex-center"><i class="material-icons">add</i> Add New Competition</div>
+                    <edit-competition @competition-uploaded="competitionUpload" author-type="student"></edit-competition>
                 </div>
             </div>
-            <div class="card">
+
+            
+            <div class="card" >
                 <a id="awards" class='spy-anchor'></a>
                 <div class="card-block">
-                    <h3>Awards</h3>
+                    <h3 class="h3-responsive marginless">Awards</h3>
                     <hr class="my-2">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="/img/project.png" class="img-thumbnail mx-auto align-content-center">
-                        </div>
-                        <div class="col-md-6">
-                            <hr class="hidden-sm-up">
-                            <h4 class="h4-responsive my-1 my-md-0">Competition Title</h4>
-                            <p class="text-truncate my-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae magnam a, amet id
-                                minus libero repellendus, earum. Quidem ipsum veritatis voluptas sit natus autem,
-                            hic cumque explicabo in, eius blanditiis.</p>
-                            <div class="">
-                                <div class="badge badge-success">Java</div>
-                                <div class="badge badge-success">Java</div>
-                                <div class="badge badge-success">Java</div>
-                            </div>
-                            <div class="with-icon d-flex my-1 text-uppercase small"><i class="material-icons responsive">code</i> Individual Project</div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="actions d-flex justify-content-md-end  justify-content-sm-center">
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">remove_red_eye</i></button>
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">edit</i></button>
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">link</i></button>
-                            </div>
-                        </div>
-                    </div>
+                    <view-award v-for="(award, index) in awards" :award="award" :key="'award'+index"></view-award>
                     <hr class="my-1">
-                    <div class="btn btn-primary with-icon flex-center"><i class="material-icons">add</i> Add New Award</div>
+                    <edit-award @award-uploaded="awardUpload" author-type="student"></edit-award>
                 </div>
             </div>
-            <div class="card">
-                <a id="co-curricular" class='spy-anchor'></a>
+
+
+            <div class="card" >
+                <a id="coCurricular" class='spy-anchor'></a>
                 <div class="card-block">
-                    <h3>Co-curricular</h3>
+                    <h3 class="h3-responsive marginless">Co-Curricular Activities</h3>
                     <hr class="my-2">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="/img/project.png" class="img-thumbnail mx-auto align-content-center">
-                        </div>
-                        <div class="col-md-6">
-                            <hr class="hidden-sm-up">
-                            <h4 class="h4-responsive my-1 my-md-0">Activity Title</h4>
-                            <p class="text-truncate my-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae magnam a, amet id
-                                minus libero repellendus, earum. Quidem ipsum veritatis voluptas sit natus autem,
-                            hic cumque explicabo in, eius blanditiis.</p>
-                            <div class="">
-                                <div class="badge badge-success">Java</div>
-                                <div class="badge badge-success">Java</div>
-                                <div class="badge badge-success">Java</div>
-                            </div>
-                            <div class="with-icon d-flex my-1 text-uppercase small"><i class="material-icons responsive">code</i> Individual Project</div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="actions d-flex justify-content-md-end  justify-content-sm-center">
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">remove_red_eye</i></button>
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">edit</i></button>
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">link</i></button>
-                            </div>
-                        </div>
-                    </div>
+                    <view-cocurricular v-for="(cocurricular, index) in cocurriculars" :cocurricular="cocurricular" :key="'cocurricular'+index"></view-cocurricular>
                     <hr class="my-1">
-                    <div class="btn btn-primary with-icon flex-center"><i class="material-icons">add</i> Add New Co-curricular Activity</div>
+                    <edit-cocurricular @cocurricular-uploaded="cocurricularUpload" author-type="student"></edit-cocurricular>
                 </div>
             </div>
-            <div class="card">
-                <a id="extra-curricular" class='spy-anchor'></a>
+
+
+            <div class="card" >
+                <a id="extraCurricular" class='spy-anchor'></a>
                 <div class="card-block">
-                    <h3>Extra-curricular</h3>
+                    <h3 class="h3-responsive marginless">Extra Curricular Activities</h3>
                     <hr class="my-2">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="/img/project.png" class="img-thumbnail mx-auto align-content-center">
-                        </div>
-                        <div class="col-md-6">
-                            <hr class="hidden-sm-up">
-                            <h4 class="h4-responsive my-1 my-md-0">Activity Title</h4>
-                            <p class="text-truncate my-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae magnam a, amet id
-                                minus libero repellendus, earum. Quidem ipsum veritatis voluptas sit natus autem,
-                            hic cumque explicabo in, eius blanditiis.</p>
-                            <div class="">
-                                <div class="badge badge-success">Java</div>
-                                <div class="badge badge-success">Java</div>
-                                <div class="badge badge-success">Java</div>
-                            </div>
-                            <div class="with-icon d-flex my-1 text-uppercase small"><i class="material-icons responsive">code</i> Individual Project</div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="actions d-flex justify-content-md-end  justify-content-sm-center">
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">remove_red_eye</i></button>
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">edit</i></button>
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">link</i></button>
-                            </div>
-                        </div>
-                    </div>
+                    <view-extracurricular v-for="(extracurricular, index) in extracurriculars" :extracurricular="extracurricular" :key="'extracurricular'+index"></view-extracurricular>
                     <hr class="my-1">
-                    <div class="btn btn-primary with-icon flex-center"><i class="material-icons">add</i> Add New Extra-curricular</div>
+                    <edit-extracurricular @extracurricular-uploaded="extracurricularUpload" author-type="student"></edit-extracurricular>
                 </div>
             </div>
+
+
             <div class="card">
                 <a id="interests" class='spy-anchor'></a>
                 <div class="card-block">
@@ -306,6 +219,22 @@
 
     import EditProject from 'components/Profile/EditProject'
 
+    import ViewCompetition from 'components/Profile/ViewCompetition'
+
+    import EditCompetition from 'components/Profile/EditCompetition'
+
+    import EditAward from 'components/Profile/EditAward'
+
+    import ViewAward from 'components/Profile/ViewAward'
+
+    import EditCocurricular from 'components/Profile/EditCocurricular'
+
+    import ViewCocurricular from 'components/Profile/ViewCocurricular'
+
+    import EditExtracurricular from 'components/Profile/EditExtracurricular'
+
+    import ViewExtracurricular from 'components/Profile/ViewExtracurricular'
+
 
     function getOffsetTop( elem )
     {
@@ -332,7 +261,8 @@
     let edit_profile_student_top_projects;
     let edit_profile_student_top_competitions;
     let edit_profile_student_top_awards;
-    let edit_profile_student_top_co;
+    let edit_profile_student_top_cocurriculars;
+    let edit_profile_student_top_extracurriculars;
     let edit_profile_student_top_interests;
 
     export default {
@@ -340,6 +270,22 @@
             ViewProject,
 
             EditProject,
+
+            ViewCompetition,
+
+            EditCompetition,
+
+            ViewAward,
+
+            EditAward,
+
+            ViewCocurricular,
+
+            EditCocurricular,
+
+            ViewExtracurricular,
+
+            EditExtracurricular,
         },
         data(){
             return {
@@ -347,7 +293,11 @@
                 user: Vue.auth.getUser(),
                 student_id: null,
                 editingSection: null,
-                projects: [],
+                projects:[],
+                competitions: [],
+                awards: [],
+                cocurriculars: [],
+                extracurriculars: [],
                 restbaseurl: restconfig.url,
             }
         },
@@ -419,8 +369,12 @@
                     console.log(_student[0]._id);
                     vm.student_id = _student[0]._id;
 
-                    Vue.rest.getData('student', '/' + vm.student_id + '?populate=["projects"]', function(_student){
+                    Vue.rest.getData('student', '/' + vm.student_id + '?populate=["projects","competitions","awards","cocurriculars","extracurricular"]', function(_student){
                         vm.projects = _student.projects;
+                        vm.competitions = _student.competitions;
+                        vm.awards = _student.awards;
+                        vm.cocurriculars = _student.cocurriculars;
+                        vm.extracurricular = _student.extracurricular;
                     })
                 });
             },
@@ -435,7 +389,20 @@
             },
             projectUploaded: function(e){
                  this.projects.push(e);
+            },
+            competitionUpload: function(e){
+                this.competitions.push(e);
+            },
+            awardUpload: function(e){
+                this.awards.push(e);
+            },
+            cocurricularUpload: function(e){
+                this.cocurriculars.push(e);
+            },
+            extracurricularrUpload: function(e){
+                this.extracurriculars.push(e);
             }
+
         },
         watch: {
             'user.name': function(){
