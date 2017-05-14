@@ -75,40 +75,18 @@
                     <edit-project @project-uploaded="projectUploaded" author-type="companyRep"></edit-project>
                 </div>
             </div>
-            <div class="card">
+            
+            <div class="card" >
                 <a id="awards" class='spy-anchor'></a>
                 <div class="card-block">
-                    <h3>Awards</h3>
+                    <h3 class="h3-responsive marginless">Awards</h3>
                     <hr class="my-2">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="/img/project.png" class="img-thumbnail mx-auto align-content-center">
-                        </div>
-                        <div class="col-md-6">
-                            <hr class="hidden-sm-up">
-                            <h4 class="h4-responsive my-1 my-md-0">Competition Title</h4>
-                            <p class="text-truncate my-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae magnam a, amet id
-                                minus libero repellendus, earum. Quidem ipsum veritatis voluptas sit natus autem,
-                            hic cumque explicabo in, eius blanditiis.</p>
-                            <div class="">
-                                <div class="badge badge-success">Java</div>
-                                <div class="badge badge-success">Java</div>
-                                <div class="badge badge-success">Java</div>
-                            </div>
-                            <div class="with-icon d-flex my-1 text-uppercase small"><i class="material-icons responsive">code</i> Individual Project</div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="actions d-flex justify-content-md-end  justify-content-sm-center">
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">remove_red_eye</i></button>
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">edit</i></button>
-                                <button class="btn btn-primary px-2"><i class="material-icons responsive">link</i></button>
-                            </div>
-                        </div>
-                    </div>
+                    <view-award v-for="(award, index) in awards" :award="award" :key="'award'+index"></view-award>
                     <hr class="my-1">
-                    <div class="btn btn-primary with-icon flex-center"><i class="material-icons">add</i> Add New Award</div>
+                    <edit-award @award-uploaded="awardUpload" author-type="companyRep"></edit-award>
                 </div>
             </div>
+
             <div class="card">
                 <a id="interests" class='spy-anchor'></a>
                 <div class="card-block">
@@ -157,6 +135,10 @@
 
     import EditProject from 'components/Profile/EditProject'
 
+    import EditAward from 'components/Profile/EditAward'
+
+    import ViewAward from 'components/Profile/ViewAward'
+
 
     function getOffsetTop( elem )
     {
@@ -191,6 +173,10 @@
             ViewProject,
 
             EditProject,
+
+            ViewAward,
+
+            EditAward,
         },
         data(){
             return {
@@ -200,6 +186,7 @@
                 restbaseurl: restconfig.url,
 
                 projects: [],
+                awards: [],
             }
         },
         methods: {
@@ -262,6 +249,19 @@
                     Vue.auth.setUser(_user);
                 }
                 console.log(this.user);
+
+                let vm = this;
+
+                Vue.rest.getData('companyRep', '?query={"email":"' + this.user.email + '"}', function(_companyRep){
+                    console.log(_companyRep[0]);
+                    console.log(_companyRep[0]._id);
+                    vm.student_id = _companyRep[0]._id;
+
+                    Vue.rest.getData('student', '/' + vm.student_id + '?populate=["projects","awards"]', function(_companyRep){
+                        vm.projects = _companyRep.projects;
+                        vm.awards = _companyRep.awards;
+                    })
+                });
             },
             saveUserInfo: function(){
                 let vm = this;
@@ -274,6 +274,9 @@
             },
             projectUploaded: function(e){
                  this.projects.push(e);
+            },
+            awardUpload: function(e){
+                this.awards.push(e);
             }
         },
         watch: {
