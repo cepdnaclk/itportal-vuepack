@@ -19,6 +19,12 @@
                 </transition>
                 <hr class="mt-2">
             </div>
+
+            <div class="col-md-12 container px-3" v-if="company">
+                <h2 class="h2-responsive">{{company.name}}</h2>
+                <h5 class="h5-responsive">{{company.description}}</h5>
+                <hr class="mt-2">
+            </div>
             
         </div>
     </div>
@@ -44,3 +50,26 @@
     transform: translate(-30px, 0);
     }
 </style>
+<script>
+    import Vue from 'vue';
+
+    export default {
+        data: function(){
+            return {
+                test: 'value',
+                company: {},
+                user: Vue.auth.getUser(),
+
+            }
+        },
+        methods: {
+            getCompanyData: function(res){
+                this.company = res[0].company;
+            },
+            
+        },
+        mounted(){
+            Vue.rest.getData('organizationRep', '?query={"email":"' + this.user.email + '"}&populate=["company"]', this.getCompanyData);
+        },
+    }
+</script>

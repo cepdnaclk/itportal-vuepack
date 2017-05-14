@@ -159,14 +159,14 @@
         return Math.round(top);
     }
 
-    let edit_profile_student_top;
-    let edit_profile_student_top_intro;
-    let edit_profile_student_top_academic;
-    let edit_profile_student_top_projects;
-    let edit_profile_student_top_competitions;
-    let edit_profile_student_top_awards;
-    let edit_profile_student_top_co;
-    let edit_profile_student_top_interests;
+    let edit_profile_organizationRep_top;
+    let edit_profile_organizationRep_top_intro;
+    let edit_profile_organizationRep_top_academic;
+    let edit_profile_organizationRep_top_projects;
+    let edit_profile_organizationRep_top_competitions;
+    let edit_profile_organizationRep_top_awards;
+    let edit_profile_organizationRep_top_co;
+    let edit_profile_organizationRep_top_interests;
 
     export default {
         components: {
@@ -220,14 +220,14 @@
             },
             handleScroll: function(e){
 
-                // edit_profile_student_top_intro = getCoords(document.getElementById('intro'));
-                // edit_profile_student_top_academic = getCoords(document.getElementById('academic'));
-                // edit_profile_student_top_projects = getCoords(document.getElementById('projects'));
-                // edit_profile_student_top_competitions = getCoords(document.getElementById('competitions'));
-                // edit_profile_student_top_awards = getCoords(document.getElementById('awards'));
-                // edit_profile_student_top_co = getCoords(document.getElementById('co-curricular'));
-                // edit_profile_student_top_interests = getCoords(document.getElementById('interests'));
-                // console.log(edit_profile_student_top_intro.top);
+                // edit_profile_organizationRep_top_intro = getCoords(document.getElementById('intro'));
+                // edit_profile_organizationRep_top_academic = getCoords(document.getElementById('academic'));
+                // edit_profile_organizationRep_top_projects = getCoords(document.getElementById('projects'));
+                // edit_profile_organizationRep_top_competitions = getCoords(document.getElementById('competitions'));
+                // edit_profile_organizationRep_top_awards = getCoords(document.getElementById('awards'));
+                // edit_profile_organizationRep_top_co = getCoords(document.getElementById('co-curricular'));
+                // edit_profile_organizationRep_top_interests = getCoords(document.getElementById('interests'));
+                // console.log(edit_profile_organizationRep_top_intro.top);
 
             },
             setEditing: function(section){
@@ -252,12 +252,12 @@
 
                 let vm = this;
 
-                Vue.rest.getData('companyRep', '?query={"email":"' + this.user.email + '"}', function(_companyRep){
+                Vue.rest.getData('organizationRep', '?query={"email":"' + this.user.email + '"}', function(_companyRep){
                     console.log(_companyRep[0]);
                     console.log(_companyRep[0]._id);
-                    vm.student_id = _companyRep[0]._id;
+                    vm.organizationRep_id = _companyRep[0]._id;
 
-                    Vue.rest.getData('student', '/' + vm.student_id + '?populate=["projects","awards"]', function(_companyRep){
+                    Vue.rest.getData('organizationRep', '/' + vm.organizationRep_id + '?populate=["projects","awards"]', function(_companyRep){
                         vm.projects = _companyRep.projects;
                         vm.awards = _companyRep.awards;
                     })

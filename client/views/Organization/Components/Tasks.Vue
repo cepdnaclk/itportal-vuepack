@@ -11,7 +11,6 @@
 					<span class="btn btn-primary col-sm-3">Create Company Profile</span>
 					<span class="d-inline-block">Create a brand new profile for your company on ITPortal</span>
 				</div>
-				<br>
 				<div class="align-self-center">
 					<router-link to="/" tag="span" class="btn btn-primary col-sm-3">Join Company</router-link>
 					<span class="d-inline-block">Join an existing company on ITPortal</span>
