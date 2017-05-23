@@ -3,7 +3,7 @@
 		<h1>All Students</h1>
 		<div class="row">
 			<div class="col-sm-4 rounded" v-for="student in students">
-				<div class="white p-2 d-flex">
+				<div class="white p-2 d-flex mb-1">
 					<div class="pr-2">
 						<img class="rounded-circle" :src="student.StudentDetails.photo ? (restUrl + 'photo/user/large-' + student.StudentDetails.photo) : '/img/user.png'" style="height: 6em; border-radius: 6em" alt="" />
 					</div>

@@ -3,13 +3,13 @@
 		<h1>All Organizations</h1>
 		<div class="row">
 			<div class="col-sm-4 rounded" v-for="organization in organizations">
-				<div class="white p-2 d-flex">
+				<div class="white p-2 d-flex mb-1">
 					<div class="pr-2">
 						<img class="rounded-circle" :src="organization.photo ? (restUrl + 'photo/user/large-' + organization.photo) : '/img/user.png'" style="height: 6em; border-radius: 6em" alt="" />
 					</div>
 					<div class="d-flex flex-column">
 						<span class="pt-1 organization_name" >{{organization.name}}</span>
-						<span>{{organization.description}}</span>
+						<span class="org-description">{{organization.description}}</span>
 					</div>
 				</div>
 
@@ -21,6 +21,13 @@
 <style scoped>
 	.organization_name{
 		font-size: 1.3em;
+	}
+	.org-description{
+		width: 200px;
+		height: auto;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 </style>
 <script>
