@@ -176,35 +176,10 @@
                 <div class="card-block">
                     <h3>Interests</h3>
                     <hr class="my-1">
-                    <div class="d-flex justify-content-start align-content-center">
-                        <div class="card green white-text px-3 py-1 mx-0 d-inline-flex inline flex-row align-items-center tag">
-                            <span class="text-truncate">Graphic Design</span>
-                            <span class="custom-badge primary-custom-badge align-content-end d-flex"><i class="material-icons responsive">face</i> 12</span>
-                        </div>
-                        <p class="text-truncate mx-2 my-auto">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione ab eum soluta modi, praesentium,
-                            rem ipsa suscipit ex, et non numquam, nemo. Voluptate est sed, cupiditate architecto
-                        eveniet unde error!</p>
-                    </div>
-                    <div class="d-flex justify-content-start align-content-center">
-                        <div class="card green white-text px-3 py-1 mx-0 d-inline-flex inline flex-row align-items-center tag">
-                            <span class="text-truncate">Web Development</span>
-                            <span class="custom-badge primary-custom-badge align-content-end d-flex"><i class="material-icons responsive">face</i> 12</span>
-                        </div>
-                        <p class="text-truncate mx-2 my-auto">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione ab eum soluta modi, praesentium,
-                            rem ipsa suscipit ex, et non numquam, nemo. Voluptate est sed, cupiditate architecto
-                        eveniet unde error!</p>
-                    </div>
-                    <div class="d-flex justify-content-start align-content-center">
-                        <div class="card green white-text px-3 py-1 mx-0 d-inline-flex inline flex-row align-items-center tag">
-                            <span class="text-truncate">Backend Analytics</span>
-                            <span class="custom-badge primary-custom-badge align-content-end d-flex"><i class="material-icons responsive">face</i> 12</span>
-                        </div>
-                        <p class="text-truncate mx-2 my-auto">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione ab eum soluta modi, praesentium,
-                            rem ipsa suscipit ex, et non numquam, nemo. Voluptate est sed, cupiditate architecto
-                        eveniet unde error!</p>
-                    </div>
+                     <view-interest v-for="(interest, index) in interests" :interest="interest" :key="'interest'+index"></view-interest>
+                    
                     <hr class="my-1">
-                    <div class="btn btn-primary with-icon flex-center"><i class="material-icons">add</i> Add New Interest</div>
+                    <edit-interest @interest-uploaded="interestUpload" :all-interests="all_interests"></edit-interest>
                 </div>
             </div>
         </div>
@@ -216,25 +191,18 @@
     import restconfig from 'config/rest'
 
     import ViewProject from 'components/Profile/ViewProject'
+    import ViewCompetition from 'components/Profile/ViewCompetition'
+    import ViewAward from 'components/Profile/ViewAward'
+    import ViewCocurricular from 'components/Profile/ViewCocurricular'
+    import ViewExtracurricular from 'components/Profile/ViewExtracurricular'
+    import ViewInterest from 'components/Profile/ViewInterest'
 
     import EditProject from 'components/Profile/EditProject'
-
-    import ViewCompetition from 'components/Profile/ViewCompetition'
-
     import EditCompetition from 'components/Profile/EditCompetition'
-
     import EditAward from 'components/Profile/EditAward'
-
-    import ViewAward from 'components/Profile/ViewAward'
-
     import EditCocurricular from 'components/Profile/EditCocurricular'
-
-    import ViewCocurricular from 'components/Profile/ViewCocurricular'
-
     import EditExtracurricular from 'components/Profile/EditExtracurricular'
-
-    import ViewExtracurricular from 'components/Profile/ViewExtracurricular'
-
+    import EditInterest from 'components/Profile/EditInterest'
 
     function getOffsetTop( elem )
     {
@@ -268,24 +236,20 @@
     export default {
         components: {
             ViewProject,
-
-            EditProject,
-
             ViewCompetition,
+            ViewAward,
+            ViewCocurricular,
+            ViewExtracurricular,
+            ViewInterest,
+
 
             EditCompetition,
-
-            ViewAward,
-
             EditAward,
-
-            ViewCocurricular,
-
             EditCocurricular,
-
-            ViewExtracurricular,
-
+            EditProject,
             EditExtracurricular,
+            EditInterest,
+
         },
         data(){
             return {
@@ -293,11 +257,16 @@
                 user: Vue.auth.getUser(),
                 student_id: null,
                 editingSection: null,
+
                 projects:[],
                 competitions: [],
                 awards: [],
                 cocurriculars: [],
                 extracurriculars: [],
+
+                interests: [],
+                all_interests: [],
+
                 restbaseurl: restconfig.url,
             }
         },
@@ -377,6 +346,29 @@
                         vm.extracurricular = _student.extracurricular;
                     })
                 });
+
+                Vue.rest.getData('interest', '?populate=["students","organizationRep"]', function(_interests){
+                    vm.all_interests = _interests;
+                    vm.interests = _.filter(_interests, function(o){
+
+                        // check if this user has the interest
+
+                        let _has_interest = false;
+
+                        _.forEach(o.students, function(u){
+                            if(u.email === vm.user.email){
+                                console.log(vm.user.email);
+                                _has_interest = true;
+                            }
+                        });
+                        return _has_interest;
+
+                    });
+
+                    console.log('_interests', _interests);
+                    console.log('vm.interests', vm.interests);
+                });
+
             },
             saveUserInfo: function(){
                 let vm = this;
@@ -401,6 +393,10 @@
             },
             extracurricularrUpload: function(e){
                 this.extracurriculars.push(e);
+            },
+            
+            interestUpload: function(e){
+                this.interests.push(e);
             }
 
         },
