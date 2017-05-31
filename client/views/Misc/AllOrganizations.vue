@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container py-4">
 		<h1>All Organizations</h1>
 		<div class="row">
 			<div class="col-sm-4 rounded" v-for="organization in organizations">
@@ -13,7 +13,7 @@
 					</div>
 				</div>
 
-			</div>	
+			</div>
 		</div>
 	</div>
 </template>
@@ -46,7 +46,7 @@
 				// var _url = this.restUrl + this.entity;
 
 				let vm = this;
-				var _url = this.restUrl + 'api/v1/api/v1/organization';
+				var _url = this.restUrl + 'api/api/v1/organization';
 
 				Vue.axios.get(_url).then( (res) => {
 					// console.log(res);

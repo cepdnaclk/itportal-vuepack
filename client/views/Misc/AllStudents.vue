@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container py-4">
 		<h1>All Students</h1>
 		<div class="row">
 			<div class="col-sm-4 rounded" v-for="student in students">
@@ -39,7 +39,7 @@
 				// var _url = this.restUrl + this.entity;
 
 				let vm = this;
-				var _url = this.restUrl + 'api/v1/api/v1/student?populate=StudentDetails';
+				var _url = this.restUrl + 'api/api/v1/student?populate=StudentDetails';
 
 				Vue.axios.get(_url).then( (res) => {
 					// console.log(res);
