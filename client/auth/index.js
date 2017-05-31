@@ -207,7 +207,16 @@ var auth = {
             store.dispatch('showMessage', 'Logged out successfully')
 
         }).catch(() => {
-            store.dispatch('showMessage', 'Something went wrong in signing you out.')
+            store.dispatch('showMessage', 'Something went wrong in signing you out.');
+
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            
+            store.commit('LOGOUT')
+            router.push({
+                name: 'Home'
+            })
+
         });
     },
 
