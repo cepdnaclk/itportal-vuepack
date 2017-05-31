@@ -1,10 +1,11 @@
 <template>
-    <div class="container">
+    <div class="container mt-2">
         <div class="row">
             <div class="form col-md-12 dashboard-itportal">
 
                 <!-- Nav Tabs -->
-                <ul class="nav nav-tabs z-depth-1 mt-3" role="tablist">
+                <h2>Company Preferences</h2>
+                <ul class="nav nav-tabs z-depth-1 mt-1" role="tablist">
                     <li class="nav-item">
                         <router-link :to="{name: 'Student_dashboard_tasks'}" exact class="nav-link with-icon flex-center"><i class="material-icons">arrow_back</i>Back</router-link>
                     </li>
@@ -17,7 +18,8 @@
 
                     <hr class="my-1">
                     <div class="container companies-selected">
-                        <h5 class="my-1">Liked Companies <span class="badge badge-success">{{companies_selected.length - 1}} Companies</span> <span class="badge badge-default">selected preference {{activeSlot + 1}}</span></h5>
+                        <h5 class="my-1">Liked Companies <span class="badge badge-success">{{companies_selected.length}} Companies</span> <span class="badge badge-default">selected preference {{activeSlot + 1}}</span></h5>
+                        <div v-if="companies_selected.length==0" class="alert alert-warning">Select your preferred companies from below</div>
                         <transition-group name="component-fade" mode="out-in">
                             <div v-for="(company, index) in companies_selected"
                                 :key="company"
@@ -217,8 +219,8 @@
                     'cerver cerver co.',
                     'difism difism co.',
                 ],
-                companies_selected: [''],
-                activeSlot: 0,
+                companies_selected: [],
+                activeSlot: -1,
             }
         },
         methods: {
