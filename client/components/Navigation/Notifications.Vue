@@ -18,6 +18,13 @@ export default {
 		getDate: function(){
 			return (new Date()).toLocaleString();
 		}
+	},
+	mounted: function(){
+		let vm = this;
+		
+		setInterval(function(){
+			vm.date = (new Date()).toLocaleString();
+		},1000)
 	}
 }
 </script>
