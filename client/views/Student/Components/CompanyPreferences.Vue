@@ -30,7 +30,7 @@
 
                                 <span class="preference">{{index + 1}}</span>
                                 <img src="/img/user.png" alt="" class="image">
-                                <span class="company">{{company}}</span>
+                                <span class="company">{{company.name}}</span>
                                 <div class="remove" v-show="company" @click="removeSelected(company)">
                                     <span>X</span>
                                 </div>
@@ -38,7 +38,7 @@
                         </transition-group>
                     </div>
                     <hr class="my-1">
-                    <div class="container companies-not-selected">
+                    <div class="container companies-not-selected" v-if="sorted_notSelected.length>0">
 
                         <h5 class="my-1">Other Companies</h5>
                         <p>Choose a company for the selected slot (<span class="badge badge-success">{{activeSlot + 1}}</span>) above, from the following list</p>
@@ -49,9 +49,12 @@
                             @click="addSelected(company)"
                             class="company-not-selected">
                                 <img src="/img/user.png" alt="" class="image">
-                                <span class="company">{{company}}</span>
+                                <span class="company">{{company.name}}</span>
                             </div >
                         <!-- </transition-group> -->
+                    </div>
+                    <div class="container" v-else>
+                        All companies are set. Remove a company to re-order.
                     </div>
                     <hr>
                 </div>
@@ -179,46 +182,7 @@
                 user: Vue.auth.getUser(),
                 restbaseurl: restconfig.url,
 
-                companies: [
-                    'caper caper co.',
-                    'quambo quambo co.',
-                    'disent disent co.',
-                    'subicious subicious co.',
-                    'polyoid polyoid co.',
-                    'twiva twiva co.',
-                    'fafix fafix co.',
-                    'camizz camizz co.',
-                    'verend verend co.',
-                    'metaloo metaloo co.',
-                    'omninu omninu co.',
-                    'supore supore co.',
-                    'esor esor co.',
-                    'duonix duonix co.',
-                    'planti planti co.',
-                    'execundu execundu co.',
-                    'trilium trilium co.',
-                    'yonte yonte co.',
-                    'suprajo suprajo co.',
-                    'dynape dynape co.',
-                    'panous panous co.',
-                    'socixo socixo co.',
-                    'centiveo centiveo co.',
-                    'jamia jamia co.',
-                    'astroxo astroxo co.',
-                    'skyose skyose co.',
-                    'colium colium co.',
-                    'transic transic co.',
-                    'corandu corandu co.',
-                    'equva equva co.',
-                    'sugill sugill co.',
-                    'sucer sucer co.',
-                    'eanyx eanyx co.',
-                    'mident mident co.',
-                    'diadel diadel co.',
-                    'hydrolium hydrolium co.',
-                    'cerver cerver co.',
-                    'difism difism co.',
-                ],
+                companies: [],
                 companies_selected: [],
                 activeSlot: -1,
             }
@@ -238,12 +202,45 @@
             },
             setActiveSlot: function(index){
                 this.activeSlot = index;
+            },
+            updateCompanyPreferences: function(){
+                // console.log(this.companies_selected, this.user);
+                let _user_id = this.user._id;
+                let _company_preferences = _.map(this.companies_selected, function(o){
+                    return o._id;
+                }); 
+
+                let _data = {
+                    user: _user_id,
+                    preferences: _company_preferences
+                }
+
+                // console.log(_data);
+                let _baseURL = Vue.rest.restBaseUrl;
+                
+                console.log(_baseURL);
+
+                // TODO update post url
+                // Vue.axios.post('')
             }
         },
         computed: {
             sorted_notSelected:function(){
                 return _.sortBy(this.companies, [function(o) { return o; }]);
             }
+        },
+        watch: {
+            companies_selected: function(){
+                this.updateCompanyPreferences();
+            }
+        },
+        mounted: function(){
+            let vm = this;
+
+            Vue.rest.getData('organization', '', function(_organizations){
+               console.log(_organizations);
+               vm.companies = _organizations;
+            });
         }
 }
 </script>
