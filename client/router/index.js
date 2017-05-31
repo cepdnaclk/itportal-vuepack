@@ -25,6 +25,7 @@ import StudentDashboard_CompanyPreferences from '../views/Student/Components/Com
 
 import OrganizationDashboard_Summary from '../views/Organization/Components/Summary'
 import OrganizationDashboard_Tasks from '../views/Organization/Components/Tasks'
+import OrganizationDashboard_DecisionDesk from '../views/Organization/Components/DecisionDesk'
 import OrganizationDashboard_EditProfile from '../views/Organization/Components/EditProfile'
 import OrganizationDashboard_EditCompany from '../views/Organization/Components/EditCompany'
 import OrganizationDashboard_Settings from '../views/Organization/Components/Settings'
@@ -158,6 +159,7 @@ var router = new Router({
             children: [
                 {name: 'Organization_dashboard_summary', path: '', component: OrganizationDashboard_Summary },
                 {name: 'Organization_dashboard_tasks', path: 'tasks', component: OrganizationDashboard_Tasks },
+                {name: 'Organization_dashboard_decisiondesk', path: 'decisiondesk', component: OrganizationDashboard_DecisionDesk },
                 {name: 'Organization_dashboard_editprofile', path: 'editprofile', component: OrganizationDashboard_EditProfile },
                 {name: 'Organization_dashboard_editcompany', path: 'editcompany', component: OrganizationDashboard_EditCompany,
                     children: [

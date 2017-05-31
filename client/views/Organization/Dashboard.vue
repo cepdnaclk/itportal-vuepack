@@ -12,6 +12,9 @@
                         <router-link :to="{name: 'Organization_dashboard_tasks'}" class="nav-link with-icon flex-center"><i class="material-icons">list</i> Tasks</router-link>
                     </li>
                     <li class="nav-item">
+                        <router-link :to="{name: 'Organization_dashboard_decisiondesk'}" class="nav-link with-icon flex-center"><i class="material-icons">thumbs_up_down</i> Decision Desk</router-link>
+                    </li>
+                    <li class="nav-item">
                         <router-link :to="{name: 'Organization_dashboard_editprofile'}" class="nav-link with-icon flex-center"><i class="material-icons">assignment_ind</i>My Profile</router-link>
                     </li>
                     <li class="nav-item">
