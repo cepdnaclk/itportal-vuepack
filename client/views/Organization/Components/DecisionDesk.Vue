@@ -7,7 +7,7 @@
             <div class="col-md-12 container px-3">
                 <h2 class="h2-responsive">Decision Desk</h2>
                 <div class="container blue-grey lighten-5 py-2">
-                    <div class="row decision-header mb-2">
+                    <div class="row decision-header mb-1">
                         <div class="col-md-7">Students <span class="text-uppercase small">(12 Students)</span></div>
                         <div class="col-md-1">Viewed <span class="text-uppercase small">(12)</span></div>
                         <div class="col-md-1">Interview Scheduled <span class="text-uppercase small">(12)</span></div>
@@ -29,9 +29,9 @@
                                 </div>
                                 
                             </div>
-                            <div class="col-md-1"><span class="dot"></span></div>
-                            <div class="col-md-1"><span class="dot"></span></div>
-                            <div class="col-md-1"><span class="dot"></span></div>
+                            <div class="col-md-1 status"><span class="dot"></span></div>
+                            <div class="col-md-1 status"><span class="dot"></span></div>
+                            <div class="col-md-1 status"><span class="dot"></span></div>
                             <div class="col-md-2 actions">
                                 <div class="btn btn-primary btn-sm btn-block">View</div>
                                 <div class="btn btn-primary btn-sm btn-block">Inverview</div>
@@ -61,7 +61,9 @@
     .decision-student{
 
         .student-details{
-            
+            display: flex;
+            align-items: center;
+
             *{
                 display: inline-block;
             }
@@ -75,14 +77,13 @@
             }
             .name{
                 font-size: large;
+                flex-grow: 1;
+                margin-left: 10px;
             }
             .desc{
-                position: relative;
-                top: 50%;
-                transform: translateY(-50%);
                 display: flex;
                 flex-direction: column;
-                float: right;
+                width: 20%;
                 text-align: center;
                 margin-left: 10px;
 
@@ -96,8 +97,17 @@
             }
         }
 
-        .decision-student{
-
+        .status{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .dot{
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: #607d8b;
+                display: block;
+            }
         }
     }
 </style>
