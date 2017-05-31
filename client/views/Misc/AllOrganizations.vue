@@ -29,6 +29,9 @@
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
+	.container{
+		min-height: 70vh;
+	}
 </style>
 <script>
 	import Vue from 'vue';

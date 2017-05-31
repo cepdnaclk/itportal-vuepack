@@ -22,6 +22,9 @@
 	.student_name{
 		font-size: 1.3em;
 	}
+	.container{
+		min-height: 70vh;
+	}
 </style>
 <script>
 	import Vue from 'vue';
