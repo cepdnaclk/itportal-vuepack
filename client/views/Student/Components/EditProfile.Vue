@@ -391,7 +391,7 @@
             cocurricularUpload: function(e){
                 this.cocurriculars.push(e);
             },
-            extracurricularrUpload: function(e){
+            extracurricularUpload: function(e){
                 this.extracurriculars.push(e);
             },
             

@@ -17,7 +17,7 @@
                 <div class="tab-content card mb-3 child-view-dash-container">
 
                     <hr class="my-1">
-                    <div class="container companies-selected">
+                    <div class="container companies-selected" v-if="companies_selected.length>0">
                         <h5 class="my-1">Liked Companies <span class="badge badge-success">{{companies_selected.length}} Companies</span> <span class="badge badge-default">selected preference {{activeSlot + 1}}</span></h5>
                         <div v-if="companies_selected.length==0" class="alert alert-warning">Select your preferred companies from below</div>
                         <transition-group name="component-fade" mode="out-in">
@@ -42,7 +42,7 @@
 
                         <h5 class="my-1">Other Companies</h5>
                         <p>Choose a company for the selected slot (<span class="badge badge-success">{{activeSlot + 1}}</span>) above, from the following list</p>
-                        <!-- <transition-group name="component-fade" mode="out-in"> -->
+                        <transition-group name="component-fade" mode="out-in">
                         	<div v-for="company in sorted_notSelected" 
                             :id="company"
                             :key="company"
@@ -51,7 +51,7 @@
                                 <img src="/img/user.png" alt="" class="image">
                                 <span class="company">{{company.name}}</span>
                             </div >
-                        <!-- </transition-group> -->
+                        </transition-group>
                     </div>
                     <div class="container" v-else>
                         All companies are set. Remove a company to re-order.
@@ -174,6 +174,7 @@
     import restconfig from 'config/rest';
     import _ from 'lodash';
 
+    import store from 'store';
 
     export default {
         data(){
@@ -185,25 +186,31 @@
                 companies: [],
                 companies_selected: [],
                 activeSlot: -1,
+                dataChanged: false,
             }
         },
         methods: {
             addSelected: function(company){
-                this.companies.splice(this.companies.indexOf(company), 1);
+                // this.companies.splice(this.companies.indexOf(company), 1);
                 this.companies_selected.splice(this.activeSlot, 0, company);
 
                 this.activeSlot++;
+                this.dataChanged = true;
             },
             removeSelected: function(company){
-                this.companies.push(company);
+                // this.companies.push(company);
                 this.companies_selected.splice(this.companies_selected.indexOf(company), 1);
 
                 this.activeSlot--;
+                this.dataChanged = true;
             },
             setActiveSlot: function(index){
                 this.activeSlot = index;
             },
             updateCompanyPreferences: function(){
+
+                if(!this.dataChanged) return;
+
                 // console.log(this.companies_selected, this.user);
                 let _user_id = this.user._id;
                 let _company_preferences = _.map(this.companies_selected, function(o){
@@ -221,26 +228,82 @@
                 console.log(_baseURL);
 
                 // TODO update post url
-                // Vue.axios.post('')
+                Vue.axios.post(_baseURL + 'api/student/companyPreferences', _data)
+                .then(function(res){
+                    console.log(res.data)
+                    store.dispatch('showMessage', 'Preferences Updated')
+                    
+                })
+                .catch(function(err){console.log(err)});
+            },
+            retrieveCompanyPreferences: function(){
+                console.log('retrieveCompanyPreferences')
+                let vm = this;
+
+                // all companies
+                Vue.rest.getData('organization', '', function(_organizations){
+                   console.log('_organizations', _organizations);
+                   vm.companies = _organizations;
+                });
+
+                // selected companies
+                let _baseURL = Vue.rest.restBaseUrl;
+                let _user = this.user._id;
+                console.log('user', _user);
+
+                Vue.axios.get(_baseURL + 'api/student/companyPreferences/' + _user)
+                .then(function(res){
+
+                    let _companies_selected_fromDB = res.data.preferences;
+
+                    if(!_companies_selected_fromDB){
+                        return;
+                    }
+
+                    // console.log(_companies_selected_fromDB);
+                   console.log('_companies_selected_fromDB', _companies_selected_fromDB);
+                    
+
+
+                    vm.companies_selected = _companies_selected_fromDB;
+                    store.dispatch('showMessage', 'Retrieved your existing preferences')
+                    
+                })
+                .catch(function(err){console.log(err)});
             }
         },
         computed: {
             sorted_notSelected:function(){
-                return _.sortBy(this.companies, [function(o) { return o; }]);
+                let vm = this;
+                let _not_selected;
+                let _selected_ids = _.map(vm.companies_selected, function(o){
+                    return o._id;
+                });
+
+                _not_selected = _.map(vm.companies, function(o){
+                    if(!_.includes(_selected_ids, o._id)){
+                        console.log('id', _selected_ids, o._id)
+                        return o;
+                    }
+                    
+                })
+
+
+                return _.without(_.sortBy(_not_selected, [function(o) { return o; }]), undefined);
             }
         },
         watch: {
-            companies_selected: function(){
+            companies_selected: _.debounce(function(){
                 this.updateCompanyPreferences();
-            }
+            }, 500)
         },
         mounted: function(){
-            let vm = this;
-
-            Vue.rest.getData('organization', '', function(_organizations){
-               console.log(_organizations);
-               vm.companies = _organizations;
-            });
+            this.retrieveCompanyPreferences();
+        },
+        beforeDestroy: function(){
+        
+            this.updateCompanyPreferences();        
         }
+
 }
 </script>
