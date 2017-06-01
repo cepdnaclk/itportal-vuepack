@@ -14,11 +14,11 @@
                         <div class="col-md-1">Accepted <span class="text-uppercase small">(12)</span></div>
                         <div class="col-md-2">Actions <span class="text-uppercase small">(12)</span></div>
                     </div>
-                    <div class="container decision-student white z-depth-1 p-2 my-1">
+                    <div class="container decision-student white z-depth-1 p-2 my-1 mb-1"  v-for="student in companyPreferences.user">
                         <div class="row">
                             <div class="col-md-7 student-details">
                                 <img class="rounded-circle" src="/img/user.png" alt="">
-                                <div class="name">Ishan Madhusanka</div>
+                                <div class="name">{{student.name}}</div>
                                 <div class="desc">
                                     <span class="title">GPA</span>
                                     <span class="content">3.4</span>
@@ -111,3 +111,39 @@
         }
     }
 </style>
+
+<script>
+    import Vue from 'vue'
+    import store from 'store'
+
+    export default{
+        data: () => {
+            return {
+                company: Vue.auth.getUser(),
+                companyPreferences: [],
+            }
+        },
+        methods: {
+            getCompanyPreferences: function(){
+                let _baseURL = Vue.rest.restBaseUrl;
+                let vm = this;
+                
+                Vue.axios.get(_baseURL + 'api/company/companyPreferences/' + this.company.email)
+                .then(function(res){
+
+                    let _company_preferences = res.data;
+
+                    console.log('_company_preferences', _company_preferences);
+
+                    vm.companyPreferences = _company_preferences;
+                    store.dispatch('showMessage', 'Retrieved existing student preferences')
+
+                })
+            }
+        },
+        mounted: function(){
+            this.getCompanyPreferences();
+        }
+    }
+</script>
+
