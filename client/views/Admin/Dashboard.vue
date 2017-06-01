@@ -31,7 +31,20 @@
 			
 			<h4>Company Preferences {{companyPreferences.length}}</h4>
 			<div>
-				<div v-for="pref in companyPreferences">{{pref}}</div >
+				<h5>By Student</h5>
+				<div v-for="pref in companyPreferences">
+					<div class="name">{{pref.user.name}}</div>
+					<ol>
+						<li v-for="company in pref.preferences">{{company.name}}</li>
+					</ol>
+				</div >
+				<h5>By Company</h5>
+				<div v-for="pref in preferenceByCompany">
+					<div class="name">{{pref.company.name}}</div>
+					<ol>
+						<li v-for="user in pref.user">{{user.name}}</li>
+					</ol>
+				</div >
 			</div>
 		</div>
 	</div>
@@ -39,7 +52,6 @@
 </template>
 
 <style scoped>
-	
 </style>
 
 <script>
@@ -74,12 +86,65 @@ export default {
                     return;
                 }
 
+                _.forEach(_company_preferences, function(o){
+                	_.forEach(o.preferences, function(c, i){
+                		c.preferenceOrder = i;
+                	})
+                })
+
                console.log('_company_preferences', _company_preferences);
                 
                 vm.companyPreferences = _company_preferences;
                 store.dispatch('showMessage', 'Retrieved existing student preferences')
                 
             })
+		},
+	},
+	computed: {
+		preferenceByCompany: function(){
+			let vm = this;
+			let _preferences = vm.companyPreferences;
+
+			// push users to companies;
+			let _preferencesByCompany = {};
+
+
+
+			_.forEach(_preferences, function(o){	// preferences with o.user(with preference order) and o.companies
+
+				_.forEach(o.preferences, function(c){  // c - company
+
+					// each company
+					let _user = Object.create(o.user);
+					_user.preferenceOrder = c.preferenceOrder;
+
+					if(_preferencesByCompany[c._id]){
+						_preferencesByCompany[c._id].user.push(_user);
+					} else {
+						_preferencesByCompany[c._id] = {
+							company: c,
+							user: [_user]
+						}
+					}
+				});
+
+			});
+
+			_.forEach(_preferencesByCompany, function(o){
+				// console.log('o', o);
+				o.user = _.sortBy(o.user, function(u){
+					return u.preferenceOrder;
+				})
+			})
+
+			// // test order
+			// console.log('_preferencesByCompany', _preferencesByCompany);
+			// _.forEach(_preferencesByCompany, function(o){
+			// 	// console.log(o)
+			// 	console.log(_.map(o.user, function(n){ return n.preferenceOrder+' '+n.email }))
+			// })
+
+			return _preferencesByCompany;
 		}
 	},
 	mounted: function(){
