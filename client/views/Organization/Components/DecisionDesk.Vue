@@ -153,10 +153,11 @@
                 }
                 Vue.axios.post(_baseURL + 'api/company/interview/new', _interview_data)
                 .then(function(res){
-
+                    console.log(res.data);
                     store.dispatch('showMessage', 'New Interview Added');
 
                 })
+                .catch(function(err){console.log(err)});
 
             }
         },

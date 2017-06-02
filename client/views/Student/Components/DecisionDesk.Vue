@@ -7,7 +7,8 @@
             <div class="col-md-12 container px-3">
                 <h2 class="h2-responsive">Student Decision Desk</h2>
                 
-              	<company-preferences></company-preferences>
+                <company-preferences></company-preferences>
+              	<view-interviews></view-interviews>
             </div>
         </div>
     </div>
@@ -18,10 +19,12 @@
    
 
 import CompanyPreferences from './CompanyPreferences';
+import ViewInterviews from './ViewInterviews';
 
 export default {
 	components: {
-		CompanyPreferences
+        CompanyPreferences,
+		ViewInterviews
 	}
 }
 </script>
