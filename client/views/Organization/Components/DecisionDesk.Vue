@@ -34,7 +34,7 @@
                             <div class="col-md-1 status"><span class="dot"></span></div>
                             <div class="col-md-2 actions">
                                 <div class="btn btn-primary btn-sm btn-block">View</div>
-                                <div class="btn btn-primary btn-sm btn-block">Inverview</div>
+                                <div class="btn btn-primary btn-sm btn-block" @click="addNewInterview(student)">Inverview</div>
                                 <div class="btn btn-primary btn-sm btn-block">Accept</div>
                             </div>
                         </div>
@@ -121,12 +121,14 @@
             return {
                 company: Vue.auth.getUser(),
                 companyPreferences: [],
+
+
             }
         },
         methods: {
             getCompanyPreferences: function(){
-                let _baseURL = Vue.rest.restBaseUrl;
                 let vm = this;
+                let _baseURL = Vue.rest.restBaseUrl;
                 
                 Vue.axios.get(_baseURL + 'api/company/companyPreferences/' + this.company.email)
                 .then(function(res){
@@ -139,6 +141,23 @@
                     store.dispatch('showMessage', 'Retrieved existing student preferences')
 
                 })
+            },
+            addNewInterview: function(user){
+
+                let vm = this;
+                let _baseURL = Vue.rest.restBaseUrl;
+                
+                let _interview_data = {
+                    companyRepEmail: vm.company.email,
+                    studentId: user._id
+                }
+                Vue.axios.post(_baseURL + 'api/company/interview/new', _interview_data)
+                .then(function(res){
+
+                    store.dispatch('showMessage', 'New Interview Added');
+
+                })
+
             }
         },
         mounted: function(){
