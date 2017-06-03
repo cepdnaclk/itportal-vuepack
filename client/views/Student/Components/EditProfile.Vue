@@ -78,7 +78,7 @@
                 <div class="card-block">
                     <h3 class="h3-responsive marginless">Academic</h3>
                     <hr class="my-2">
-                    <edit-academics :student_id="student_id"></edit-academics>
+                    <edit-academics v-if="student_id" :student_id="student_id"></edit-academics>
                 </div>
             </div>
             <div class="card" >
@@ -305,7 +305,6 @@
                 let vm = this;
 
                 Vue.rest.getData('student', '?query={"email":"' + this.user.email + '"}', function(_student){
-                    console.log(_student[0]);
                     console.log(_student[0]._id);
                     vm.student_id = _student[0]._id;
 
