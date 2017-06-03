@@ -18,8 +18,12 @@
             @photo-change="photo_changed"
             >
         </photo-upload>
-	    <h2 class="h2-responsive">{{i_company.name}}</h2>
-	    <h5 class="h5-responsive">{{i_company.description}}</h5>
+	    <h2 class="h2-responsive">
+	    <live-edit v-model="i_company.name" :editable="isEditing" placeholder="Your Company Name"></live-edit>
+	    </h2>
+	    <h5 class="h5-responsive">
+	    <live-edit v-model="i_company.description" :editable="isEditing" placeholder="A short description about your company"></live-edit>
+	    </h5>
 	    <div>
 	    	<h6>Organization Representatives</h6>
 	    	<div v-for="rep in i_company.organizationRepEmails">
@@ -48,9 +52,7 @@
 			return {
 				restbaseurl: Vue.rest.restBaseUrl,
 				isEditing: false,
-				i_company: {
-					photo: null,
-				}
+				i_company: this.company,
 			}
 		},
 		methods: {
@@ -78,8 +80,19 @@
             },
             toggleEditing: function(){
             	this.isEditing = !this.isEditing;
-            	console.log('i_company.photo', this.i_company)
+
+            	if(this.isEditing == false){
+            		// returned from an editing view
+            		this.setCompanyData();
+            	}
             },
+            setCompanyData: function(){
+                let vm = this;
+                Vue.rest.updateData(this.i_company, 'organization', '/' + this.i_company._id, function(res){
+                	console.log('[editcompanyprofile][profileupdated]', res)
+                });
+                
+            }
 		},
 		computed: {
 

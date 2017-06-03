@@ -65,12 +65,12 @@
         methods: {
             getCompanyData: function(res){
 
-                console.log('[editcompany][getcompanydata]', this.company)
                 let vm = this;
 
                 Vue.rest.getData('organizationRep', '?query={"email":"' + vm.user.email + '"}&populate=["company"]', function(res){
 
                     vm.company = res[0].company;
+                    console.log('[editcompany]', res);
                     console.log('[editcompany][getcompanydata]', vm.company);
 
                 });
