@@ -153,7 +153,7 @@ var auth = {
             store.dispatch('showMessage', 'Successfully refreshed your auth tokens')
 
             setTimeout(function(){
-                Vue.auth.refreshToken(__user);
+                Vue.auth.refreshToken(_user);
             }, 600000);
 
         }).catch((msg) => {

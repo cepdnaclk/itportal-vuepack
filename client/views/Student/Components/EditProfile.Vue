@@ -78,38 +78,7 @@
                 <div class="card-block">
                     <h3 class="h3-responsive marginless">Academic</h3>
                     <hr class="my-2">
-                    <div class="row container">
-                        <div class="col-md-3 m-auto">
-                            <h1 class="green-text display-3 m-auto text-center">3.4</h1>
-                            <h4 class="green-text h4-responsive m-auto text-center">GPA</h4>
-                        </div>
-                        <div class="col-md-9">
-                            <div>
-                                <h4 class="h4-responsive">Best Results</h4>
-                                <div class="d-flex justify-content-start flex-wrap">
-                                    <div class="card green white-text px-3 py-1 mx-0 d-flex-inline flex-row align-items-center tag">
-                                        <span>CO424: Networking</span>
-                                        <span class="custom-badge primary-custom-badge align-content-end">A+</span>
-                                    </div>
-                                    <div class="card green darken-1 white-text px-3 py-1 mx-0 d-flex-inline flex-row align-items-center tag">
-                                        <span>CO424: Networking</span>
-                                        <span class="custom-badge primary-custom-badge align-content-end">A+</span>
-                                    </div>
-                                    <div class="card green darken-1 white-text px-3 py-1 mx-0 d-flex-inline flex-row align-items-center tag">
-                                        <span>CO424: Information Systems</span>
-                                        <span class="custom-badge primary-custom-badge align-content-end">A+</span>
-                                    </div>
-                                    <div class="card green darken-1 white-text px-3 py-1 mx-0 d-flex-inline flex-row align-items-center tag">
-                                        <span>CO424: Information Systems</span>
-                                        <span class="custom-badge primary-custom-badge align-content-end">A+</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="my-2">
-                                <a class="btn btn-primary btn-block">View all courses</a>
-                            </div>
-                        </div>
-                    </div>
+                    <edit-academics :student_id="student_id"></edit-academics>
                 </div>
             </div>
             <div class="card" >
@@ -197,6 +166,7 @@
     import ViewExtracurricular from 'components/Profile/ViewExtracurricular'
     import ViewInterest from 'components/Profile/ViewInterest'
 
+    import EditAcademics from 'components/Profile/EditAcademics'
     import EditProject from 'components/Profile/EditProject'
     import EditCompetition from 'components/Profile/EditCompetition'
     import EditAward from 'components/Profile/EditAward'
@@ -243,6 +213,7 @@
             ViewInterest,
 
 
+            EditAcademics,
             EditCompetition,
             EditAward,
             EditCocurricular,
