@@ -57,19 +57,29 @@
         data: function(){
             return {
                 test: 'value',
-                company: {},
+                company: null,
                 user: Vue.auth.getUser(),
 
             }
         },
         methods: {
             getCompanyData: function(res){
-                this.company = res[0].company;
+
+                console.log('[editcompany][getcompanydata]', this.company)
+                let vm = this;
+
+                Vue.rest.getData('organizationRep', '?query={"email":"' + vm.user.email + '"}&populate=["company"]', function(res){
+
+                    vm.company = res[0].company;
+                    console.log('[editcompany][getcompanydata]', vm.company);
+
+                });
+                
             },
             
         },
-        mounted(){
-            Vue.rest.getData('organizationRep', '?query={"email":"' + this.user.email + '"}&populate=["company"]', this.getCompanyData);
+        mounted: function(){
+            this.getCompanyData();
         },
     }
 </script>
