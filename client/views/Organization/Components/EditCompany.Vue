@@ -20,11 +20,7 @@
                 <hr class="mt-2">
             </div>
 
-            <div class="col-md-12 container px-3" v-if="company">
-                <h2 class="h2-responsive">{{company.name}}</h2>
-                <h5 class="h5-responsive">{{company.description}}</h5>
-                <hr class="mt-2">
-            </div>
+            <edit-company-profile v-if="company" :company="company"></edit-company-profile>
             
         </div>
     </div>
@@ -52,8 +48,12 @@
 </style>
 <script>
     import Vue from 'vue';
+    import EditCompanyProfile from './EditCompany/EditCompanyProfile';
 
     export default {
+        components:{
+            EditCompanyProfile
+        },
         data: function(){
             return {
                 test: 'value',

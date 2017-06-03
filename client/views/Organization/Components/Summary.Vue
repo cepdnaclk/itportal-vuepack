@@ -96,6 +96,7 @@ export default {
     },
     methods: {
         resendConfirmation: function(){
+            console.log(this.user)
             Vue.auth.resendConfirmation();
         }
     },

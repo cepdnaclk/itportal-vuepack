@@ -41,7 +41,6 @@
 
                     </div>
                 </div>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore aperiam aut iusto quae error tempore nisi consequuntur natus magni fugiat illum, repellat minima quibusdam aliquam dolor deserunt repudiandae quas, laboriosam.
 				<hr class="mt-2">
             </div>
             
