@@ -5,7 +5,7 @@
 			<div class="col-sm-4 rounded" v-for="organization in organizations">
 				<div class="white p-2 d-flex mb-1">
 					<div class="pr-2">
-						<img class="rounded-circle" :src="organization.photo ? (restUrl + 'photo/user/large-' + organization.photo) : '/img/user.png'" style="height: 6em; border-radius: 6em" alt="" />
+						<img class="rounded-circle" :src="organization.photo ? (restUrl + 'photo/organization/large-' + organization.photo) : '/img/user.png'" style="height: 6em; border-radius: 6em" alt="" />
 					</div>
 					<div class="d-flex flex-column">
 						<span class="pt-1 organization_name" >{{organization.name}}</span>
