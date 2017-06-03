@@ -68,16 +68,16 @@ var router = new Router({
         }, {
             path: '/all/students',
             component: AllStudents,
-            meta: {
-                auth: true
-            },
+            // meta: {
+            //     auth: true
+            // },
             exact: true
         }, {
             path: '/all/organizations',
             component: AllOrganizations,
-            meta: {
-                auth: true
-            },
+            // meta: {
+            //     auth: true
+            // },
             exact: true
         }, {
             path: '/gettingstarted',

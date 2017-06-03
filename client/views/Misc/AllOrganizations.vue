@@ -46,10 +46,9 @@
 		},
 		methods: {
 			getEntity: function(){
-				// var _url = this.restUrl + this.entity;
 
 				let vm = this;
-				var _url = this.restUrl + 'api/api/v1/organization';
+				var _url = this.restUrl + 'api/all/organizations';
 
 				Vue.axios.get(_url).then( (res) => {
 					// console.log(res);
@@ -57,7 +56,7 @@
 
 				});
 
-			}
+			},
 		},
 		created: function(){
 			this.getEntity();

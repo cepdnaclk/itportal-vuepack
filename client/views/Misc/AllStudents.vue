@@ -42,7 +42,7 @@
 				// var _url = this.restUrl + this.entity;
 
 				let vm = this;
-				var _url = this.restUrl + 'api/api/v1/student?populate=StudentDetails';
+				var _url = this.restUrl + 'api/all/students';
 
 				Vue.axios.get(_url).then( (res) => {
 					// console.log(res);
