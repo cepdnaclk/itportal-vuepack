@@ -1,6 +1,5 @@
 <template>
 <div class="tab-pane active">
-    
     <div class="card-block">
         <!--Body-->
         <div class="row">
@@ -33,9 +32,9 @@
                             <div class="col-md-1 status"><span class="dot"></span></div>
                             <div class="col-md-1 status"><span class="dot"></span></div>
                             <div class="col-md-2 actions">
-                                <div class="btn btn-primary btn-sm btn-block">View</div>
-                                <div class="btn btn-primary btn-sm btn-block" @click="addNewInterview(student)">Inverview</div>
-                                <div class="btn btn-primary btn-sm btn-block">Accept</div>
+                                <router-link :to="'/profile/student/' + student_ids[student._id]" class="btn btn-primary btn-sm btn-block">View</router-link>
+                                <a class="btn btn-primary btn-sm btn-block" @click="addNewInterview(student)">Inverview</a>
+                                <a class="btn btn-primary btn-sm btn-block" @click="addNewOffer(student)">Accept</a>
                             </div>
                         </div>
 
@@ -120,7 +119,7 @@
             return {
                 company: Vue.auth.getUser(),
                 companyPreferences: [],
-
+                student_ids: {},
 
             }
         },
@@ -137,7 +136,14 @@
                     console.log('_company_preferences', _company_preferences);
 
                     vm.companyPreferences = _company_preferences;
+                    console.log(_company_preferences);
+
                     store.dispatch('showMessage', 'Retrieved existing student preferences')
+
+                    // generate student_ids
+                    _.forEach(_company_preferences.user, function(o){
+                        vm.getStudentIdFromUserId(o._id)
+                    });
 
                 })
             },
@@ -155,6 +161,39 @@
                     console.log(res.data);
                     store.dispatch('showMessage', 'New Interview Added');
 
+                })
+                .catch(function(err){console.log(err)});
+
+            },
+            addNewOffer: function(user){
+
+                let vm = this;
+                let _baseURL = Vue.rest.restBaseUrl;
+                
+                let _offer_data = {
+                    companyRepEmail: vm.company.email,
+                    studentId: user._id
+                }
+                Vue.axios.post(_baseURL + 'api/company/offer/new', _offer_data)
+                .then(function(res){
+                    console.log(res.data);
+                    store.dispatch('showMessage', 'New Offer Sent');
+                })
+                .catch(function(err){console.log(err)});
+
+            },
+            getStudentIdFromUserId: function(user_id){
+
+                let vm = this;
+                let _baseURL = Vue.rest.restBaseUrl;
+                
+                Vue.axios.get(_baseURL + 'api/company/get/studentId/' + user_id)
+                .then(function(res){
+                    // console.log(res.data);
+                    // vm.student_ids[user_id] = res.data;
+                    Vue.set(vm.student_ids, user_id, res.data);
+                    console.log(vm.student_ids);
+                    // return res.data;
                 })
                 .catch(function(err){console.log(err)});
 

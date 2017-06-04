@@ -4,12 +4,20 @@
     <div class="card-block">
         <!--Body-->
         <div class="row">
+
+            <div class="container">
+                 <div class="col-md-12 alert alert-warning py-0 text-center" v-if="!user.emailConfirmed">
+                    Your account has not been confirmed yet. Please check your email!
+                    <a @click="resendConfirmation" class="btn btn-warning">Resend Confirmation Email</a>
+                </div>
+            </div>
+
             <div class="col-md-7 container px-3">
                 <div class="welcome d-flex justify-content-start align-items-center">
                     <img :src="user.photo ? (restbaseurl + 'photo/user/large-' + user.photo) : '/img/user.png'" class="mr-2 rounded-circle" style="border-radius: 80px; height: 80px; width: 80px;">
                     <div>
                         <h4 class="h4-responsive mb-0 font-weight-normal" style="padding-bottom: 6px">Good day, {{state.user.name}}!</h4>
-                        <h6 class="h6-responsive mb-0 text-uppercase small">Last accessed 23 days ago. Profile updated 40 days ago.</h6>
+                        <h6 class="h6-responsive mb-0 text-uppercase small">Profile updated {{moment(this.user.updatedAt)}}.</h6>
                     </div>
                 </div> 
                 <div class="profile-cards d-flex m-auto justify-content-center grey lighten-5 mt-1 rounded">
@@ -26,10 +34,6 @@
             </div>
             <div class="col-md-5 container">
                 <div class="my-2 mb-3">
-                    <div class="alert alert-warning mx-0" v-if="!user.emailConfirmed">
-                        Your account has not been confirmed yet. <br>Please check your email!
-                        <a @click="resendConfirmation" class="btn btn-warning">Resend Confirmation Email</a>
-                    </div>
                     <h4 class="h4-responsive mb-0 font-weight-normal">Trending Tasks</h4>
                     <h6 class="h6-responsive my-1">What others are doing</h6>
                     <div class="row d-flex flex-nowrap justify-content-start">
@@ -96,11 +100,18 @@ export default {
     },
     methods: {
         resendConfirmation: function(){
-            console.log(this.user)
             Vue.auth.resendConfirmation();
+        },
+        moment: function(date){
+            return moment(date).calendar();
         }
     },
     mounted: function(){
+
+
+        console.log(this.user)
+
+
         var chart = new Chartist.Line('.ct-chart', {
             labels: ['1', '2', '3', '4', '5', '6', '7', '8'],
             // Naming the series with the series object array notation
