@@ -20,7 +20,7 @@
                                 <div class="name">{{student.name}}</div>
                                 <div class="desc">
                                     <span class="title">GPA</span>
-                                    <span class="content">3.4</span>
+                                    <span class="content">{{student_profiles[student._id].GPA}}</span>
                                 </div>
                                 <div class="desc">
                                     <span class="title">Favourite</span>
@@ -32,7 +32,7 @@
                             <div class="col-md-1 status"><span class="dot"></span></div>
                             <div class="col-md-1 status"><span class="dot"></span></div>
                             <div class="col-md-2 actions">
-                                <router-link :to="'/profile/student/' + student_ids[student._id]" class="btn btn-primary btn-sm btn-block">View</router-link>
+                                <router-link :to="'/profile/student/' + student_profiles[student._id]._id" class="btn btn-primary btn-sm btn-block">View</router-link>
                                 <a class="btn btn-primary btn-sm btn-block" @click="addNewInterview(student)">Inverview</a>
                                 <a class="btn btn-primary btn-sm btn-block" @click="addNewOffer(student)">Accept</a>
                             </div>
@@ -119,7 +119,7 @@
             return {
                 company: Vue.auth.getUser(),
                 companyPreferences: [],
-                student_ids: {},
+                student_profiles: {},
 
             }
         },
@@ -140,9 +140,9 @@
 
                     store.dispatch('showMessage', 'Retrieved existing student preferences')
 
-                    // generate student_ids
+                    // generate student_profiles
                     _.forEach(_company_preferences.user, function(o){
-                        vm.getStudentIdFromUserId(o._id)
+                        vm.getStudentFromUserId(o._id)
                     });
 
                 })
@@ -182,17 +182,17 @@
                 .catch(function(err){console.log(err)});
 
             },
-            getStudentIdFromUserId: function(user_id){
+            getStudentFromUserId: function(user_id){
 
                 let vm = this;
                 let _baseURL = Vue.rest.restBaseUrl;
                 
-                Vue.axios.get(_baseURL + 'api/company/get/studentId/' + user_id)
+                Vue.axios.get(_baseURL + 'api/company/get/student/' + user_id)
                 .then(function(res){
                     // console.log(res.data);
-                    // vm.student_ids[user_id] = res.data;
-                    Vue.set(vm.student_ids, user_id, res.data);
-                    console.log(vm.student_ids);
+                    // vm.student_profiles[user_id] = res.data;
+                    Vue.set(vm.student_profiles, user_id, res.data);
+                    console.log(vm.student_profiles);
                     // return res.data;
                 })
                 .catch(function(err){console.log(err)});
