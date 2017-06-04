@@ -40,6 +40,11 @@ import AllStudents from '../views/Misc/AllStudents'
 import AllOrganizations from '../views/Misc/AllOrganizations'
 import NotImplemented from '../views/Misc/NotImplemented'
 
+import ProfileStudent from '../views/Misc/ViewProfileStudent'
+import ProfileCompany from '../views/Misc/ViewProfileCompany'
+import ProfileCompanyRep from '../views/Misc/ViewProfileCompanyRep'
+
+
 Vue.use(Router)
 Vue.use(VueAxios, axios)
 
@@ -78,6 +83,21 @@ var router = new Router({
             // meta: {
             //     auth: true
             // },
+            exact: true
+        },{
+            path: '/profile/student/:id',
+            component: ProfileStudent,
+            props: true,
+            exact: true
+        },{
+            path: '/profile/organization/:id',
+            component: ProfileCompany,
+            props: true,
+            exact: true
+        },{
+            path: '/profile/organizationRep/:id',
+            component: ProfileCompanyRep,
+            props: true,
             exact: true
         }, {
             path: '/gettingstarted',
