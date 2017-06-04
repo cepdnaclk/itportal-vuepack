@@ -17,13 +17,13 @@
                     <li class="nav-item">
                         <a class="nav-link" :class="{active: activeSection==='company'}" href="#company">Company</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="profile.projects.length>0">
                         <a class="nav-link" :class="{active: activeSection==='projects'}" href="#projects">Projects</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="profile.awards.length>0">
                         <a class="nav-link" :class="{active: activeSection==='awards'}" href="#awards">Awards</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="profile.interests.length>0">
                         <a class="nav-link" :class="{active: activeSection==='interests'}" href="#interests">Interests</a>
                     </li>
                 </ul>
@@ -92,7 +92,7 @@
             </div>
         </div>
 
-        <div class="card"v-if="profile.interests.length>0">
+        <div class="card" v-if="profile.interests.length>0">
             <a id="interests" class='spy-anchor'></a>
             <div class="card-block">
                 <h3>Interests</h3>

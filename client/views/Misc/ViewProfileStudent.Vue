@@ -17,19 +17,19 @@
                     <li class="nav-item">
                         <a class="nav-link" :class="{active: activeSection==='academic'}" href="#academic">Academic</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="profile.projects.length>0">
                         <a class="nav-link" :class="{active: activeSection==='projects'}" href="#projects">Projects</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="profile.competitions.length>0">
                         <a class="nav-link" :class="{active: activeSection==='competitions'}" href="#competitions">Competitions</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="profile.awards.length>0">
                         <a class="nav-link" :class="{active: activeSection==='awards'}" href="#awards">Awards</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="profile.cocurriculars.length>0 || profile.extracurriculars.length>0">
                         <a class="nav-link" :class="{active: activeSection==='extras'}" href="#co-curricular">Extras</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="profile.interests.length>0">
                         <a class="nav-link" :class="{active: activeSection==='interests'}" href="#interests">Interests</a>
                     </li>
                 </ul>

@@ -81,6 +81,7 @@
                 <div class="card-block">
                     <h3 class="h3-responsive marginless">Awards</h3>
                     <hr class="my-2">
+                    <div v-if="awards.length == 0" class="flex-center h5 text-warning"><i class="material-icons responsive">info</i> No awards to show</div>
                     <view-award v-for="(award, index) in awards" :award="award" :key="'award'+index"></view-award>
                     <hr class="my-1">
                     <edit-award @award-uploaded="awardUpload" author-type="companyRep"></edit-award>
@@ -92,8 +93,8 @@
                 <div class="card-block">
                     <h3>Interests</h3>
                     <hr class="my-1">
-                     <view-interest v-for="(interest, index) in interests" :interest="interest" :key="'interest'+index"></view-interest>
-                    
+                    <div v-if="interests.length == 0" class="flex-center h5 text-warning"><i class="material-icons responsive">info</i> No awards to show</div>
+                    <view-interest v-for="(interest, index) in interests" :interest="interest" :key="'interest'+index"></view-interest>
                     <hr class="my-1">
                     <edit-interest @interest-uploaded="interestUpload" :all-interests="all_interests"></edit-interest>
                 </div>
