@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <div class="card" >
+        <div class="card" v-if="profile.projects.length>0">
             <a id="projects" class='spy-anchor'></a>
             <div class="card-block">
                 <h3 class="h3-responsive marginless">Projects</h3>
@@ -76,7 +76,7 @@
             </div>
         </div>
 
-        <div class="card" >
+        <div class="card" v-if="profile.competitions.length>0">
             <a id="competitions" class='spy-anchor'></a>
             <div class="card-block">
                 <h3 class="h3-responsive marginless">Competitions</h3>
@@ -86,7 +86,7 @@
         </div>
 
 
-        <div class="card" >
+        <div class="card" v-if="profile.awards.length>0">
             <a id="awards" class='spy-anchor'></a>
             <div class="card-block">
                 <h3 class="h3-responsive marginless">Awards</h3>
@@ -96,7 +96,7 @@
         </div>
 
 
-        <div class="card" >
+        <div class="card" v-if="profile.cocurriculars.length>0">
             <a id="coCurricular" class='spy-anchor'></a>
             <div class="card-block">
                 <h3 class="h3-responsive marginless">Co-Curricular Activities</h3>
@@ -106,7 +106,7 @@
         </div>
 
 
-        <div class="card" >
+        <div class="card" v-if="profile.extracurriculars.length>0">
             <a id="extraCurricular" class='spy-anchor'></a>
             <div class="card-block">
                 <h3 class="h3-responsive marginless">Extra Curricular Activities</h3>
@@ -116,7 +116,7 @@
         </div>
 
 
-        <div class="card">
+        <div class="card"v-if="profile.interests.length>0">
             <a id="interests" class='spy-anchor'></a>
             <div class="card-block">
                 <h3>Interests</h3>

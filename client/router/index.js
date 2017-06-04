@@ -95,7 +95,7 @@ var router = new Router({
             props: true,
             exact: true
         },{
-            path: '/profile/organizationRep/:id',
+            path: '/profile/organizationRepresentative/:id',
             component: ProfileCompanyRep,
             props: true,
             exact: true
