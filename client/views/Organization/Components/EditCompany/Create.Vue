@@ -1,7 +1,6 @@
 <template>
 	<div class="m-3">
 		<h1>Create Company</h1>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat excepturi iste numquam sint aliquam, fugiat non cumque quis voluptate molestias tenetur! Accusamus nostrum quisquam, quidem, laborum odio esse. Sit, debitis!</p>
 		<form @submit.prevent="addFormData">
 			<input type="text" placeholder="Company Name" v-model="company.name">
 			<textarea placeholder="Company Description" v-model="company.description"></textarea>
