@@ -8,10 +8,9 @@
 	    	<i class="material-icons responsive">{{isEditing?'check':'edit'}}</i>
 	    	{{isEditing?'Done':'Edit'}}
 	    </a>
-		<photo-upload 
-			v-if="i_company.photo"
+		<photo-upload
             :enableEdits="isEditing"
-            :photoDefault="defaultPhoto"
+            :photoDefault="getDefaultPhoto()"
             :buttonClass="'btn btn-primary'"
             :showMessages="true"
             @photo-submit="photo_upload"
@@ -92,14 +91,14 @@
                 	console.log('[editcompanyprofile][profileupdated]', res)
                 });
                 
+            },
+            getDefaultPhoto: function(){
+            	let _defaultImage = (this.i_company.photo ? (this.restbaseurl + 'photo/organization/large-' + this.i_company.photo) : '/img/company.png');
+	            	console.log('[editcompanyprofile] _defaultImage', _defaultImage)
+            	return _defaultImage;
             }
 		},
 		computed: {
-
-            defaultPhoto: function(){
-            	let _defaultImage = (this.i_company.photo ? (this.restbaseurl + 'photo/organization/large-' + this.i_company.photo) : '/img/company.png');
-            	return _defaultImage;
-            }
 		},
 		mounted: function(){
 			this.i_company = this.company;

@@ -56,10 +56,19 @@
 
         <div class="card" v-if="profile.company">
             <a id="company" class='spy-anchor'></a>
-            <div class="card-block">
-                <h3 class="h3-responsive marginless">Projects</h3>
-                <hr class="my-2">
-                <view-project v-for="(project, index) in profile.projects" :project="project" :key="'project'+index"></view-project>
+            <div class="row container p-2">
+                <div class="col-lg-3 m-auto">
+                    <img class="rounded-circle m-auto large-profilePicture"
+                    style="height: 100px; width: 100px" 
+                    :src="profile.company.photo ? restBaseUrl + 'photo/organization/large-' + profile.company.photo : '/img/company.png'" alt="">
+                </div>
+                <div class="col-lg-4  d-flex flex-column justify-content-center">
+                    <h3 class="h3-responsive my-1">{{profile.company.name}}</h3>
+                    <p class="">{{profile.company.description}}</p>
+                </div>
+                <div class="col-lg-4 offset-lg-1 d-flex flex-column justify-content-center">
+                    <h4 class="h4-responsive my-1">Contact Information</h4>
+                </div>
             </div>
         </div>
 

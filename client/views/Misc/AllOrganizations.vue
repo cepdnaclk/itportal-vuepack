@@ -3,15 +3,19 @@
 		<h1>All Organizations</h1>
 		<div class="row">
 			<div class="col-sm-4 rounded" v-for="organization in organizations">
-				<div class="white p-2 d-flex mb-1">
-					<div class="pr-2">
-						<img class="rounded-circle" :src="organization.photo ? (restUrl + 'photo/organization/large-' + organization.photo) : '/img/user.png'" style="height: 6em; border-radius: 6em" alt="" />
+
+
+				<router-link :to="'/profile/organization/' + organization._id">
+					<div class="white p-2 d-flex mb-1">
+						<div class="pr-2">
+							<img class="rounded-circle" :src="organization.photo ? (restUrl + 'photo/organization/large-' + organization.photo) : '/img/user.png'" style="height: 6em; border-radius: 6em" alt="" />
+						</div>
+						<div class="d-flex flex-column">
+							<span class="pt-1 organization_name" >{{organization.name}}</span>
+							<span class="org-description">{{organization.description}}</span>
+						</div>
 					</div>
-					<div class="d-flex flex-column">
-						<span class="pt-1 organization_name" >{{organization.name}}</span>
-						<span class="org-description">{{organization.description}}</span>
-					</div>
-				</div>
+				</router-link>
 
 			</div>
 		</div>
