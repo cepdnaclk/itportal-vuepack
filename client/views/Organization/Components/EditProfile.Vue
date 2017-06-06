@@ -103,7 +103,7 @@
                     <div v-if="interests.length == 0" class="flex-center h5 text-warning"><i class="material-icons responsive">info</i> No awards to show</div>
                     <view-interest v-for="(interest, index) in interests" :interest="interest" :key="'interest'+index"></view-interest>
                     <hr class="my-1">
-                    <edit-interest @interest-uploaded="interestUpload" :all-interests="all_interests"></edit-interest>
+                    <edit-interest @interest-uploaded="interestUpload" :current-interests="interests" :all-interests="all_interests"></edit-interest>
                 </div>
             </div>
         </div>
