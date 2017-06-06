@@ -54,6 +54,18 @@
                         <h4 class="h4-responsive my-1">Contact Information</h4>
                         <p class="p-responsive d-flex with-icon"><i class="material-icons">email</i>{{user.email}}</p>
                         <p class="p-responsive d-flex with-icon"><i class="material-icons">call</i>{{user.phone}}</p>
+                        <div class="flex">
+                        </div>
+                            <a v-if="user.linksLinkedin" title="linkedin" :href="user.linkedin"><i class="material-icons">web</i></a>
+                        </div>
+                            <a v-if="user.linksStackoverflow" title="stackoverflow" :href="user.stackoverflow"><i class="material-icons">web</i></a>
+                        </div>
+                            <a v-if="user.linksGithub" title="github" :href="user.github"><i class="material-icons">web</i></a>
+                        </div>
+                            <a v-if="user.linksPortfolio" title="facebook" :href="user.facebook"><i class="material-icons">web</i></a>
+                        </div>
+                            <a v-if="user.linksFacebook" title="portfolio" :href="user.portfolio"><i class="material-icons">web</i></a>
+                        </div>
                     </div>
                 </div>
             </div>
