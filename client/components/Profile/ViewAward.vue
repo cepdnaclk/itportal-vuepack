@@ -7,11 +7,6 @@
         <hr class="hidden-sm-up">
         <h4 class="h4-responsive my-1 my-md-0">{{award.title}}</h4>
         <p class="text-truncate my-0">{{award.description}}</p>
-        <div class="">
-            <div class="badge badge-success">Java</div>
-            <div class="badge badge-success">Java</div>
-            <div class="badge badge-success">Java</div>
-        </div>
     </div>
     <div class="col-md-4">
         <div class="actions d-flex justify-content-md-end  justify-content-sm-center">
