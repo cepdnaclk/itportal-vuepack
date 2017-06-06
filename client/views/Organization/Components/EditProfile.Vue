@@ -233,10 +233,25 @@
                     console.log(_companyRep[0]);
                     console.log(_companyRep[0]._id);
                     vm.organizationRep_id = _companyRep[0]._id;
+                    console.log(vm.organizationRep_id);
 
-                    Vue.rest.getData('organizationRep', '/' + vm.organizationRep_id + '?populate=["projects","awards"]', function(_companyRep){
-                        vm.projects = _companyRep.projects;
+                    Vue.rest.getData('organizationRep', '/' + _companyRep[0]._id + '?populate=["projects","awards"]', function(_companyRep){
+
                         vm.awards = _companyRep.awards;
+
+                        let _projectIds = _.map(_companyRep.projects, function(o){
+                            return o._id;
+                        });
+
+                        let _baseUrl = Vue.rest.restBaseUrl;
+
+                        Vue.axios.post(_baseUrl + 'api/company/projects', {projects: _projectIds})
+                        .then(function(res){
+                            vm.projects = res.data;
+                            console.log('projects', res);
+                        })
+                        .catch(function(err){console.log(err)});
+
                     });
 
                     Vue.rest.getData('interest', '?populate=["students","organizationRep"]', function(_interests){
