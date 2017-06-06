@@ -6,13 +6,19 @@ import PhotoUpload from 'vue-photo-upload'
 import router from './router'
 import store from './store'
 
+import Multiselect from 'vue-multiselect'
+
 import auth from 'auth';
 import rest from 'restclient';
 
-import VeeValidate from 'vee-validate';
-Vue.use(VeeValidate);
+// import VeeValidate from 'vee-validate';
+
+
+// Vue.use(VeeValidate);
 Vue.use(LiveEdit);
 Vue.use(PhotoUpload);
+
+Vue.component(Multiselect)
 
 Vue.auth = auth;
 Vue.rest = rest;
