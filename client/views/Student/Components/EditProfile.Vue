@@ -314,11 +314,24 @@
                     vm.student_id = _student[0]._id;
 
                     Vue.rest.getData('student', '/' + vm.student_id + '?populate=["projects","competitions","awards","cocurriculars","extracurricular"]', function(_student){
-                        vm.projects = _student.projects;
+                        
                         vm.competitions = _student.competitions;
                         vm.awards = _student.awards;
                         vm.cocurriculars = _student.cocurriculars;
                         vm.extracurricular = _student.extracurricular;
+
+                        let _projectIds = _.map(_student.projects, function(o){
+                            return o._id;
+                        });
+
+                        let _baseUrl = Vue.rest.restBaseUrl;
+
+                        Vue.axios.post(_baseUrl + 'api/student/projects', {projects: _projectIds})
+                        .then(function(res){
+                            vm.projects = res.data;
+                            console.log('projects', res);
+                        })
+                        .catch(function(err){console.log(err)});
                     })
                 });
 

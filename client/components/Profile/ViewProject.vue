@@ -8,9 +8,7 @@
         <h4 class="h4-responsive my-1 my-md-0">{{project.title}}</h4>
         <p class="text-truncate my-0">{{project.description}}</p>
         <div class="">
-            <div class="badge badge-success">Java</div>
-            <div class="badge badge-success">Java</div>
-            <div class="badge badge-success">Java</div>
+            <div class="badge badge-success mr-1" v-for="skill in project.skills">{{skill.name}}</div>
         </div>
         <div class="with-icon d-flex my-1 text-uppercase small"><i class="material-icons responsive">code</i> {{project.type}} Project</div>
     </div>

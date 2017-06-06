@@ -21,7 +21,7 @@
                     <multiselect
                       v-model="newSkill_type"
                       :options="projectTypes"
-                      tag-placeholder="Which type of a skill is this?"
+                      placeholder="Which type of a skill is this?"
                       label="label"
                       track-by="id"
                     ></multiselect>
@@ -55,8 +55,6 @@
                     
                 </div>
                 
-
-                <div class="with-icon d-flex my-1 text-uppercase small"><i class="material-icons responsive">code</i> Individual Project</div>
             </div>
             <div class="col-md-4">
                 <div class="actions d-flex justify-content-md-end  justify-content-sm-center">
@@ -79,7 +77,7 @@
 <script>
 import Vue from 'vue';
 import Multiselect from 'vue-multiselect'
-
+import store from 'store'
 
 export default{
 
@@ -100,6 +98,7 @@ export default{
                 description: '',
                 dateStarted: null,
                 dateEnded: null,
+                skills: [],
                 authorEmail: Vue.auth.getUser().email,
                 authorType: this.authorType,
             },
@@ -115,10 +114,7 @@ export default{
             ],
 
             skills:[],
-            skills_all:[
-                {name: 'Dev ops', type: 'DEVELOPMENTENVIRONMENT'},
-                {name: 'Java', type: 'SOFTWARE'}
-            ],
+            skills_all:[],
 
             newSkill_name: '',
             newSkill_type: '',
@@ -147,31 +143,67 @@ export default{
                 description: '',
                 dateStarted: null,
                 dateEnded: null,
+                skills: [],
                 authorEmail: Vue.auth.getUser().email,
                 authorType: this.AuthorType,
             };
         },
         addNewSkill: function(newSkillName){
-            console.log('newSkillName', newSkillName)
+
             this.editingNewSkill = true;
             this.newSkill_name = newSkillName;
 
         },
         addNewSkillToList: function(){
 
-            ;
+            let vm = this;
+
             const _skill = {
                 name: this.newSkill_name,
-                type: this.newSkill_type
+                type: this.newSkill_type.id
             }
 
-            this.skills.push(_skill)
-            this.skills_all.push(_skill);
+            store.dispatch('showMessage', 'Adding New Skill')
+            Vue.rest.insertData(_skill, 'skill', null, function(res){
+                if(res){
 
-            
+                    // console.log(res);
+                    vm.skills.push(res)
+                    vm.skills_all.push(res);
+
+                    store.dispatch('showMessage', 'New skill successfully added.');
+                } else {
+                    store.dispatch('showMessage', 'Adding new skill failed.');
+                }
+            });
 
         },
 
+        getAllSkills: function(){
+
+            let vm = this;
+
+            Vue.rest.getData('skill', '' , function(_skills){
+                console.log('_skills:',_skills);
+                vm.skills_all = _skills;
+            });
+        },
+
+    },
+    mounted: function(){
+        this.getAllSkills();
+    },
+    watch: {
+        skills: function(){
+            let vm = this;
+            let _skill_ids = _.map(vm.skills, function(o){
+                if(o._id){
+                    return o._id;
+                }
+                return;
+            })
+            vm.project.skills = _skill_ids;
+        }
     }
 }
 </script>

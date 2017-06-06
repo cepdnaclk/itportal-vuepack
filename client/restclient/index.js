@@ -81,7 +81,7 @@ var rest = {
         Vue.axios.put(
             _url, data
         ).then(res => {
-            let _data = (res.data);
+            let _data = (res);
             store.dispatch('showMessage', 'Data updated');
             if (cb) cb(_data);
             return;
