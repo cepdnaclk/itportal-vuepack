@@ -1,7 +1,7 @@
 <template>
-<div class="row">
+<div class="row my-3">
     <div class="col-md-2">
-        <img src="/img/project.png" class="img-thumbnail mx-auto align-content-center">
+        <img src="/img/project.png" class="rounded-circle mx-auto align-content-center" style="width:100px; height: 100px;">
     </div>
     <div class="col-md-6">
         <hr class="hidden-sm-up">
@@ -12,7 +12,7 @@
             <div class="badge badge-success">Java</div>
             <div class="badge badge-success">Java</div>
         </div>
-        <div class="with-icon d-flex my-1 text-uppercase small"><i class="material-icons responsive">code</i> Individual Project</div>
+        <div class="with-icon d-flex my-1 text-uppercase small"><i class="material-icons responsive">code</i> {{project.type}} Project</div>
     </div>
     <div class="col-md-4">
         <div class="actions d-flex justify-content-md-end  justify-content-sm-center">

@@ -4,7 +4,7 @@
         <hr>
         <div class="row">
                 <div class="col-md-2">
-                    <img src="/img/project.png" class="img-thumbnail mx-auto align-content-center">
+                    <img src="/img/awards.png" class="img-thumbnail mx-auto align-content-center">
                 </div>
                 <div class="col-md-6">
                     <hr class="hidden-sm-up">
