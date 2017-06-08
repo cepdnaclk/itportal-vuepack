@@ -1,154 +1,75 @@
 <template>
+
 <div class="fluid-container p-2">
-	<h1 class="h1-responsive">Admin Dashboard</h1>
-	<div class="fluid-container white lighten-5 p-2">
-		<div class="section">
-			<h4>Students {{students.length}}</h4>
-			<div>
-				<div v-for="student in students">{{student.email}}</div >
-			</div>
-		</div>
-		<div class="section">
-			<h4>Companies {{companies.length}}</h4>
-			<div>
-				<div v-for="company in companies">{{company.name}}</div >
-			</div>
-		</div>
-		<div class="section">
-			<h4>Company Representatives {{companyReps.length}}</h4>
-			<div>
-				<div v-for="companyRep in companyReps">{{companyRep.email}}</div >
-			</div>
-		</div>
-		<div class="section">
-			
-			<h4>All users {{allUsers.length}}</h4>
-			<div>
-				<div v-for="user in allUsers">{{user.email}}:: {{user.name}}</div >
-			</div>
-		</div>
-		<div class="section">
-			
-			<h4>Company Preferences {{companyPreferences.length}}</h4>
-			<div>
-				<h5>By Student</h5>
-				<div v-for="pref in companyPreferences">
-					<div class="name">{{pref.user.name}}</div>
-					<ol>
-						<li v-for="company in pref.preferences">{{company.name}}</li>
-					</ol>
-				</div >
-				<h5>By Company</h5>
-				<div v-for="pref in preferenceByCompany">
-					<div class="name">{{pref.company.name}}</div>
-					<ol>
-						<li v-for="user in pref.user">{{user.name}}</li>
-					</ol>
-				</div >
-			</div>
-		</div>
-	</div>
+	<h3 class="h3-responsive p-1 py-2">Admin Dashboard</h3>
+    <div class="row">
+        <div class="form col-md-12 dashboard-itportal">
+
+            <!-- Nav Tabs -->
+            <ul class="nav nav-tabs z-depth-1" role="tablist">
+                <li class="nav-item">
+                    <router-link :to="{name: 'Admin_dashboard_summary'}" exact class="nav-link with-icon flex-center"><i class="material-icons">multiline_chart</i>Dashboard</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link :to="{name: 'Admin_dashboard_Tasks'}" exact class="nav-link with-icon flex-center"><i class="material-icons">list</i>Tasks</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link :to="{name: 'Admin_dashboard_StudentAllocation'}" exact class="nav-link with-icon flex-center"><i class="material-icons">supervisor_account</i>Student Allocation</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link :to="{name: 'Admin_dashboard_Routes'}" exact class="nav-link with-icon flex-center"><i class="material-icons">link</i>Route Control</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link :to="{name: 'Admin_dashboard_Timeline'}" exact class="nav-link with-icon flex-center"><i class="material-icons">history</i>Timeline</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link :to="{name: 'Admin_dashboard_UserEvents'}" exact class="nav-link with-icon flex-center"><i class="material-icons">event</i>UserEvents</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link :to="{name: 'Admin_dashboard_ContentEditor'}" exact class="nav-link with-icon flex-center"><i class="material-icons">edit</i>Content Editor</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link :to="{name: 'Admin_dashboard_Entities'}" exact class="nav-link with-icon flex-center"><i class="material-icons">edit</i>Entity Editor</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link :to="{name: 'Admin_dashboard_Settings'}" exact class="nav-link with-icon flex-center"><i class="material-icons">settings</i>Settings</router-link>
+                </li>
+            </ul>
+
+            <div class="tab-content card mb-3 child-view-dash-container">
+            	<transition name="slide-left" mode="out-in">
+                <router-view class="child-view-dash"></router-view>
+                </transition>
+            </div>
+
+        </div>
+    </div>
+
+
 </div>
 </template>
 
 <style scoped>
-</style>
-
-<script>
-	
-import Vue from 'vue';
-import store from 'store';
-
-export default {
-	data: () => {
-		return {
-			companies: [],
-			students: [],
-			companyReps: [],
-			allUsers: [],
-			companyPreferences: [],
-		}
-	},
-	methods: {
-		getAllData: function(){
-			let vm = this;
-			Vue.rest.getData('organization','', function(data){vm.companies = data});
-			Vue.rest.getData('student','', function(data){vm.students = data});
-			Vue.rest.getData('organizationRep','', function(data){vm.companyReps = data});
-			Vue.rest.getData('user','', function(data){vm.allUsers = data});
-
-            let _baseURL = Vue.rest.restBaseUrl;
-			Vue.axios.get(_baseURL + 'api/admin/companyPreferences')
-            .then(function(res){
-
-                let _company_preferences = res.data;
-                if(!_company_preferences){
-                    return;
-                }
-
-                _.forEach(_company_preferences, function(o){
-                	_.forEach(o.preferences, function(c, i){
-                		c.preferenceOrder = i;
-                	})
-                })
-
-               console.log('_company_preferences', _company_preferences);
-                
-                vm.companyPreferences = _company_preferences;
-                store.dispatch('showMessage', 'Retrieved existing student preferences')
-                
-            })
-		},
-	},
-	computed: {
-		preferenceByCompany: function(){
-			let vm = this;
-			let _preferences = vm.companyPreferences;
-
-			// push users to companies;
-			let _preferencesByCompany = {};
-
-
-
-			_.forEach(_preferences, function(o){	// preferences with o.user(with preference order) and o.companies
-
-				_.forEach(o.preferences, function(c){  // c - company
-
-					// each company
-					let _user = Object.create(o.user);
-					_user.preferenceOrder = c.preferenceOrder;
-
-					if(_preferencesByCompany[c._id]){
-						_preferencesByCompany[c._id].user.push(_user);
-					} else {
-						_preferencesByCompany[c._id] = {
-							company: c,
-							user: [_user]
-						}
-					}
-				});
-
-			});
-
-			_.forEach(_preferencesByCompany, function(o){
-				// console.log('o', o);
-				o.user = _.sortBy(o.user, function(u){
-					return u.preferenceOrder;
-				})
-			})
-
-			// // test order
-			// console.log('_preferencesByCompany', _preferencesByCompany);
-			// _.forEach(_preferencesByCompany, function(o){
-			// 	// console.log(o)
-			// 	console.log(_.map(o.user, function(n){ return n.preferenceOrder+' '+n.email }))
-			// })
-
-			return _preferencesByCompany;
-		}
-	},
-	mounted: function(){
-		this.getAllData();
-	}
+.nav-link{
+    font-size: small;
 }
-</script>
+.child-view-dash-container {
+  /*overflow-x: hidden;*/
+  /*position: relative;*/
+
+}
+.child-view-dash {
+  position: relative;
+  transition: all .2s cubic-bezier(.55,0,.1,1);
+}
+.slide-left-enter, .slide-right-leave-active {
+  opacity: 0;
+  -webkit-transform: translate(30px, 0);
+  transform: translate(30px, 0);
+}
+.slide-left-leave-active, .slide-right-enter {
+  opacity: 0;
+  -webkit-transform: translate(-30px, 0);
+  transform: translate(-30px, 0);
+}
+</style>

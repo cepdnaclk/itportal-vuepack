@@ -17,6 +17,16 @@ import OrganizationDashboard from '../views/Organization/Dashboard'
 import StaffDashboard from '../views/Staff/Dashboard'
 import AdminDashboard from '../views/Admin/Dashboard'
 
+import AdminDashboard_Summary from '../views/Admin/Components/Summary'
+import AdminDashboard_ContentEditor from '../views/Admin/Components/ContentEditor'
+import AdminDashboard_Entities from '../views/Admin/Components/Entities'
+import AdminDashboard_RoutesControl from '../views/Admin/Components/RoutesControl'
+import AdminDashboard_StudentAllocation from '../views/Admin/Components/StudentAllocation'
+import AdminDashboard_Tasks from '../views/Admin/Components/Tasks'
+import AdminDashboard_Timeline from '../views/Admin/Components/Timeline'
+import AdminDashboard_UserEvents from '../views/Admin/Components/UserEvents'
+import AdminDashboard_Settings from '../views/Admin/Components/Settings'
+
 import StudentDashboard_Summary from '../views/Student/Components/Summary'
 import StudentDashboard_Tasks from '../views/Student/Components/Tasks'
 import StudentDashboard_DecisionDesk from '../views/Student/Components/DecisionDesk'
@@ -205,7 +215,19 @@ var router = new Router({
             name: 'Admin_dashboard',
             meta: {
                 auth: true
-            }
+            },
+
+            children: [
+                {name: 'Admin_dashboard_summary', path: '', component: AdminDashboard_Summary },
+                {name: 'Admin_dashboard_ContentEditor', path: 'contentEditor', component: AdminDashboard_ContentEditor },
+                {name: 'Admin_dashboard_Entities', path: 'entites', component: AdminDashboard_Entities },
+                {name: 'Admin_dashboard_Routes', path: 'routes', component: AdminDashboard_RoutesControl },
+                {name: 'Admin_dashboard_StudentAllocation', path: 'studentAllocation', component: AdminDashboard_StudentAllocation },
+                {name: 'Admin_dashboard_Tasks', path: 'tasks', component: AdminDashboard_Tasks },
+                {name: 'Admin_dashboard_Timeline', path: 'timeline', component: AdminDashboard_Timeline },
+                {name: 'Admin_dashboard_UserEvents', path: 'userEvents', component: AdminDashboard_UserEvents },
+                {name: 'Admin_dashboard_Settings', path: 'settings', component: AdminDashboard_Settings }
+            ]
         },
 
     ],
