@@ -59,13 +59,12 @@
                         <div class="col-lg-4 offset-lg-1 d-flex flex-column justify-content-center">
                             <h4 class="h4-responsive my-1">Contact Information</h4>
                             <p class="p-responsive d-flex with-icon"><i class="material-icons">email</i>{{user.email}}</p>
-                             <p class="p-responsive d-flex with-icon"><i class="material-icons">email</i>{{user.email}}</p>
-                            <p class="p-responsive d-flex with-icon"><i class="material-icons">call</i><live-edit v-model="user.phone" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your phone number]"></live-edit></p>
-                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksLinkedin" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your LinkedIn account]"></live-edit></p>
-                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksStackoverflow" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your Stackoverflow account]"></live-edit></p>
-                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksGithub" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your GitHub Account]"></live-edit></p>
-                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksPortfolio" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your Personal Webpage]"></live-edit></p>
-                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksFacebook" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your Facebook account]"></live-edit></p>
+                            <p class="p-responsive d-flex with-icon"><i class="material-icons">call</i><live-edit v-model="user.phone" :editable="getEditing('intro')" placeholder="[Your phone number]"></live-edit></p>
+                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksLinkedin" :editable="getEditing('intro')" placeholder="[Your LinkedIn account]"></live-edit></p>
+                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksStackoverflow" :editable="getEditing('intro')" placeholder="[Your Stackoverflow account]"></live-edit></p>
+                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksGithub" :editable="getEditing('intro')" placeholder="[Your GitHub Account]"></live-edit></p>
+                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksPortfolio" :editable="getEditing('intro')" placeholder="[Your Personal Webpage]"></live-edit></p>
+                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksFacebook" :editable="getEditing('intro')" placeholder="[Your Facebook account]"></live-edit></p>
                         
                         </div>
                     </div>
@@ -192,7 +191,9 @@
                         console.log(data);
 
                         vm.user = data.user;
-                        Vue.auth.setUser(data.user);
+                        if(vm.user){
+                            Vue.auth.setUser(data.user);
+                        }
 
                     });
                 }
@@ -255,7 +256,7 @@
                         Vue.axios.post(_baseUrl + 'api/company/projects', {projects: _projectIds})
                         .then(function(res){
                             vm.projects = res.data;
-                            console.log('projects', res);
+                            console.log('projects', vm.projects);
                         })
                         .catch(function(err){console.log(err)});
 
@@ -287,12 +288,16 @@
             },
             saveUserInfo: function(){
                 let vm = this;
-                Vue.rest.updateData(this.user, 'user', '/' + this.user._id, function(res){
-                    if(res){
-                        vm.user = res;
-                        Vue.auth.setUser(res);
-                    }
-                });
+                if(this.user._id){
+                    Vue.rest.updateData(this.user, 'user', '/' + this.user._id, function(res){
+                        
+                        if(res.data){
+                            vm.user = res.data;
+                            Vue.auth.setUser(vm.user);
+                        }
+                    });
+                    
+                }
             },
             projectUploaded: function(e){
                  this.projects.push(e);
@@ -313,7 +318,10 @@
             window.addEventListener('scroll', this.handleScroll);
         },
         mounted(){
-            Vue.rest.getData('user', '/' + this.user._id , this.getUserInfo);
+            let _user_id = this.user._id;
+            if(_user_id){
+                Vue.rest.getData('user', '/' + this.user._id , this.getUserInfo);
+            }
         },
         destroyed () {
             window.removeEventListener('scroll', this.handleScroll);
