@@ -1,7 +1,7 @@
 <template>
 	
 	<div class="fluid-container white lighten-5 p-2">
-		<h4>Tasks</h4>
+		<h4>Settings</h4>
 	</div>
 </template>
 
