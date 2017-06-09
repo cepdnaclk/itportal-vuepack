@@ -24,7 +24,10 @@
                                 </div>
                                 <div class="desc">
                                     <span class="title">Favourite</span>
-                                    <span class="content">Javascript</span>
+                                    <span class="content">
+                                        <span v-if="student_profiles[student._id].FrequentSkills.length == 0">[Not Added]</span>
+                                        <span v-else class="badge badge-primary" v-for="skill in student_profiles[student._id].FrequentSkills">{{skill.name}}</span>
+                                    </span>
                                 </div>
                                 
                             </div>
@@ -193,6 +196,38 @@
                     // vm.student_profiles[user_id] = res.data;
                     Vue.set(vm.student_profiles, user_id, res.data);
                     console.log(vm.student_profiles);
+
+                    // getFrequentSkills
+                    _.forEach(vm.student_profiles, function(_student){
+                        // console.log('_student', _student)
+                        let _skills = _student.skills;
+                        // console.log('_skills', _skills);
+                        let _grouped =_.groupBy(_skills, function(s){
+                            return s.name;
+                        });
+                        // console.log('_grouped', _grouped);
+                        let _sorted = _.sortBy(_grouped, function(o){
+                            return -o.length;
+                        })
+
+                        // console.log('_sorted', _sorted);
+                        // console.log(_sorted.slice(0,3))
+
+                        let _skillset_frequent = [];
+                        if(_sorted[0]) {
+                            _skillset_frequent.push(_sorted[0][0]);
+                        }
+                        if(_sorted[1]) {
+                            _skillset_frequent.push(_sorted[1][0]);
+                        }
+                        if(_sorted[2]) {
+                            _skillset_frequent.push(_sorted[2][0]);
+                        }
+
+                        Vue.set(_student, 'FrequentSkills', _skillset_frequent)
+
+                    })
+
                     // return res.data;
                 })
                 .catch(function(err){console.log(err)});
