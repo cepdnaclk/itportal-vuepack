@@ -69,6 +69,7 @@
                 display: inline-block;
             }
             img{
+                border-radius: 50%;
                 display: inline-block;
             }
             @media screen and (min-width: 480px) {

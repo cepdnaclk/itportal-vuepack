@@ -88,9 +88,9 @@ export default{
             default: 'student'
         },
     },
-    data(){
+    data: function(){
 
-        return{
+        return {
             isEditing: false,
             project: {
                 title: '',
@@ -126,6 +126,7 @@ export default{
         addFormData: function(){
             let vm = this;
             Vue.rest.insertData(this.project, 'project', null, function(res){
+                console.log(res);
                 if(res){
                     vm.$emit('project-uploaded', res);
                     vm.resetFormData();
@@ -137,7 +138,9 @@ export default{
             this.isEditing = !this.isEditing;
         },
         resetFormData: function(){
-            this.project = {
+
+            let _emptyProject = {
+
                 title: '',
                 type: 'ACADEMIC',
                 description: '',
@@ -145,8 +148,12 @@ export default{
                 dateEnded: null,
                 skills: [],
                 authorEmail: Vue.auth.getUser().email,
-                authorType: this.AuthorType,
+                authorType: this.authorType,
+
             };
+
+            this.project = _emptyProject;
+            this.skills = [];
         },
         addNewSkill: function(newSkillName){
 

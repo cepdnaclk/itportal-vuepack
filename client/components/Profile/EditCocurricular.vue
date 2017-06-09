@@ -79,7 +79,7 @@ export default{
                 dateStarted: null,
                 dateEnded: null,
                 authorEmail: Vue.auth.getUser().email,
-                authorType: this.AuthorType,
+                authorType: this.authorType,
             };
         }
     }
