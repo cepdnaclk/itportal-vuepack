@@ -92,7 +92,7 @@
                     <h3 class="h3-responsive marginless">Projects</h3>
                     <hr class="my-2">
                     <div v-if="projects.length == 0" class="flex-center h5 text-warning"><i class="material-icons responsive">info</i> No projects to show</div>
-                    <view-project v-for="(project, index) in projects" :project="project" :key="'project'+index"></view-project>
+                    <view-project is-on-profile="true" v-for="(project, index) in projects" :project="project" :key="'project'+index"></view-project>
                     <hr class="my-1">
                     <edit-project @project-uploaded="projectUploaded" author-type="student"></edit-project>
                 </div>
@@ -104,7 +104,7 @@
                     <h3 class="h3-responsive marginless">Competitions</h3>
                     <hr class="my-2">
                     <div v-if="competitions.length == 0" class="flex-center h5 text-warning"><i class="material-icons responsive">info</i> No competitions to show</div>
-                    <view-competition v-for="(competition, index) in competitions" :competition="competition" :key="'competition'+index"></view-competition>
+                    <view-competition is-on-profile="true" v-for="(competition, index) in competitions" :competition="competition" :key="'competition'+index"></view-competition>
                     <hr class="my-1">
                     <edit-competition @competition-uploaded="competitionUpload" author-type="student"></edit-competition>
                 </div>
@@ -117,7 +117,7 @@
                     <h3 class="h3-responsive marginless">Awards</h3>
                     <hr class="my-2">
                     <div v-if="awards.length == 0" class="flex-center h5 text-warning"><i class="material-icons responsive">info</i> No awards to show</div>
-                    <view-award v-for="(award, index) in awards" :award="award" :key="'award'+index"></view-award>
+                    <view-award is-on-profile="true" v-for="(award, index) in awards" :award="award" :key="'award'+index"></view-award>
                     <hr class="my-1">
                     <edit-award @award-uploaded="awardUpload" author-type="student"></edit-award>
                 </div>
@@ -130,7 +130,7 @@
                     <h3 class="h3-responsive marginless">Co-Curricular Activities</h3>
                     <hr class="my-2">
                     <div v-if="cocurriculars.length == 0" class="flex-center h5 text-warning"><i class="material-icons responsive">info</i> No co-curricular activity to show</div>
-                    <view-cocurricular v-for="(cocurricular, index) in cocurriculars" :cocurricular="cocurricular" :key="'cocurricular'+index"></view-cocurricular>
+                    <view-cocurricular is-on-profile="true" v-for="(cocurricular, index) in cocurriculars" :cocurricular="cocurricular" :key="'cocurricular'+index"></view-cocurricular>
                     <hr class="my-1">
                     <edit-cocurricular @cocurricular-uploaded="cocurricularUpload" author-type="student"></edit-cocurricular>
                 </div>
@@ -143,7 +143,7 @@
                     <h3 class="h3-responsive marginless">Extra Curricular Activities</h3>
                     <hr class="my-2">
                     <div v-if="extracurriculars.length == 0" class="flex-center h5 text-warning"><i class="material-icons responsive">info</i> No extra-curricular activity to show</div>
-                    <view-extracurricular v-for="(extracurricular, index) in extracurriculars" :extracurricular="extracurricular" :key="'extracurricular'+index"></view-extracurricular>
+                    <view-extracurricular is-on-profile="true" v-for="(extracurricular, index) in extracurriculars" :extracurricular="extracurricular" :key="'extracurricular'+index"></view-extracurricular>
                     <hr class="my-1">
                     <edit-extracurricular @extracurricular-uploaded="extracurricularUpload" author-type="student"></edit-extracurricular>
                 </div>
@@ -156,9 +156,9 @@
                     <h3>Interests</h3>
                     <hr class="my-1">
                     <div v-if="interests.length == 0" class="flex-center h5 text-warning"><i class="material-icons responsive">info</i> No interests to show</div>
-                    <view-interest v-for="(interest, index) in interests" :interest="interest" :key="'interest'+index"></view-interest>
+                    <view-interest is-on-profile="true" v-for="(interest, index) in interests" :interest="interest" :key="'interest'+index"></view-interest>
                     <hr class="my-1">
-                    <edit-interest @interest-uploaded="interestUpload" :all-interests="all_interests"></edit-interest>
+                    <edit-interest @interest-uploaded="interestUpload" :current-interests="interests" :all-interests="all_interests"></edit-interest>
                 </div>
             </div>
         </div>

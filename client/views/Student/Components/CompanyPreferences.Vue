@@ -213,16 +213,19 @@
 
                 // console.log(this.companies_selected, this.user);
                 let _user_id = this.user._id;
+                let _companies_all = _.map(this.companies, function(o){
+                    return o._id;
+                }); 
                 let _company_preferences = _.map(this.companies_selected, function(o){
                     return o._id;
                 }); 
 
                 let _data = {
                     user: _user_id,
-                    preferences: _company_preferences
+                    organizations: _company_preferences,
+                    missed_organizations: _.difference(_companies_all, _company_preferences)
                 }
 
-                // console.log(_data);
                 let _baseURL = Vue.rest.restBaseUrl;
                 
                 console.log(_baseURL);
@@ -237,7 +240,7 @@
                 .catch(function(err){console.log(err)});
             },
             retrieveCompanyPreferences: function(){
-                console.log('retrieveCompanyPreferences')
+
                 let vm = this;
 
                 // all companies
@@ -254,7 +257,10 @@
                 Vue.axios.get(_baseURL + 'api/student/companyPreferences/' + _user)
                 .then(function(res){
 
-                    let _companies_selected_fromDB = res.data.preferences;
+                    let _data = res.data;
+                    let _companies_selected_fromDB = _.map(_data, function(o){
+                        return o.organization;
+                    });
 
                     if(!_companies_selected_fromDB){
                         return;

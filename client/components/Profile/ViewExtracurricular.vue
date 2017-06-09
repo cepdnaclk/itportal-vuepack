@@ -8,7 +8,7 @@
         <h4 class="h4-responsive my-1 my-md-0">{{extracurricular.title}}</h4>
         <p class="text-truncate my-0">{{extracurricular.description}}</p>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" v-if="isOnProfile">
         <div class="actions d-flex justify-content-md-end  justify-content-sm-center">
             <button class="btn btn-primary px-2"><i class="material-icons responsive">remove_red_eye</i></button>
             <button class="btn btn-primary px-2"><i class="material-icons responsive">edit</i></button>
@@ -24,6 +24,9 @@ export default{
     props: {
         extracurricular: {
             type: Object,
+        },
+        isOnProfile: {
+            default: false
         }
     }
 }

@@ -12,7 +12,7 @@
         </div>
         <div class="with-icon d-flex my-1 text-uppercase small"><i class="material-icons responsive">code</i> {{project.type}} Project</div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" v-if="isOnProfile">
         <div class="actions d-flex justify-content-md-end  justify-content-sm-center">
             <button class="btn btn-primary px-2"><i class="material-icons responsive">remove_red_eye</i></button>
             <button class="btn btn-primary px-2"><i class="material-icons responsive">edit</i></button>
@@ -28,6 +28,9 @@ export default{
     props: {
         project: {
             type: Object,
+        },
+        isOnProfile: {
+            default: false
         }
     }
 }

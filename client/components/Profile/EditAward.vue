@@ -4,7 +4,7 @@
         <hr>
         <div class="row">
                 <div class="col-md-2">
-                    <img src="/img/awards.png" class="img-thumbnail mx-auto align-content-center">
+                    <img src="/img/awards.png" class="rounded-circle mx-auto align-content-center" style="width:100px; height: 100px;">
                 </div>
                 <div class="col-md-6">
                     <hr class="hidden-sm-up">
@@ -69,7 +69,6 @@ export default{
         },
         toggleEditing: function(){
             this.isEditing = !this.isEditing;
-            console.log(isEditing);
             this.resetFormData();
         },
         resetFormData: function(){

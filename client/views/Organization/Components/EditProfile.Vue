@@ -76,7 +76,7 @@
                     <h3 class="h3-responsive marginless">Projects</h3>
                     <hr class="my-2">
                     <div v-if="projects.length == 0" class="flex-center h5 text-warning"><i class="material-icons responsive">info</i> No projects to show</div>
-                    <view-project v-for="(project, index) in projects" :project="project" :key="'project'+index"></view-project>
+                    <view-project is-on-profile="true" v-for="(project, index) in projects" :project="project" :key="'project'+index"></view-project>
                     <hr class="my-1">
                     <edit-project @project-uploaded="projectUploaded" author-type="companyRep"></edit-project>
                 </div>
@@ -88,7 +88,7 @@
                     <h3 class="h3-responsive marginless">Awards</h3>
                     <hr class="my-2">
                     <div v-if="awards.length == 0" class="flex-center h5 text-warning"><i class="material-icons responsive">info</i> No awards to show</div>
-                    <view-award v-for="(award, index) in awards" :award="award" :key="'award'+index"></view-award>
+                    <view-award is-on-profile="true" v-for="(award, index) in awards" :award="award" :key="'award'+index"></view-award>
                     <hr class="my-1">
                     <edit-award @award-uploaded="awardUpload" author-type="companyRep"></edit-award>
                 </div>
@@ -100,7 +100,7 @@
                     <h3>Interests</h3>
                     <hr class="my-1">
                     <div v-if="interests.length == 0" class="flex-center h5 text-warning"><i class="material-icons responsive">info</i> No awards to show</div>
-                    <view-interest v-for="(interest, index) in interests" :interest="interest" :key="'interest'+index"></view-interest>
+                    <view-interest is-on-profile="true" v-for="(interest, index) in interests" :interest="interest" :key="'interest'+index"></view-interest>
                     <hr class="my-1">
                     <edit-interest @interest-uploaded="interestUpload" :current-interests="interests" :all-interests="all_interests"></edit-interest>
                 </div>

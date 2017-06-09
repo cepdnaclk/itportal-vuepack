@@ -55,7 +55,7 @@ export default{
             required: true,
         },
     },
-    data(){
+    data: function(){
 
         return{
             isEditing: false,
@@ -104,7 +104,6 @@ export default{
         },
         toggleEditing: function(){
             this.isEditing = !this.isEditing;
-            console.log(this.isEditing);
         },
         resetFormData: function(){
             this.interest = {
@@ -119,8 +118,8 @@ export default{
                 // location.reload();
                 console.log(res)
             })
-            .catch(function(res){
-                console.log(res);
+            .catch(function(err){
+                console.log(err);
             })
         },
     },

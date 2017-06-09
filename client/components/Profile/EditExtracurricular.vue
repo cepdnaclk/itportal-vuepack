@@ -4,7 +4,7 @@
         <hr>
         <div class="row">
                 <div class="col-md-2">
-                    <img src="/img/extras.png" class="img-thumbnail mx-auto align-content-center">
+                    <img src="/img/extras.png" class="rounded-circle mx-auto align-content-center" style="width:100px; height: 100px;">
                 </div>
                 <div class="col-md-6">
                     <hr class="hidden-sm-up">
@@ -42,10 +42,11 @@ export default{
             default: 'student'
         },
     },
-    data(){
+    data: function(){
 
         return{
             isEditing: false,
+
             extracurricular: {
                 title: '',
                 description: '',
@@ -59,9 +60,9 @@ export default{
      methods: {
         addFormData: function(){
             let vm = this;
-            Vue.rest.insertData(this.competition, 'competition', null, function(res){
+            Vue.rest.insertData(this.extracurricular, 'extracurricular', null, function(res){
                 if(res){
-                    vm.$emit('competition-uploaded', res);
+                    vm.$emit('extracurricular-uploaded', res);
                     vm.resetFormData();
                     vm.isEditing = false;
                 }
@@ -69,11 +70,9 @@ export default{
         },
         toggleEditing: function(){
             this.isEditing = !this.isEditing;
-            console.log(isEditing);
-            this.resetFormData();
         },
         resetFormData: function(){
-            this.competition = {
+            this.extracurricular = {
                 title: '',
                 description: '',
                 dateStarted: null,
