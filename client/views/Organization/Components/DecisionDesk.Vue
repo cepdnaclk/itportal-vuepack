@@ -13,20 +13,20 @@
                         <div class="col-md-1">Accepted <span class="text-uppercase small">(12)</span></div>
                         <div class="col-md-2">Actions <span class="text-uppercase small">(12)</span></div>
                     </div>
-                    <div class="container decision-student white z-depth-1 p-2 my-1 mb-1"  v-for="student in companyPreferences.user">
+                    <div class="container decision-student white z-depth-1 p-2 my-1 mb-1"  v-for="preference in companyPreferences">
                         <div class="row">
                             <div class="col-md-7 student-details">
-                                <img class="rounded-circle" src="/img/user.png" alt="">
-                                <div class="name">{{student.name}}</div>
+                                <img class="img rounded-circle" :src="(preference.user.photo)? (baseUrl+'photo/user/small-' + preference.user.photo) :'/img/user.png'" alt="">
+                                <div class="name">{{preference.user.name}}</div>
                                 <div class="desc">
                                     <span class="title">GPA</span>
-                                    <span class="content">{{student_profiles[student._id].GPA}}</span>
+                                    <span class="content">{{student_profiles[preference.user._id].GPA}}</span>
                                 </div>
                                 <div class="desc">
                                     <span class="title">Favourite</span>
                                     <span class="content">
-                                        <span v-if="student_profiles[student._id].FrequentSkills.length == 0">[Not Added]</span>
-                                        <span v-else class="badge badge-primary" v-for="skill in student_profiles[student._id].FrequentSkills">{{skill.name}}</span>
+                                        <span v-if="student_profiles[preference.user._id].FrequentSkills.length == 0">[Not Added]</span>
+                                        <span v-else class="badge badge-primary" v-for="skill in student_profiles[preference.user._id].FrequentSkills">{{skill.name}}</span>
                                     </span>
                                 </div>
                                 
@@ -35,9 +35,9 @@
                             <div class="col-md-1 status"><span class="dot"></span></div>
                             <div class="col-md-1 status"><span class="dot"></span></div>
                             <div class="col-md-2 actions">
-                                <router-link :to="'/profile/student/' + student_profiles[student._id]._id" class="btn btn-primary btn-sm btn-block">View</router-link>
-                                <a class="btn btn-primary btn-sm btn-block" @click="addNewInterview(student)">Inverview</a>
-                                <a class="btn btn-primary btn-sm btn-block" @click="addNewOffer(student)">Accept</a>
+                                <router-link :to="'/profile/student/' + student_profiles[preference.user._id]._id" class="btn btn-primary btn-sm btn-block">View</router-link>
+                                <a class="btn btn-primary btn-sm btn-block" @click="addNewInterview(preference.user)">Inverview</a>
+                                <a class="btn btn-primary btn-sm btn-block" @click="addNewOffer(preference.user)">Accept</a>
                             </div>
                         </div>
 
@@ -123,7 +123,7 @@
                 company: Vue.auth.getUser(),
                 companyPreferences: [],
                 student_profiles: {},
-
+                baseUrl: Vue.rest.restBaseUrl,
             }
         },
         methods: {
@@ -135,17 +135,13 @@
                 .then(function(res){
 
                     let _company_preferences = res.data;
-
-                    console.log('_company_preferences', _company_preferences);
-
                     vm.companyPreferences = _company_preferences;
-                    console.log(_company_preferences);
 
                     store.dispatch('showMessage', 'Retrieved existing student preferences')
 
                     // generate student_profiles
-                    _.forEach(_company_preferences.user, function(o){
-                        vm.getStudentFromUserId(o._id)
+                    _.forEach(_company_preferences, function(o){
+                        vm.getStudentFromUserId(o.user._id)
                     });
 
                 })
@@ -195,7 +191,7 @@
                     // console.log(res.data);
                     // vm.student_profiles[user_id] = res.data;
                     Vue.set(vm.student_profiles, user_id, res.data);
-                    console.log(vm.student_profiles);
+                    console.log('vm.student_profiles', vm.student_profiles);
 
                     // getFrequentSkills
                     _.forEach(vm.student_profiles, function(_student){
