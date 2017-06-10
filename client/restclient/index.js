@@ -78,7 +78,7 @@ var rest = {
     updateData(data, model, options, cb) {
         let _url = this.getRestUrl(model, options);
 
-        Vue.axios.put(
+        Vue.axios.patch(
             _url, data
         ).then(res => {
             let _data = (res);
