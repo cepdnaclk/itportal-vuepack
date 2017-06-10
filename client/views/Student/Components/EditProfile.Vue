@@ -318,12 +318,12 @@
                     console.log(_student[0]._id);
                     vm.student_id = _student[0]._id;
 
-                    Vue.rest.getData('student', '/' + vm.student_id + '?populate=["projects","competitions","awards","cocurriculars","extracurricular"]', function(_student){
+                    Vue.rest.getData('student', '/' + vm.student_id + '?populate=["projects","competitions","awards","cocurriculars","extracurriculars"]', function(_student){
                         
                         vm.competitions = _student.competitions;
                         vm.awards = _student.awards;
                         vm.cocurriculars = _student.cocurriculars;
-                        vm.extracurricular = _student.extracurricular;
+                        vm.extracurriculars = _student.extracurriculars;
 
                         let _projectIds = _.map(_student.projects, function(o){
                             return o._id;
