@@ -4,7 +4,7 @@
         <hr>
         <div class="row">
                 <div class="col-md-2">
-                    <img src="/img/extras.png" class="rounded-circle mx-auto align-content-center" style="width:100px; height: 100px;">
+                    <img src="/img/extracurricular.png" class="rounded-circle mx-auto align-content-center" style="width:100px; height: 100px;">
                 </div>
                 <div class="col-md-6">
                     <hr class="hidden-sm-up">
