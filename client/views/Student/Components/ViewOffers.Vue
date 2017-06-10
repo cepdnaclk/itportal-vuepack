@@ -8,8 +8,8 @@
 	                	<h4>
 		                	{{offer.company.name}}
 		                	<span class="small">({{(new Date(offer.updatedAt)).toLocaleString()}})</span>
-		                	<div class="btn btn-danger" :class="{'faded': offer.accepted==true}" @click="rejectOffer(offer)">{{!offer.accepted?'Rejected':'Reject'}}</div>
-		                	<div class="btn btn-success" :class="{'faded': offer.accepted==false}" @click="acceptOffer(offer)">{{offer.accepted?'Accepted':'Accept'}}</div>
+		                	<div class="btn btn-danger" :class="{'faded': (offer.accepted==true)}" @click="rejectOffer(offer)">{{!offer.accepted?'Rejected':'Reject'}}</div>
+		                	<div class="btn btn-success" :class="{'faded': (offer.accepted==false)}" @click="acceptOffer(offer)">{{offer.accepted?'Accepted':'Accept'}}</div>
 	                	</h4>
 	                	
 	                </li>
@@ -66,7 +66,7 @@ export default {
             	console.log(res);
             	if(_.isEqual(res.data, "success")){
 	                store.dispatch('showMessage', 'Offer Accepted')
-	                offer.accepted = true;
+	                Vue.set(offer, 'accepted', true);
 	                return;
             	}
                 store.dispatch('showMessage', 'Failed to Accept Offer.')
@@ -88,7 +88,7 @@ export default {
             	if(_.isEqual(res.data, "success")){
 	                store.dispatch('showMessage', 'Offer Rejected')
 	                // console.log(vm.offers);
-	                offer.accepted = false;
+	                Vue.set(offer, 'accepted', false);
 	                return;
             	}
                 store.dispatch('showMessage', 'Failed to Reject Offer.')
