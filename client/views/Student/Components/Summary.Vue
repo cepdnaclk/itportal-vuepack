@@ -24,11 +24,9 @@
                         </div>
                     </div>
                 </div> 
-                <div class="message my-3 p-1">
-                    <h2 class="h2-responsive">A bit too early don't you think?</h2>
-                    <p>Our students are not online yet. We'll notify you once everything is up and running
-                    <br> In the meantime, keep your profile updated.</p>
-                    <p>Thank you for your interest!</p>
+                <div class="message my-3 p-1" style="opacity: 0.5">
+                    <h2 class="h2-responsive">Stories not available yet</h2>
+                    <p>Please continue to update your profile</p>
                 </div>
                 <!-- <div class="ct-chart ct-major-twelfth"></div> -->
             </div>

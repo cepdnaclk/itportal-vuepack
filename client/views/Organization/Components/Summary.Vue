@@ -12,7 +12,7 @@
                 </div>
             </div>
 
-            <div class="col-md-8 container px-3">
+            <div class="col-md-8 container px-3 pt-1">
                 <div class="welcome d-flex justify-content-start align-items-center">
                     <img :src="user.photo ? (restbaseurl + 'photo/user/large-' + user.photo) : '/img/user.png'" class="mr-2 rounded-circle" style="border-radius: 80px; height: 100px; width: 100px;">
                     <div>
@@ -25,29 +25,52 @@
                         </div>
                     </div>
                 </div> 
-                <div class="message my-3 p-1">
-                    <h2 class="h2-responsive">A bit too early don't you think?</h2>
-                    <p>Our students are not online yet. We'll notify you once everything is up and running
-                    <br> In the meantime, keep your profile updated.</p>
-                    <p>Thank you for your interest!</p>
+                <div class="message my-3 p-1 text-center" style="opacity: 0.5">
+                    <h2 class="h2-responsive">Stories not available yet</h2>
+                    <p>Please continue to update your profile</p>
                 </div>
                 <!-- <div class="ct-chart ct-major-twelfth"></div> -->
             </div>
             <div class="col-md-4 container">
-                <div class="my-2 mb-3">
-                    <h4 class="h4-responsive mb-0 font-weight-normal">Tasks</h4>
+                <div class="mb-3 p-3 blue-grey lighten-5">
+                    <h4 class="h4-responsive font-weight-normal">Tasks</h4>
                     <div class="row">
-                        <div class="btn teal text-center mr-1 px-2">
-                            <i class="material-icons responsive">lock</i><span>Change Your Password</span>
+                        <div class="btn btn-primary d-flex with-icon text-center mr-1 px-2" @click="resendConfirmation" v-if="!stats.tasks_list_user.confirm_email">
+                            <i class="material-icons responsive">lock</i><span>Confirm your email</span>
                         </div>
-                        <div class="btn teal darken-1 text-center mr-1 px-2">
-                            <i class="material-icons responsive">assignment_ind</i>
-                            <span>Update Profile Information</span>
-                        </div>
-                        <div class="btn teal darken-2 text-center mr-3 px-2">
-                            <i class="material-icons responsive">photo</i>
-                            <span>Update Profile Picture</span>
-                        </div>
+                        <router-link
+                            tag="div"
+                            :to="{name: 'Student_dashboard_editprofile'}"
+                            class="btn btn-primary d-flex with-icon darken-1 text-center mr-1 px-2"
+                            v-if="!stats.tasks_list_user.add_intro"
+                            >
+                            <i class="material-icons responsive">assignment_ind</i><span>Update intro for your profile</span>
+                        </router-link>
+                        <router-link
+                            tag="div"
+                            :to="{name: 'Student_dashboard_editprofile'}"
+                            class="btn btn-primary d-flex with-icon darken-1 text-center mr-1 px-2"
+                            v-if="!stats.tasks_list_user.add_phone"
+                            >
+                            <i class="material-icons responsive">assignment_ind</i><span>Update your contact number</span>
+                        </router-link>
+
+                        <router-link
+                            tag="div"
+                            :to="{name: 'Student_dashboard_editprofile'}"
+                            class="btn btn-primary d-flex with-icon darken-1 text-center mr-1 px-2"
+                            v-if="!stats.tasks_list_user.add_profilepic"
+                            >
+                            <i class="material-icons responsive">photo</i><span>Update profile picture</span>
+                        </router-link>
+
+                        <router-link
+                            tag="div"
+                            to='/all/students'
+                            class="btn btn-primary d-flex with-icon darken-1 text-center mr-1 px-2"
+                            >
+                            <i class="material-icons responsive">face</i><span>View student profiles</span>
+                        </router-link>
                     </div>
                 </div>
             </div>
