@@ -35,22 +35,22 @@
                 <div class="mb-3 p-3 blue-grey lighten-5">
                     <h4 class="h4-responsive font-weight-normal">Tasks</h4>
                     <div class="row">
-                        <div class="btn btn-primary d-flex with-icon text-center mr-1 px-2" @click="resendConfirmation" v-if="!stats.tasks_list_user.confirm_email">
+                        <div class="btn btn-primary d-flex with-icon text-center mr-1 px-2" @click="resendConfirmation" v-if="stats.tasks_list_user && !stats.tasks_list_user.confirm_email">
                             <i class="material-icons responsive">lock</i><span>Confirm your email</span>
                         </div>
                         <router-link
                             tag="div"
                             :to="{name: 'Student_dashboard_editprofile'}"
                             class="btn btn-primary d-flex with-icon darken-1 text-center mr-1 px-2"
-                            v-if="!stats.tasks_list_user.add_intro"
+                            v-if="stats.tasks_list_user && !stats.tasks_list_user.add_intro"
                             >
                             <i class="material-icons responsive">assignment_ind</i><span>Update intro for your profile</span>
                         </router-link>
                         <router-link
                             tag="div"
                             :to="{name: 'Student_dashboard_editprofile'}"
-                            class="btn btn-primary d-flex with-icon darken-1 text-center mr-1 px-2"
-                            v-if="!stats.tasks_list_user.add_phone"
+                            class="btn btn-primary d-flex with-icon darken-2 text-center mr-1 px-2"
+                            v-if="stats.tasks_list_user && !stats.tasks_list_user.add_phone"
                             >
                             <i class="material-icons responsive">assignment_ind</i><span>Update your contact number</span>
                         </router-link>
@@ -58,8 +58,8 @@
                         <router-link
                             tag="div"
                             :to="{name: 'Student_dashboard_editprofile'}"
-                            class="btn btn-primary d-flex with-icon darken-1 text-center mr-1 px-2"
-                            v-if="!stats.tasks_list_user.add_profilepic"
+                            class="btn btn-primary d-flex with-icon darken-3 text-center mr-1 px-2"
+                            v-if="stats.tasks_list_user && !stats.tasks_list_user.add_profilepic"
                             >
                             <i class="material-icons responsive">photo</i><span>Update profile picture</span>
                         </router-link>
@@ -67,7 +67,7 @@
                         <router-link
                             tag="div"
                             to='/all/students'
-                            class="btn btn-primary d-flex with-icon darken-1 text-center mr-1 px-2"
+                            class="btn btn-primary d-flex with-icon darken-4 text-center mr-1 px-2"
                             >
                             <i class="material-icons responsive">face</i><span>View student profiles</span>
                         </router-link>
@@ -125,76 +125,7 @@ export default {
 
     },
     mounted: function(){
-
-
         this.getAllData();
-
-
-        var chart = new Chartist.Line('.ct-chart', {
-            labels: ['1', '2', '3', '4', '5', '6', '7', '8'],
-            // Naming the series with the series object array notation
-            series: [{
-                name: 'series-1',
-                data: [0, 2, -4, 2, 0, -2, 5, 0]
-            }, {
-                name: 'series-2',
-                data: [0, 3, 5, 3, 1, 3, 6, 0]
-            }, {
-                name: 'series-3',
-                data: [0, 4, 3, 1, 4, 5, 3, 0]
-            }]
-        }, {
-                showPoint: false,
-                showLine: false,
-                showArea: true,
-                fullWidth: true,
-                showLabel: false,
-                axisX: {
-                    showGrid: true,
-                    showLabel: true,
-                    offset: 100
-                },
-                axisY: {
-                    showGrid: false,
-                    showLabel: true,
-                    offset: 0
-                },
-                chartPadding: 0,
-                low: 0,
-                // Within the series options you can use the series names
-                // to specify configuration that will only be used for the
-                // specific series.
-                series: {
-                    'series-1': {
-                        lineSmooth: Chartist.Interpolation.simple()
-                    },
-                    'series-2': {
-                        lineSmooth: Chartist.Interpolation.simple(),
-                        showArea: true
-                    },
-                    'series-3': {
-                        showPoint: false
-                    }
-                }
-            }, [
-                // You can even use responsive configuration overrides to
-                // customize your series configuration even further!
-                ['screen and (max-width: 320px)', {
-                    series: {
-                        'series-1': {
-                            lineSmooth: Chartist.Interpolation.none()
-                        },
-                        'series-2': {
-                            lineSmooth: Chartist.Interpolation.none(),
-                            showArea: false
-                        },
-                        'series-3': {
-                            lineSmooth: Chartist.Interpolation.none(),
-                            showPoint: true
-                        }
-                    }
-                }]
-            ]);
     }
 }
 </script>
