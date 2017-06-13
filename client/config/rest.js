@@ -1,4 +1,4 @@
 export default {
 	// url: 'http://localhost:3000/'
-	url: 'http://itportal.ce.pdn.ac.lk/'
+	url: '//itportal.ce.pdn.ac.lk/'
 }
