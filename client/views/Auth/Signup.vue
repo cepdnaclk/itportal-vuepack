@@ -17,17 +17,17 @@
 			<div class="md-form my-1">
 				<i class="material-icons prefix">face</i>
 				<input type="text" id="formSignup_1" class="form-control" v-model="user.name">
-				<label for="formSignup_1">Your name</label>
+				<label for="formSignup_1">{{(this.user.role == 'STUDENT')?"LDAP Username ('exxxxx')":'Your name'}}</label>
 			</div>
-			<div class="md-form my-1">
+			<div class="md-form my-1" v-if="user.role != 'STUDENT'">
 				<i class="material-icons prefix">email</i>
-				<input type="email" id="formSignup_2" class="form-control" v-model="user.email" v-validate="'required|email'" name="email">
+				<input type="email" id="formSignup_2" class="form-control" v-model="user.email" name="email">
 				<label for="formSignup_2">Your email</label>
 			</div>
 			<div class="md-form my-1">
 				<i class="material-icons prefix">lock</i>
 				<input type="password" id="formSignup_3" class="form-control" v-model="user.password">
-				<label for="formSignup_3">Your password</label>
+				<label for="formSignup_3">{{(this.user.role == 'STUDENT')?"LDAP Password":'Password'}}</label>
 			</div>
 			<div class="text-center">
 				<button type="submit" class="btn btn-block btn-primary flex-center"><i class="material-icons">face</i> <span class="flex-center">Create a new account</span></button>
@@ -46,12 +46,16 @@ export default {
 				name: '',
 				role: 'COMPANY',
 				email: '',
-					password: '',
+				password: '',
 			}
 		}
 	},
 	methods: {
 		submitsignup: function() {
+			if(this.user.role == 'STUDENT'){
+				Vue.auth.signupLDAP(this.user);
+				return;
+			}
 			Vue.auth.signup(this.user);
 		},
 		setRole_Company: function(){

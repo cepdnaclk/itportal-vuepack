@@ -40,6 +40,30 @@ var auth = {
             store.dispatch('showMessage', err.response.data.flashMessage || err.response.data)
         });
     },
+
+    signupLDAP(_user) {
+        let _url = this.getAuthUrl(this.authBaseUrl, 'auth/signupLDAP');
+
+        Vue.axios.post(
+            _url, _user
+        ).then(res => {
+            let _data = (res.data);
+            if (_data.signedUp == true) {
+                store.dispatch('showMessage', _data.message)
+                localStorage.setItem('token', res.data.token);
+                setTimeout(function() {
+                    Vue.auth.loginLDAP(_user)
+                }, 1000)
+            } else {
+                store.dispatch('showMessage', _data.message)
+
+            }
+
+        }).catch(function(err) {
+            console.log(err);
+            store.dispatch('showMessage', err.response.data.flashMessage || err.response.data)
+        });
+    },
     confirm(_token) {
         let _url = this.getAuthUrl(this.authBaseUrl, 'auth/confirm');
         let _token_data = {
@@ -111,6 +135,37 @@ var auth = {
     },
     login(_user) {
         let _url = this.getAuthUrl(this.authBaseUrl, 'auth/login');
+
+        Vue.axios.post(
+            _url, {
+                email: _user.email,
+                password: _user.password
+            }
+        ).then(res => {
+            console.log(res.data);
+            let __user = res.data.user;
+            let _token = res.data.token;
+            localStorage.setItem('user', JSON.stringify(__user));
+            localStorage.setItem('token', _token);
+
+            store.commit('LOGIN');
+            store.dispatch('showMessage', 'Successfully signed in.')
+            store.commit('CHANGE_USER', __user);
+
+            setTimeout(function(){
+                Vue.auth.refreshToken(__user);
+            }, 600000);
+            
+            router.push({
+                name: 'Auth_select_dashboard'
+            })
+        }).catch((msg) => {
+
+            store.dispatch('showMessage', 'Couldn\'t authorize you. Please check.')
+        });
+    },
+    loginLDAP(_user) {
+        let _url = this.getAuthUrl(this.authBaseUrl, 'auth/loginLDAP');
 
         Vue.axios.post(
             _url, {
