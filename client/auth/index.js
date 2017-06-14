@@ -169,7 +169,7 @@ var auth = {
 
         Vue.axios.post(
             _url, {
-                email: _user.email,
+                name: _user.email,
                 password: _user.password
             }
         ).then(res => {
