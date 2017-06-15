@@ -3,29 +3,41 @@
     <form @submit.prevent="addFormData" v-show="isEditing">
         <hr>
         <div class="row">
-            <div class="col-md-6">
-                <hr class="hidden-sm-up">
-                <h4 class="h4-responsive my-1 my-md-0">
+            <div class="col-md-9">
+                <hr class="hidden-sm-up">                
+                <label> Add your interest
+                <multiselect style="margin-top: 0.3em"
+                  v-model="interest"
+                  :options="unselectedInterests"
+                  :taggable="true"
+                  @tag="addNewInterest"
+                  tag-placeholder="Click/tap to add this as a new interest"
+                  placeholder="Add your interests"
+                  label="name"
+                  track-by="name"
+                ></multiselect>
+                </label>
 
-                    <multiselect
-                      v-model="interest"
-                      :options="unselectedInterests"
-                      :taggable="true"
-                      @tag="addNewInterest"
-                      tag-placeholder="Add this as a new interest"
-                      placeholder="Add your interests"
-                      label="name"
-                      track-by="name"
-                    ></multiselect>
-                </h4>
-                <input v-if="new_newInterest" placeholder="Name of the interest"  v-model="interest.name">
-                <textarea v-if="new_newInterest" placeholder="Description"  v-model="interest.description"></textarea>
-            </div>
-            <div class="col-md-4">
-                <div class="actions d-flex justify-content-md-end  justify-content-sm-center">
-                    <button type="submit" class="btn btn-primary px-2 flex-center  with-icon"><i class="material-icons responsive">add</i> Add Interest</button>
-                    <button type="reset" @click.prevent="resetFormData" class="btn btn-primary px-2 flex-center  with-icon"><i class="material-icons responsive">undo</i> Reset</button>
+                <div class="my-1 teal lighten-5 p-2" v-if="new_newInterest">
+                    <p>Add New Interest</p>
+                    <label>
+                        Name your interest
+                        <input placeholder="Name of the interest" type="text" class="form-control" v-model="interest.name">
+                    </label>
+                    <label>Describe your interest, shortly
+                        <textarea placeholder="Description" type="text" class="md-textarea" v-model="interest.description"></textarea>
+                    </label>
                 </div>
+
+
+            </div>
+            <div class="col-md-3">
+                <div class="actions d-block">
+                    <button type="submit" class="btn btn-primary px-2 flex-center with-icon btn-block"><i class="material-icons responsive">add</i> Add Interest</button>
+                    <button type="reset" @click.prevent="resetFormData" class="btn btn-primary px-2 flex-center with-icon btn-block"><i class="material-icons responsive">undo</i> Reset</button>
+                </div>
+                
+                <br><br>
             </div>
         </div>    
     </form>
@@ -38,6 +50,19 @@
     </div>   
 </div>
 </template>
+
+<style scoped>
+    input, textarea{
+        margin: 0;
+        padding-top: 0.3em;
+    }
+    label{
+        width: 100%;
+        &.dates{
+            width: 48%;
+        }
+    }
+</style>
 
 <script>
 import Vue from 'vue';
@@ -110,6 +135,7 @@ export default{
                 name: '',
                 description: '',
             };
+            this.new_newInterest = false;
         },
 
         addProfileToInterest(_id){

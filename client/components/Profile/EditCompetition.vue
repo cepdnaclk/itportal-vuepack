@@ -8,16 +8,19 @@
                 </div>
                 <div class="col-md-6">
                     <hr class="hidden-sm-up">
-                    <h4 class="h4-responsive my-1 my-md-0"><input type="text" placeholder="Competition Title" v-model="competition.title"></h4>
-                    <textarea placeholder="Competition Description"  v-model="competition.description"></textarea>
-                    <input type="date"  v-model="competition.dateStarted">
-                    <input type="date"  v-model="competition.dateEnded">
-                    
+                    <label>Title of Competition<input type="text" class="" v-model="competition.title" placeholder="Title of the competition"></label>
+                    <label class="mt-1">Description of Competition<textarea type="text" class="md-textarea" v-model="competition.description" placeholder="Your description about the competition"></textarea></label>
+
+                    <div class="my-1">
+                        <label class="dates">Date Started<input type="date"  v-model="competition.dateStarted"></label>
+                        <label class="dates">Date Ended<input type="date"  v-model="competition.dateEnded"></label>
+                    </div>
+                                        
                 </div>
                 <div class="col-md-4">
-                    <div class="actions d-flex justify-content-md-end  justify-content-sm-center">
-                        <button type="submit" class="btn btn-primary px-2 flex-center  with-icon"><i class="material-icons responsive">add</i> Add Competition</button>
-                        <button type="reset" @click.prevent="resetFormData" class="btn btn-primary px-2 flex-center  with-icon"><i class="material-icons responsive">undo</i> Reset</button>
+                    <div class="actions d-block">
+                        <button type="submit" class="btn btn-primary px-2 flex-center with-icon btn-block"><i class="material-icons responsive">add</i> Add Competition</button>
+                        <button type="reset" @click.prevent="resetFormData" class="btn btn-primary px-2 flex-center with-icon btn-block"><i class="material-icons responsive">undo</i> Reset</button>
                     </div>
                 </div>
         </div>    
@@ -32,6 +35,18 @@
 </div>
 </template>
 
+<style scoped>
+    input, textarea{
+        margin: 0;
+        padding-top: 0.3em;
+    }
+    label{
+        width: 100%;
+        &.dates{
+            width: 48%;
+        }
+    }
+</style>
 <script>
 import Vue from 'vue';
 
