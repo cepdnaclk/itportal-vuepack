@@ -52,6 +52,7 @@ var auth = {
                 store.dispatch('showMessage', _data.message)
                 localStorage.setItem('token', res.data.token);
                 setTimeout(function() {
+                    _user.email = _user.name;
                     Vue.auth.loginLDAP(_user)
                 }, 1000)
             } else {
