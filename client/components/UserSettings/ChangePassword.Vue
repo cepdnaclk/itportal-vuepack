@@ -26,7 +26,6 @@ export default {
 			return ((this.password_new.length != 0) && this.password_new == this.password_new_confirm);
 		},
 		isOkToContinue: function(){
-			console.log('[isOkToContinue]', this.password_new, this.password_new_confirm);
 			return this.isNewAndconfirmPasswordSame();
 		},
 		sendChangeRequest: function(){

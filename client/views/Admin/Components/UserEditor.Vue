@@ -12,11 +12,17 @@
 					<th>actions</th>
 				</tr>
 				<tr v-for="student in students">
-					<td class="img-cell"><img :src="student.StudentDetails.photo ? (restBaseUrl + 'photo/user/small-' + student.StudentDetails.photo) : '/img/user.png'" class="rounded-circle" style="width: 40px; height: 40px;"></td>
-					<td>{{student.StudentDetails.name}}</td>
-					<td>{{student.registrationNumber}}</td>
+					<template v-if="!student.StudentDetails" >
+						<td colspan="3" class="bg-danger text-white text-center">Missing user records for [{{student.email}}]</td>
+					</template>
+					<template v-else>
+						<td class="img-cell"><img :src="student.StudentDetails.photo ? (restBaseUrl + 'photo/user/small-' + student.StudentDetails.photo) : '/img/user.png'" class="rounded-circle" style="width: 40px; height: 40px;"></td>
+						<td>{{student.StudentDetails.name}}</td>
+						<td>{{student.registrationNumber}}</td>
+						
+					</template>
 					<td>
-						<router-link class="btn btn-primary btn-xsm" :to="'/profile/student/' + student._id">View Profile</router-link>
+						<router-link v-if="student.StudentDetails" class="btn btn-primary btn-xsm" :to="'/profile/student/' + student._id">View Profile</router-link>
 						<a class="btn btn-danger btn-xsm" @click="deleteItem('student', student._id)">Delete</a>
 					</td>
 				</tr>
@@ -53,11 +59,16 @@
 					<th>actions</th>
 				</tr>
 				<tr v-for="companyRep in companyReps">
-					<td class="img-cell"><img :src="companyRep.OrganizationRepDetails.photo ? (restBaseUrl + 'photo/user/small-' + companyRep.OrganizationRepDetails.photo) : '/img/user.png'" class="rounded-circle" style="width: 40px; height: 40px;"></td>
-					<td>{{companyRep.OrganizationRepDetails.name}}</td>
-					<td>{{companyRep.OrganizationRepDetails.email}}</td>
+					<template v-if="!companyRep.OrganizationRepDetails" >
+						<td colspan="3" class="bg-danger text-white text-center">Missing user records for [{{companyRep.email}}]</td>
+					</template>
+					<template v-else>
+						<td class="img-cell"><img :src="companyRep.OrganizationRepDetails.photo ? (restBaseUrl + 'photo/user/small-' + companyRep.OrganizationRepDetails.photo) : '/img/user.png'" class="rounded-circle" style="width: 40px; height: 40px;"></td>
+						<td>{{companyRep.OrganizationRepDetails.name}}</td>
+						<td>{{companyRep.OrganizationRepDetails.email}}</td>
+					</template>
 					<td>
-						<div class="btn btn-danger btn-xsm">Delete</div>
+						<div class="btn btn-danger btn-xsm" @click="deleteItem('organizationRep', companyRep._id)">Delete</div>
 					</td>
 				</tr>
 			</table>
@@ -80,7 +91,7 @@
 					<td><span v-for="role in user.role" class="badge badge-primary">{{role}}</span></td>
 					<td>{{user.email}}</td>
 					<td>
-						<div class="btn btn-danger btn-xsm">Delete</div>
+						<div class="btn btn-danger btn-xsm" @click="deleteItem('user', user._id)">Delete</div>
 					</td>
 				</tr>
 			</table>
@@ -145,10 +156,13 @@ export default {
 				id: _id
 			}
 
-			Vue.axios.delete(_url, _data)
+			Vue.axios.post(_url, _data)
 			.then(function(res){
 				console.log(res);
-				vm.getAllData();
+				store.dispatch('showMessage', 'User removed')
+				setTimeout(function(){
+					vm.getAllData();
+				},300);
 			})
 			.catch(function(err){
 				console.error(err);
