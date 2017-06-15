@@ -20,7 +20,7 @@ import AdminDashboard from '../views/Admin/Dashboard'
 import AdminDashboard_Summary from '../views/Admin/Components/Summary'
 import AdminDashboard_ContentEditor from '../views/Admin/Components/ContentEditor'
 import AdminDashboard_Entities from '../views/Admin/Components/Entities'
-import AdminDashboard_RoutesControl from '../views/Admin/Components/RoutesControl'
+import AdminDashboard_UserEditor from '../views/Admin/Components/UserEditor'
 import AdminDashboard_StudentAllocation from '../views/Admin/Components/StudentAllocation'
 import AdminDashboard_Tasks from '../views/Admin/Components/Tasks'
 import AdminDashboard_Timeline from '../views/Admin/Components/Timeline'
@@ -221,7 +221,7 @@ var router = new Router({
                 {name: 'Admin_dashboard_summary', path: '', component: AdminDashboard_Summary },
                 {name: 'Admin_dashboard_ContentEditor', path: 'contentEditor', component: AdminDashboard_ContentEditor },
                 {name: 'Admin_dashboard_Entities', path: 'entites', component: AdminDashboard_Entities },
-                {name: 'Admin_dashboard_Routes', path: 'routes', component: AdminDashboard_RoutesControl },
+                {name: 'Admin_dashboard_UserEditor', path: 'userEditor', component: AdminDashboard_UserEditor },
                 {name: 'Admin_dashboard_StudentAllocation', path: 'studentAllocation', component: AdminDashboard_StudentAllocation },
                 {name: 'Admin_dashboard_Tasks', path: 'tasks', component: AdminDashboard_Tasks },
                 {name: 'Admin_dashboard_Timeline', path: 'timeline', component: AdminDashboard_Timeline },

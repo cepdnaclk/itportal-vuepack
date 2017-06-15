@@ -17,19 +17,19 @@
                     <router-link :to="{name: 'Admin_dashboard_StudentAllocation'}" exact class="nav-link with-icon flex-center"><i class="material-icons">supervisor_account</i>Student Allocation</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link :to="{name: 'Admin_dashboard_Routes'}" exact class="nav-link with-icon flex-center"><i class="material-icons">link</i>Route Control</router-link>
+                    <router-link :to="{name: 'Admin_dashboard_UserEvents'}" exact class="nav-link with-icon flex-center"><i class="material-icons">event</i>User Events</router-link>
                 </li>
                 <li class="nav-item">
                     <router-link :to="{name: 'Admin_dashboard_Timeline'}" exact class="nav-link with-icon flex-center"><i class="material-icons">history</i>Timeline</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link :to="{name: 'Admin_dashboard_UserEvents'}" exact class="nav-link with-icon flex-center"><i class="material-icons">event</i>UserEvents</router-link>
-                </li>
-                <li class="nav-item">
-                    <router-link :to="{name: 'Admin_dashboard_ContentEditor'}" exact class="nav-link with-icon flex-center"><i class="material-icons">edit</i>Content Editor</router-link>
+                    <router-link :to="{name: 'Admin_dashboard_UserEditor'}" exact class="nav-link with-icon flex-center"><i class="material-icons">edit</i>User Editor</router-link>
                 </li>
                 <li class="nav-item">
                     <router-link :to="{name: 'Admin_dashboard_Entities'}" exact class="nav-link with-icon flex-center"><i class="material-icons">edit</i>Entity Editor</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link :to="{name: 'Admin_dashboard_ContentEditor'}" exact class="nav-link with-icon flex-center"><i class="material-icons">edit</i>Content Editor</router-link>
                 </li>
                 <li class="nav-item">
                     <router-link :to="{name: 'Admin_dashboard_Settings'}" exact class="nav-link with-icon flex-center"><i class="material-icons">settings</i>Settings</router-link>
