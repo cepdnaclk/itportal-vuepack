@@ -69,11 +69,11 @@
                             <h4 class="h4-responsive my-1">Contact Information</h4>
                             <p class="p-responsive d-flex with-icon"><i class="material-icons">email</i>{{user.email}}</p>
                             <p class="p-responsive d-flex with-icon"><i class="material-icons">call</i><live-edit v-model="user.phone" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your phone number]"></live-edit></p>
-                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksLinkedin" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your LinkedIn account]"></live-edit></p>
-                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksStackoverflow" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your Stackoverflow account]"></live-edit></p>
-                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksGithub" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your GitHub Account]"></live-edit></p>
-                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksPortfolio" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your Personal Webpage]"></live-edit></p>
-                            <p class="p-responsive d-flex with-icon"><i class="material-icons">web</i><live-edit v-model="user.linksFacebook" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your Facebook account]"></live-edit></p>
+                            <p class="p-responsive d-flex with-icon"><i class="fa fa-linkedin-square"></i><live-edit v-model="user.linksLinkedin" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your LinkedIn account]"></live-edit></p>
+                            <p class="p-responsive d-flex with-icon"><i class="fa fa-stack-overflow"></i><live-edit v-model="user.linksStackoverflow" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your Stackoverflow account]"></live-edit></p>
+                            <p class="p-responsive d-flex with-icon"><i class="fa fa-github"></i><live-edit v-model="user.linksGithub" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your GitHub Account]"></live-edit></p>
+                            <p class="p-responsive d-flex with-icon"><i class="fa fa-link"></i><live-edit v-model="user.linksPortfolio" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your Personal Webpage]"></live-edit></p>
+                            <p class="p-responsive d-flex with-icon"><i class="fa fa-facebook-official" aria-hidden="true"></i><live-edit v-model="user.linksFacebook" :editable="getEditing('intro')" v-on:click="setEditing('intro')" placeholder="[Your Facebook account]"></live-edit></p>
                         </div>
                     </div>
                 </div>

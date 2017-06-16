@@ -49,11 +49,11 @@
                         <p class="p-responsive d-flex with-icon"><i class="material-icons">email</i>{{user.email}}</p>
                         <p class="p-responsive d-flex with-icon"><i class="material-icons">call</i>{{user.phone}}</p>
                         <div class="flex">
-                            <a v-if="user.linksLinkedin" title="Linkedin" :href="user.linkedin"><i class="material-icons">web</i></a>
-                            <a v-if="user.linksStackoverflow" title="Stackoverflow" :href="user.stackoverflow"><i class="material-icons">web</i></a>
-                            <a v-if="user.linksGithub" title="Github" :href="user.github"><i class="material-icons">web</i></a>
-                            <a v-if="user.linksPortfolio" title="Facebook" :href="user.facebook"><i class="material-icons">web</i></a>
-                            <a v-if="user.linksFacebook" title="Portfolio" :href="user.portfolio"><i class="material-icons">web</i></a>
+                            <a class="btn btn-primary btn-rounded"  v-if="user.linksLinkedin" title="Linkedin" :href="user.linkedin"><i class="fa fa-linkedin"></i></a>
+                            <a class="btn btn-primary btn-rounded"  v-if="user.linksStackoverflow" title="Stackoverflow" :href="user.stackoverflow"><i class="fa fa-stack-overflow"></i></a>
+                            <a class="btn btn-primary btn-rounded"  v-if="user.linksGithub" title="Github" :href="user.github"><i class="fa fa-github"></i></a>
+                            <a class="btn btn-primary btn-rounded"  v-if="user.linksPortfolio" title="Facebook" :href="user.facebook"><i class="fa fa-facebook"></i></a>
+                            <a class="btn btn-primary btn-rounded"  v-if="user.linksFacebook" title="Portfolio" :href="user.portfolio"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
                 </div>

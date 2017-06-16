@@ -1,7 +1,8 @@
 <template>
-	<div class="m-3">
-		<h1>Join Company</h1>
-		<p>Join an existing company!</p>
+    <div class="p-3 mt-1 blue-grey lighten-5">
+        <h1><i class="material-icons responsive">business</i><br>
+        Join Existing Company</h1>
+		<p>Select a company from below to represent within the ITPortal</p>
 		<div class="all-companies">
 			<div class="company-label"
 				v-for="(company, index) in allCompanies" 
