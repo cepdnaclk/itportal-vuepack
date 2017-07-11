@@ -37,7 +37,6 @@
 							<input type="checkbox" @change="rolesChanged($event, 'STAFF')" :checked="userRoles['STAFF']"> Staff
 						</label>
 		            </div>
-		            {{userRoles}}
 		            <!--Footer-->
 		            <div class="modal-footer text-center justify-content-center">
 		                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
