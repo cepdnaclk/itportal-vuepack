@@ -88,10 +88,16 @@
 				<tr v-for="user in allUsers">
 					<td class="img-cell"><img :src="user.photo ? (restBaseUrl + 'photo/user/small-' + user.photo) : '/img/user.png'" class="rounded-circle" style="width: 40px; height: 40px;"></td>
 					<td>{{user.name}}</td>
-					<td><span v-for="role in user.role" class="badge badge-primary">{{role}}</span></td>
+					<td>
+						<span v-for="role in user.role" class="badge badge-primary mr-1">{{role}}</span>
+						<edit-roles 
+							:_user="user"
+							@userrolechanged="updateUserRoles"
+							></edit-roles>
+					</td>
 					<td>{{user.email}}</td>
 					<td>
-						<div class="btn btn-danger btn-xsm" @click="deleteItem('user', user._id)">Delete</div>
+						<button class="btn btn-danger btn-xsm" @click="deleteItem('user', user._id)">Delete</button>
 					</td>
 				</tr>
 			</table>
@@ -126,8 +132,12 @@
 	
 import Vue from 'vue';
 import store from 'store';
+import EditRoles from './Dialogs/EditRoles';
 
 export default {
+	components: {
+		EditRoles
+	},
 	data: () => {
 		return {
 			
@@ -168,6 +178,24 @@ export default {
 				console.error(err);
 			});
 
+		},
+		updateUserRoles: function(userRoleChanges){
+			
+			console.log('[updateUserRoles]', userRoleChanges);
+
+			let vm = this;
+			let _user_index = null;
+			let _user = _.find(vm.allUsers, function(o, key) { 
+				_user_index = key;
+				return o._id == userRoleChanges.id; 
+			});
+
+			console.log(_user)
+
+			if(!_.isNull(_user_index)){
+				console.log(_user_index)
+				Vue.set(vm.allUsers[_user_index], 'role', userRoleChanges.roles);
+			}
 		}
 	},
 	computed: {
