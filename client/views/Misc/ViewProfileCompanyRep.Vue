@@ -49,11 +49,11 @@
                         <p class="p-responsive d-flex with-icon"><i class="material-icons">email</i>{{user.email}}</p>
                         <p class="p-responsive d-flex with-icon"><i class="material-icons">call</i>{{user.phone}}</p>
                         <div class="flex">
-                            <a class="btn btn-primary btn-rounded"  v-if="user.linksLinkedin" title="Linkedin" :href="user.linkedin"><i class="fa fa-linkedin"></i></a>
-                            <a class="btn btn-primary btn-rounded"  v-if="user.linksStackoverflow" title="Stackoverflow" :href="user.stackoverflow"><i class="fa fa-stack-overflow"></i></a>
-                            <a class="btn btn-primary btn-rounded"  v-if="user.linksGithub" title="Github" :href="user.github"><i class="fa fa-github"></i></a>
-                            <a class="btn btn-primary btn-rounded"  v-if="user.linksPortfolio" title="Facebook" :href="user.facebook"><i class="fa fa-facebook"></i></a>
-                            <a class="btn btn-primary btn-rounded"  v-if="user.linksFacebook" title="Portfolio" :href="user.portfolio"><i class="fa fa-link"></i></a>
+                            <a class="btn btn-primary btn-rounded" target="_blank" v-if="user.linksLinkedin" title="Linkedin" :href="user.linksLinkedin"><i class="fa fa-linkedin"></i></a>
+                            <a class="btn btn-primary btn-rounded" target="_blank" v-if="user.linksStackoverflow" title="Stackoverflow" :href="user.linksStackoverflow"><i class="fa fa-stack-overflow"></i></a>
+                            <a class="btn btn-primary btn-rounded" target="_blank" v-if="user.linksGithub" title="Github" :href="user.linksGithub"><i class="fa fa-github"></i></a>
+                            <a class="btn btn-primary btn-rounded" target="_blank" v-if="user.linksPortfolio" title="Facebook" :href="user.linksPortfolio"><i class="fa fa-facebook"></i></a>
+                            <a class="btn btn-primary btn-rounded" target="_blank" v-if="user.linksFacebook" title="Portfolio" :href="user.linksFacebook"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
                 </div>
