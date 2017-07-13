@@ -6,6 +6,10 @@
 
             <label>Company Name<input type="text" class="" v-model="company.name" placeholder="Your company name"></label>
             <label class="mt-1">Company Description<textarea type="text" class="md-textarea" v-model="company.description" placeholder="Description of your company"></textarea></label>
+            <label><i class="material-icons">call</i><input type="text" class="" v-model="company.phone" placeholder="[Official Line]"></label>
+            <label class="mt-1"><i class="fa fa-address-card-o" aria-hidden="true"></i><textarea type="text" class="md-textarea" v-model="company.address" placeholder="[Company Address]"></textarea></label>
+            <label><i class="fa fa-linkedin-square"></i><input type="text" class="" v-model="company.link1" placeholder="[Your LinkedIn account]"></label>
+            <label><i class="fa fa-facebook-official" aria-hidden="true"></i><input type="text" class="" v-model="company.link2" placeholder="[Your Facebook account]"></label>
 			<input class="btn btn-primary text-uppercase" type="submit" value="Create Company">
 		</form>
 	</div>
@@ -35,6 +39,10 @@ export default{
                 name: '',
                 photo: '',
                 description: '',
+                phone: '',
+                address: '',
+                link1: '',
+                link2: '',
                 organizationRepEmails: [Vue.auth.getUser().email],
             },
 
@@ -62,6 +70,10 @@ export default{
                 name: '',
                 photo: '',
                 description: '',
+                phone: '',
+                address: '',
+                link1: '',
+                link2: '',
                 organizationRepEmails: [Vue.auth.getUser().email],
             };
         }
