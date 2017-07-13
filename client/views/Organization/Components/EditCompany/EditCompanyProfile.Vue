@@ -87,7 +87,10 @@
             },
             setCompanyData: function(){
                 let vm = this;
-                Vue.rest.updateData(this.i_company, 'organization', '/' + this.i_company._id, function(res){
+                let _company = _.cloneDeep(this.i_company);
+                delete _company.photo;
+                
+                Vue.rest.updateData(_company, 'organization', '/' + this.i_company._id, function(res){
                 	console.log('[editcompanyprofile][profileupdated]', res)
                 });
                 
