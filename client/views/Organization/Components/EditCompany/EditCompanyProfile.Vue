@@ -23,6 +23,26 @@
 	    <h5 class="h5-responsive">
 	    <live-edit v-model="i_company.description" :editable="isEditing" placeholder="A short description about your company"></live-edit>
 	    </h5>
+	    <p class="p-responsive d-flex with-icon">
+	    	<i class="material-icons">call</i>
+	    	<live-edit v-model="i_company.phone" :editable="isEditing" placeholder="[Phone number]"></live-edit>
+	    </p>
+	    <p class="p-responsive d-flex with-icon">
+	    	<i class="fa fa-address-card-o" aria-hidden="true"></i>
+	    	<live-edit v-model="i_company.address" :editable="isEditing" placeholder="[Company Address]"></live-edit>
+	    </p>
+	    <p class="p-responsive d-flex with-icon">
+	    	<i class="fa fa-linkedin-square"></i>
+		    <a class="h7-responsive">
+		    <live-edit v-model="i_company.link1" :editable="isEditing" placeholder="Link 1"></live-edit>
+		    </a>
+	    </p>
+	    <p class="p-responsive d-flex with-icon"><i class="fa fa-facebook-official" aria-hidden="true"></i>
+		    <a class="h7-responsive">
+		    <live-edit v-model="i_company.link2" :editable="isEditing" placeholder="Link 2"></live-edit>
+		    </a>
+		</p>
+	    <br>
 	    <div>
 	    	<h6>Organization Representatives</h6>
 	    	<div v-for="rep in i_company.organizationRepEmails">
@@ -44,7 +64,7 @@
 	export default{
 		props: {
 	        company: {
-	            required: true,
+         required: true,
 	        },
 	    },
 		data: function(){

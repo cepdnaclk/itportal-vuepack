@@ -14,6 +14,10 @@
                 </div>
                 <div class="col-lg-4 offset-lg-1 d-flex flex-column justify-content-center">
                     <h4 class="h4-responsive my-1">Contact Information</h4>
+                    <label><i class="material-icons">call</i> {{profile.phone}}</label>
+                    <label class="mt-1"><i class="fa fa-address-card-o" aria-hidden="true"></i> {{profile.address}}</label>
+                    <span><label><i class="fa fa-linkedin-square"></i> {{profile.link1}}</label></span>
+                    <span><label><i class="fa fa-facebook-official" aria-hidden="true"></i> {{profile.link2}}</label></span>
                 </div>
             </div>
         </div>
