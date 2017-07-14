@@ -72,7 +72,7 @@ export default {
 			handler: function(_user){
 				// console.log(_user);
 
-				if(_user.name == ''){
+				if(_user.name == '' || _user.role == 'COMPANY'){
 					return;
 				}
 				if(_user.name.match(/^e[0-9]{5}$/g)){
