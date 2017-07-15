@@ -32,16 +32,21 @@
 	    	<live-edit v-model="i_company.address" :editable="isEditing" placeholder="[Company Address]"></live-edit>
 	    </p>
 	    <p class="p-responsive d-flex with-icon">
-	    	<i class="fa fa-linkedin-square"></i>
-		    <a class="h7-responsive">
-		    <live-edit v-model="i_company.link1" :editable="isEditing" placeholder="Link 1"></live-edit>
-		    </a>
+	    	<i class="fa fa-globe" aria-hidden="true"></i>
+		    <live-edit v-model="i_company.linksWebpage" :editable="isEditing" placeholder="[Company Official Site]"></live-edit>
 	    </p>
-	    <p class="p-responsive d-flex with-icon"><i class="fa fa-facebook-official" aria-hidden="true"></i>
-		    <a class="h7-responsive">
-		    <live-edit v-model="i_company.link2" :editable="isEditing" placeholder="Link 2"></live-edit>
-		    </a>
+	    <p class="p-responsive d-flex with-icon">
+	    	<i class="fa fa-linkedin-square"></i>
+		    <live-edit v-model="i_company.linksLinkedin" :editable="isEditing" placeholder="[Linkedin Account]"></live-edit>
+	    </p>
+	    <p class="p-responsive d-flex with-icon">
+	    	<i class="fa fa-facebook-official" aria-hidden="true"></i>
+		    <live-edit v-model="i_company.linksFacebook" :editable="isEditing" placeholder="[Facebook Account]"></live-edit>
 		</p>
+		<p class="p-responsive d-flex with-icon">
+	    	<i class="fa fa-github" aria-hidden="true"></i>
+		    <live-edit v-model="i_company.linksGithub" :editable="isEditing" placeholder="[Github Account]"></live-edit>
+	    </p>
 	    <br>
 	    <div>
 	    	<h6>Organization Representatives</h6>
