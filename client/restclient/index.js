@@ -6,6 +6,8 @@ import config from 'config/rest'
 var rest = {
     restBaseUrl: config.url,
 
+    loaderCount: 0,
+
     getRestUrl: function(model, options) {
         return this.restBaseUrl + 'api/api/v1/' + model + (options ? options : '');
     },
@@ -16,6 +18,9 @@ var rest = {
     getData(model, options, cb) {
         let _url = this.getRestUrl(model, options);
 
+        if(this.loaderCount == 0) store.dispatch('showLoader', 'Retrieving Data');
+        this.loaderCount++;
+
         Vue.axios.get(
             _url
         ).then(res => {
@@ -23,10 +28,20 @@ var rest = {
             // store.dispatch('showMessage', 'Received ' + _data.length + ' ' + model + '(s)');
             cb(_data);
 
+            this.loaderCount--;
+            if(this.loaderCount == 0) store.dispatch('hideLoader');
+
+
         }).catch(function(err) {
             console.log(err);
             var _err = err.response.data;
+
+            this.loaderCount--;
+            if(this.loaderCount == 0) store.dispatch('hideLoader');
+
             store.dispatch('showMessage', _err.flashMessage || _err);
+
+
             if (!(_err.signedIn)) {
                 setTimeout(function() {
                     Vue.auth.logout();
@@ -44,10 +59,17 @@ var rest = {
     insertData(data, model, options, cb) {
         let _url = this.getRestUrl(model, options);
 
+        if(this.loaderCount == 0) store.dispatch('showLoader', 'Adding new data');
+        this.loaderCount++;
+
         Vue.axios.post(
             _url, data
         ).then(res => {
             let _data = (res.data);
+
+            this.loaderCount--;
+            if(this.loaderCount == 0) store.dispatch('hideLoader');
+
             store.dispatch('showMessage', 'Data updated');
             if (cb) cb(_data);
             return;
@@ -56,6 +78,10 @@ var rest = {
             console.log(err);
             if (err.response) {
                 var _err = err.response.data;
+
+                this.loaderCount--;
+                if(this.loaderCount == 0) store.dispatch('hideLoader');
+
                 store.dispatch('showMessage', _err.flashMessage || _err);
                 if (!(_err.signedIn)) {
                     setTimeout(function() {
@@ -82,12 +108,20 @@ var rest = {
             _url, data
         ).then(res => {
             let _data = (res);
+
+            this.loaderCount--;
+            if(this.loaderCount == 0) store.dispatch('hideLoader');
+
             store.dispatch('showMessage', 'Data updated');
             if (cb) cb(_data);
             return;
 
         }).catch(function(err) {
             console.log(err);
+
+            this.loaderCount--;
+            if(this.loaderCount == 0) store.dispatch('hideLoader');
+
             if (err.response) {
                 var _err = err.response.data;
                 store.dispatch('showMessage', _err.flashMessage || _err);
@@ -116,6 +150,10 @@ var rest = {
             store.dispatch('showMessage', 'Photo not selected for upload');
         }
 
+        if(this.loaderCount == 0) {store.dispatch('showLoader', 'Uploading Image');}
+        this.loaderCount++;
+
+
         var _data = new FormData();
         _data.append('email', data.email);
         _data.append('photo', data.photo);
@@ -130,6 +168,10 @@ var rest = {
             _url, _data
         ).then(res => {
             let _data = (res.data);
+
+            this.loaderCount--;
+            if(this.loaderCount == 0) store.dispatch('hideLoader');
+
             store.dispatch('showMessage', _data.flashMessage || 'Photo updated');
             if (cb) cb(_data);
             return;
@@ -138,6 +180,10 @@ var rest = {
             console.log(err);
             if (err.response) {
                 var _err = err.response.data;
+
+                this.loaderCount--;
+                if(this.loaderCount == 0) store.dispatch('hideLoader');
+
                 store.dispatch('showMessage', _err.flashMessage || _err);
                 if (_err.signedIn === false) {
                     setTimeout(function() {
