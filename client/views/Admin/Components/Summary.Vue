@@ -29,7 +29,7 @@
 						<th>Email</th>
 					</tr>
 					<tr v-for="company in companies">
-						<td ><img class="rounded-circle" :src="company.photo ? (restUrl + 'photo/user/large-' + company.photo) : '/img/user.png'" style="height: 3em; border-radius: 3em; width: 3em" alt=""/></td>
+						<td ><img class="rounded-circle" :src="company.photo ? (restUrl + 'photo/organization/large-' + company.photo) : '/img/user.png'" style="height: 3em; border-radius: 3em; width: 3em" alt=""/></td>
 						<td style="padding-top:15px">{{company.name}}</td>
 						<td style="padding-top:15px">{{company.organizationRepEmails}}</td>
 					</tr>
