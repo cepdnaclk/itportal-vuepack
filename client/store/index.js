@@ -8,6 +8,7 @@ const state = {
   loggedIn: false,
   snackbarMessage: 'Welcome to Industrial Training Portal!',
   snackbarVisible: false,
+  snackbarLoaderVisible: false,
   user: JSON.parse(localStorage.getItem('user')),
 }
 
@@ -34,6 +35,12 @@ const mutations = {
   HIDE_MESSAGE (state) {
     state.snackbarVisible = false;
   },
+  SHOW_LOADER (state) {
+    state.snackbarLoaderVisible = true;
+  },
+  HIDE_LOADER (state) {
+    state.snackbarLoaderVisible = false;
+  },
 }
 
 var __timeout = null;
@@ -50,6 +57,15 @@ const actions = {
     __timeout = setTimeout(() => {
       commit('HIDE_MESSAGE')
     }, 5000)
+  },
+  showLoader ({ commit }, msg) {
+    console.log('[showLoader]', msg)
+    commit('CHANGE_MESSAGE', msg)
+    commit('SHOW_LOADER');
+  },
+  hideLoader ({ commit }) {
+    commit('HIDE_LOADER');
+    commit('HIDE_MESSAGE')
   }
 }
 
