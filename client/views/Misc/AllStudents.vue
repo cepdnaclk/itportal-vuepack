@@ -31,6 +31,7 @@
 </style>
 <script>
 	import Vue from 'vue';
+	import store from 'store';
 	import config from 'config/rest';
 
 	export default {
@@ -46,10 +47,12 @@
 
 				let vm = this;
 				var _url = this.restUrl + 'api/all/students';
+				store.dispatch('showLoader', 'Retrieving student data..');
 
 				Vue.axios.get(_url).then( (res) => {
 					// console.log(res);
 					vm.students = res.data;
+					store.dispatch('hideLoader');
 
 				});
 

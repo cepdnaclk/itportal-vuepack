@@ -39,6 +39,7 @@
 </style>
 <script>
 	import Vue from 'vue';
+	import store from 'store';
 	import config from 'config/rest';
 
 	export default {
@@ -53,10 +54,11 @@
 
 				let vm = this;
 				var _url = this.restUrl + 'api/all/organizations';
-
+				store.dispatch('showLoader', 'Retrieving organization data..');
 				Vue.axios.get(_url).then( (res) => {
 					// console.log(res);
 					vm.organizations = res.data;
+					store.dispatch('hideLoader');
 
 				});
 

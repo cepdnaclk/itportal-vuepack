@@ -19,11 +19,13 @@ var auth = {
 
     signup(_user) {
         let _url = this.getAuthUrl(this.authBaseUrl, 'auth/signup');
-
+        store.dispatch('showLoader', 'Signing you up...');
         Vue.axios.post(
             _url, _user
         ).then(res => {
             let _data = (res.data);
+
+            store.dispatch('hideLoader');
             if (_data.signedUp == true) {
                 store.dispatch('showMessage', _data.message)
                 localStorage.setItem('token', res.data.token);
@@ -37,6 +39,8 @@ var auth = {
 
         }).catch(function(err) {
             console.log(err);
+
+            store.dispatch('hideLoader');
             store.dispatch('showMessage', err.response.data.flashMessage || err.response.data)
         });
     },
@@ -44,10 +48,12 @@ var auth = {
     signupLDAP(_user) {
         let _url = this.getAuthUrl(this.authBaseUrl, 'auth/signupLDAP');
 
+        store.dispatch('showLoader', 'Signing you up, through LDAP');
         Vue.axios.post(
             _url, _user
         ).then(res => {
             let _data = (res.data);
+            store.dispatch('hideLoader');
             if (_data.signedUp == true) {
                 store.dispatch('showMessage', _data.message)
                 localStorage.setItem('token', res.data.token);
@@ -61,6 +67,7 @@ var auth = {
             }
 
         }).catch(function(err) {
+            store.dispatch('hideLoader');
             console.log(err);
             store.dispatch('showMessage', err.response.data.flashMessage || err.response.data)
         });
@@ -137,12 +144,15 @@ var auth = {
     login(_user) {
         let _url = this.getAuthUrl(this.authBaseUrl, 'auth/login');
 
+        store.dispatch('showLoader', 'Signing you in...');
+
         Vue.axios.post(
             _url, {
                 email: _user.email,
                 password: _user.password
             }
         ).then(res => {
+            store.dispatch('hideLoader');
             console.log(res.data);
             let __user = res.data.user;
             let _token = res.data.token;
@@ -161,6 +171,7 @@ var auth = {
                 name: 'Auth_select_dashboard'
             })
         }).catch((msg) => {
+            store.dispatch('hideLoader');
 
             store.dispatch('showMessage', 'Couldn\'t authorize you. Please check.')
         });
