@@ -21,8 +21,16 @@
 	    <live-edit v-model="i_company.name" :editable="isEditing" placeholder="Your Company Name"></live-edit>
 	    </h2>
 	    <h5 class="h5-responsive">
-	    <live-edit v-model="i_company.description" :editable="isEditing" placeholder="A short description about your company"></live-edit>
+	    	<live-edit v-model="i_company.description" :editable="isEditing" placeholder="A short description about your company"></live-edit>
 	    </h5>
+	    <p class="p-responsive d-flex with-icon">
+	    	Salary for interns : Rs.
+	    	<live-edit v-model="i_company.salary" :editable="isEditing" placeholder="0.00"></live-edit>
+	    </p>
+	    <p class="p-responsive d-flex with-icon">
+	    	<i class="material-icons">email</i>
+	    	<live-edit v-model="i_company.email" :editable="isEditing" placeholder="[Official Email Address]"></live-edit>
+	    </p>
 	    <p class="p-responsive d-flex with-icon">
 	    	<i class="material-icons">call</i>
 	    	<live-edit v-model="i_company.phone" :editable="isEditing" placeholder="[Phone number]"></live-edit>
