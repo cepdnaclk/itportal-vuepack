@@ -21,8 +21,41 @@
 	    <live-edit v-model="i_company.name" :editable="isEditing" placeholder="Your Company Name"></live-edit>
 	    </h2>
 	    <h5 class="h5-responsive">
-	    <live-edit v-model="i_company.description" :editable="isEditing" placeholder="A short description about your company"></live-edit>
+	    	<live-edit v-model="i_company.description" :editable="isEditing" placeholder="A short description about your company"></live-edit>
 	    </h5>
+	    <p class="p-responsive d-flex with-icon">
+	    	Salary for interns : Rs.
+	    	<live-edit v-model="i_company.salary" :editable="isEditing" placeholder="0.00"></live-edit>
+	    </p>
+	    <p class="p-responsive d-flex with-icon">
+	    	<i class="material-icons">email</i>
+	    	<live-edit v-model="i_company.email" :editable="isEditing" placeholder="[Official Email Address]"></live-edit>
+	    </p>
+	    <p class="p-responsive d-flex with-icon">
+	    	<i class="material-icons">call</i>
+	    	<live-edit v-model="i_company.phone" :editable="isEditing" placeholder="[Phone number]"></live-edit>
+	    </p>
+	    <p class="p-responsive d-flex with-icon">
+	    	<i class="fa fa-address-card-o" aria-hidden="true"></i>
+	    	<live-edit v-model="i_company.address" :editable="isEditing" placeholder="[Company Address]"></live-edit>
+	    </p>
+	    <p class="p-responsive d-flex with-icon">
+	    	<i class="fa fa-globe" aria-hidden="true"></i>
+		    <live-edit v-model="i_company.linksWebpage" :editable="isEditing" placeholder="[Company Official Site]"></live-edit>
+	    </p>
+	    <p class="p-responsive d-flex with-icon">
+	    	<i class="fa fa-linkedin-square"></i>
+		    <live-edit v-model="i_company.linksLinkedin" :editable="isEditing" placeholder="[Linkedin Account]"></live-edit>
+	    </p>
+	    <p class="p-responsive d-flex with-icon">
+	    	<i class="fa fa-facebook-official" aria-hidden="true"></i>
+		    <live-edit v-model="i_company.linksFacebook" :editable="isEditing" placeholder="[Facebook Account]"></live-edit>
+		</p>
+		<p class="p-responsive d-flex with-icon">
+	    	<i class="fa fa-github" aria-hidden="true"></i>
+		    <live-edit v-model="i_company.linksGithub" :editable="isEditing" placeholder="[Github Account]"></live-edit>
+	    </p>
+	    <br>
 	    <div>
 	    	<h6>Organization Representatives</h6>
 	    	<div v-for="rep in i_company.organizationRepEmails">
@@ -44,7 +77,7 @@
 	export default{
 		props: {
 	        company: {
-	            required: true,
+         required: true,
 	        },
 	    },
 		data: function(){
