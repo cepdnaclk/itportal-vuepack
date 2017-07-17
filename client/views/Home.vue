@@ -1,5 +1,9 @@
 <template src="views/templates/home.html"></template>
-
+<style scoped>
+	.hover-link{
+		cursor: pointer;
+	}
+</style>
 <script>
 import Vue from 'vue';
 import AppHeaderLinks from 'components/Navigation/AppHeaderLinks'

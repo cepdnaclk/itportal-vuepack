@@ -2,7 +2,7 @@
 	<div class="container py-4">
 		<h1>All Students</h1>
 		<div class="row">
-			<div class="col-sm-4 rounded" v-for="student in students">
+			<div class="col-sm-4 rounded" v-for="student in students_sorted">
 
 
 			<router-link :to="'/profile/student/' + student._id">
@@ -57,6 +57,14 @@
 				});
 
 			}
+		},
+		computed: {
+			students_sorted: function(){
+				let vm = this;
+				return _.sortBy(vm.students, function(o){
+					return - (new Date(o.updatedAt));
+				})
+			},
 		},
 		created: function(){
 			this.getEntity();

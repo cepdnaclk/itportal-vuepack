@@ -16,7 +16,7 @@
 			<h2>{{selectedCompany.name}}</h2>
 			<!-- <img src="" alt=""> -->
 			<p>{{selectedCompany.description}}</p>
-			<button class="" 
+			<button class="btn btn-primary" 
 				@click="requestToJoinCompany(selectedCompany._id)">
 				Request admin to join this Company
 			</button>

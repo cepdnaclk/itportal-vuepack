@@ -13,14 +13,12 @@
 				<tr>
 					<th></th>
 					<th>Name</th>
-					<th>Description</th>
 					<th>Company Representatives</th>
 					<th>actions</th>
 				</tr>
 				<tr v-for="company in companies">
-					<td class="img-cell"><img :src="company.photo ? (restBaseUrl + 'photo/user/small-' + company.photo) : '/img/user.png'" class="rounded-circle" style="width: 40px !important; height: 40px !important;"></td>
+					<td class="img-cell"><img :src="company.photo ? (restBaseUrl + 'photo/organization/small-' + company.photo) : '/img/user.png'" class="rounded-circle" style="width: 40px !important; height: 40px !important;"></td>
 					<td style="">{{company.name}} <span class="badge badge-primary" v-if="company.newOrganization">NEW</span> </td>
-					<td style="vertical-align:middle; max-width: 40vw">{{company.description}}</td>
 					<td style="vertical-align:middle;">
 						<div class="btn btn-outline-warning" v-if="company.pending_OrganizationRep" v-for="(rep, index) in company.pending_OrganizationRep">
 							<span class="badge badge-primary">NEW REQUEST</span>

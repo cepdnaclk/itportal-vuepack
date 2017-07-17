@@ -20,7 +20,7 @@
 		</ul>
 		<ul class="navbar-nav hidden-xs-up">
 			<li class="nav-item" @click="printStatus">
-				<a class="nav-link" >Test</a>
+				<a class="nav-link" >Offline</a>
 			</li>
 		</ul>
 		<ul class="navbar-nav" v-if="!state.loggedIn">

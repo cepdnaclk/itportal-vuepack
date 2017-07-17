@@ -2,7 +2,7 @@
 	<div class="container py-4">
 		<h1>All Organizations</h1>
 		<div class="row">
-			<div class="col-sm-4 rounded" v-for="organization in organizations">
+			<div class="col-sm-4 rounded" v-for="organization in organizations_sorted">
 
 
 				<router-link :to="'/profile/organization/' + organization._id">
@@ -62,6 +62,14 @@
 
 				});
 
+			},
+		},
+		computed: {
+			organizations_sorted: function(){
+				let vm = this;
+				return _.sortBy(vm.organizations, function(o){
+					return - (new Date(o.updatedAt));
+				})
 			},
 		},
 		created: function(){

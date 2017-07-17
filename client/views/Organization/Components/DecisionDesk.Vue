@@ -7,11 +7,11 @@
                 <h2 class="h2-responsive">Decision Desk</h2>
                 <div class="container blue-grey lighten-5 py-2">
                     <div class="row decision-header mb-1">
-                        <div class="col-md-7">Students <span class="text-uppercase small">(12 Students)</span></div>
-                        <div class="col-md-1">Viewed <span class="text-uppercase small">(12)</span></div>
-                        <div class="col-md-1">Interview Scheduled <span class="text-uppercase small">(12)</span></div>
-                        <div class="col-md-1">Accepted <span class="text-uppercase small">(12)</span></div>
-                        <div class="col-md-2">Actions <span class="text-uppercase small">(12)</span></div>
+                        <div class="col-md-7">Students <span class="text-uppercase small">(0 Students)</span></div>
+                        <div class="col-md-1">Viewed <span class="text-uppercase small">(0)</span></div>
+                        <div class="col-md-1">Interview Scheduled <span class="text-uppercase small">(0)</span></div>
+                        <div class="col-md-1">Accepted <span class="text-uppercase small">(0)</span></div>
+                        <div class="col-md-2">Actions <span class="text-uppercase small">(0)</span></div>
                     </div>
                     <div class="container decision-student white z-depth-1 p-2 my-1 mb-1"  v-for="preference in companyPreferences">
                         <div class="row">
