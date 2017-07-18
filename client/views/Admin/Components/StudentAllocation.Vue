@@ -14,66 +14,94 @@
 				<div>
 
 					<h4>By Company</h4>
-					<div v-for="(preference, index) in preferenceByCompany">
+					<table class="table table-sm">
+						<template v-for="(preference, index) in preferenceByCompany">
+		
+							<tr>
+								<th colspan="5" class="py-1 pt-3">
+									<img class="rounded-circle d-inline mr-1" :src="preference[0].organization.photo ? (restUrl + 'photo/organization/large-' + preference[0].organization.photo) : '/img/company.png'" style="height: 3em; border-radius: 3em; width: 3em" alt=""/>
+									{{preference[0].organization.name}}
+									<router-link class="btn btn-primary btn-xsm ml-4" :to="'/profile/organization/' + preference[0].organization._id">View Company Profile</router-link>
 
-						<h5>{{preference[0].organization.name}}</h5>
-						
-						<table class="table table-sm">
+								</th>
+							</tr>
 							<tr>
 								<th>ID</th>
 								<th>Name</th>
-								<th>Preference</th>
-								<th>Actions</th>
+								<th class="text-center">GPA</th>
+								<th class="text-center">Preference</th>
+								<th class="text-center">Actions</th>
 							</tr>
 							<tr v-for="(pref, i) in preference">
 								<td class="small">{{i+1}}</td>
-								<td>{{pref.user.name}}</td>
-								<td>{{pref.preference + 1}}</td>
 								<td>
+									<img class="rounded-circle d-inline mr-1" :src="students[pref.user._id].StudentDetails.photo ? (restUrl + 'photo/user/large-' + students[pref.user._id].StudentDetails.photo) : '/img/user.png'" style="height: 3em; border-radius: 3em; width: 3em" alt=""/>
+									{{pref.user.name}}
+								</td>
+								<td class="text-center">{{students[pref.user._id].GPA}}</td>
+								<td class="text-center"><span class="badge" :class="{
+									'badge-primary': (pref.preference < 3),
+									'badge-info': (pref.preference >= 3),
+								}">{{pref.preference + 1}}</span></td>
+								<td class="text-center">
+									<router-link v-if="students[pref.user._id]" class="btn btn-primary btn-xsm" :to="'/profile/student/' + students[pref.user._id]._id">View Profile</router-link>
 									<a @click="toggleAdminPreference(pref._id)"
-										class="btn btn-sm"
+										class="btn btn-xsm d-inline-flex align-items-center"
 										:class="{
 											'btn-primary':pref.admin_approved,
 											'btn-warning':!pref.admin_approved
 										}">
-										<i class="material-icons">{{(pref.admin_approved)?'done':'add'}}</i>
+										<i class="material-icons responsive">{{(pref.admin_approved)?'done':'add'}}</i>
+										<span>{{(pref.admin_approved)?'Allocated':'Allocate student'}}</span>
 									</a>
 								</td>
 								</tr>
-						</table>
-					</div >
+						</template>
+					</table>
 
 					<h4>By Student</h4>
-					<div v-for="(preference, index) in preferenceByUser">
-
-						<h5>{{preference[0].user.name}}</h5>
-						
-						<table class="table table-sm">
+					<table class="table table-sm">
+						<template v-for="(preference, index) in preferenceByUser">
+							<tr>
+								<th colspan="4" class="py-1 pt-3">
+									<img class="rounded-circle d-inline mr-1" :src="students[preference[0].user._id].StudentDetails.photo ? (restUrl + 'photo/user/large-' + students[preference[0].user._id].StudentDetails.photo) : '/img/user.png'" style="height: 3em; border-radius: 3em; width: 3em" alt=""/>
+									{{preference[0].user.name}}
+									<router-link v-if="students[preference[0].user._id]" class="btn btn-primary btn-xsm" :to="'/profile/student/' + students[preference[0].user._id]._id">View Profile</router-link>
+								</th>
+							</tr>
 							<tr>
 								<th>ID</th>
 								<th>Name</th>
-								<th>Preference</th>
-								<th>Actions</th>
+								<th class="text-center">Preference</th>
+								<th class="text-center">Actions</th>
 							</tr>
 							<tr v-for="(pref, i) in preference">
 								<td class="small">{{i+1}}</td>
-								<td>{{pref.organization.name}}</td>
-								<td>{{pref.preference + 1}}</td>
 								<td>
+									<img class="rounded-circle d-inline mr-1" :src="pref.organization.photo ? (restUrl + 'photo/organization/large-' + pref.organization.photo) : '/img/company.png'" style="height: 3em; border-radius: 3em; width: 3em" alt=""/>
+									{{pref.organization.name}}
+								</td>
+								<td class="text-center"><span class="badge" :class="{
+									'badge-primary': (pref.preference < 3),
+									'badge-info': (pref.preference >= 3),
+								}">{{pref.preference + 1}}</span></td>
+								<td class="text-center">
 
+									<router-link class="btn btn-primary btn-xsm ml-4" :to="'/profile/organization/' + pref.organization._id">View Company Profile</router-link>
 									<a @click="toggleAdminPreference(pref._id)"
-										class="btn btn-sm"
+										class="btn btn-xsm d-inline-flex align-items-center"
 										:class="{
 											'btn-primary':pref.admin_approved,
 											'btn-warning':!pref.admin_approved
 										}">
 										<i class="material-icons">{{(pref.admin_approved)?'done':'add'}}</i>
+										<span>{{(pref.admin_approved)?'Allocated':'Allocate student'}}</span>
 									</a>
 
 								</td>
-								</tr>
-						</table>
-					</div>
+							</tr>
+						</template>
+					</table>
 
 				</div>
 			</div>
@@ -91,6 +119,9 @@ export default {
 		return {
 			companyPreferences: [],
 			preferencesChanged: false,
+			students: [],
+
+			restUrl: Vue.rest.restBaseUrl,
 		}
 	},
 	methods: {
@@ -98,12 +129,30 @@ export default {
 			let vm = this;
 
             let _baseURL = Vue.rest.restBaseUrl;
+
+            let _receiving_lock;
+            store.dispatch('showLoader', 'Retrieving student preferences...');
+
+            _receiving_lock = 2;
+
+			Vue.rest.getData('student','?populate=StudentDetails', function(data){
+				vm.students = _.mapKeys(data, function(student) {
+				  return student.StudentDetails._id;
+				});;
+				_receiving_lock--;
+				if(_receiving_lock == 0){ store.dispatch('hideLoader'); }
+			});
+
 			Vue.axios.get(_baseURL + 'api/admin/companyPreferences')
             .then(function(res){
 
                 let _company_preferences = res.data;
 
                 vm.companyPreferences = _company_preferences;
+
+				_receiving_lock--;
+				if(_receiving_lock == 0){ store.dispatch('hideLoader'); }
+
                 store.dispatch('showMessage', 'Retrieved existing student preferences')
                 
             })

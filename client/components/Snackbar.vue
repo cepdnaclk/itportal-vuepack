@@ -4,7 +4,7 @@
   <div v-show="state.snackbarVisible" class="message-wrapper" @click="hideSnackbar">
 
     <transition name="appear">
-        <span v-show="state.snackbarLoaderVisible" class="loader-wrapper"><i class="material-icons responsive spinner">donut_small</i>  </span>
+        <span v-show="state.snackbarLoaderVisible" class="loader-wrapper"><i class="material-icons responsive spinner">camera</i>  </span>
     </transition>
 
     <span class="message">{{state.snackbarMessage}}</span>
@@ -78,7 +78,7 @@ export default {
 }
 @keyframes loader-rotation {
   from {transform: rotate(0deg);}
-  to {transform: rotate(360deg);}
+  to {transform: rotate(-360deg);}
 }
 .spinner{
   animation: loader-rotation 0.5s linear 0s infinite !important;
