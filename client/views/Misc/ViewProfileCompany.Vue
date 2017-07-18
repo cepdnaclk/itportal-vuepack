@@ -14,12 +14,14 @@
                 </div>
                 <div class="col-lg-4 offset-lg-1 d-flex flex-column justify-content-center">
                     <h4 class="h4-responsive my-1">Contact Information</h4>
-                    <label v-if="profile.phone"><i class="material-icons">call</i> {{profile.phone}}</label>
-                    <label v-if="profile.address" class="mt-1"><i class="fa fa-address-card-o" aria-hidden="true"></i> {{profile.address}}</label>
-                    <span v-if="profile.linkswebpage"><label><i class="fa fa-globe"></i> {{profile.linkswebpage}}</label></span>
-                    <span v-if="profile.linksLinkedin"><label><i class="fa fa-linkedin-square"></i> {{profile.linksLinkedin}}</label></span>
-                    <span v-if="profile.linksFacebook"><label><i class="fa fa-facebook-official" aria-hidden="true"></i> {{profile.linksFacebook}}</label></span>
-                    <span v-if="profile.linksGithub"><label><i class="fa fa-github"></i> {{profile.linksGithub}}</label></span>
+                    <span v-if="profile.phone" class="d-flex align-content-center mt-1"><i class="mr-1 material-icons">call</i> {{profile.phone}}</span>
+                    <span v-if="profile.address" class="mt-1 d-flex align-content-center"><i class="mr-1 fa fa-address-card-o" aria-hidden="true"></i> {{profile.address}}</span>
+                    <div class="flex">
+                        <a class="btn btn-primary btn-rounded" target="_blank" v-if="profile.linksLinkedin" title="Linkedin" :href="preProcessURL(profile.linksLinkedin)"><i class="fa fa-linkedin"></i></a>
+                        <a class="btn btn-primary btn-rounded" target="_blank" v-if="profile.linksGithub" title="Github" :href="preProcessURL(profile.linksGithub)"><i class="fa fa-github"></i></a>
+                        <a class="btn btn-primary btn-rounded" target="_blank" v-if="profile.linkswebpage" title="Official Page" :href="preProcessURL(profile.linkswebpage)"><i class="fa fa-link"></i></a>
+                        <a class="btn btn-primary btn-rounded" target="_blank" v-if="profile.linksFacebook" title="Facebook" :href="preProcessURL(profile.linksFacebook)"><i class="fa fa-facebook"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
