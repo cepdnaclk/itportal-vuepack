@@ -31,7 +31,7 @@
                     <td class="text-center">
 	                    <a class="btn btn-primary btn-rounded" target="_blank" v-if="organization.linksLinkedin" title="Linkedin" :href="preProcessURL(organization.linksLinkedin)"><i class="fa fa-linkedin"></i></a>
 	                    <a class="btn btn-primary btn-rounded" target="_blank" v-if="organization.linksGithub" title="Github" :href="preProcessURL(organization.linksGithub)"><i class="fa fa-github"></i></a>
-	                    <a class="btn btn-primary btn-rounded" target="_blank" v-if="organization.linkswebpage" title="Official Page" :href="preProcessURL(organization.linkswebpage)"><i class="fa fa-link"></i></a>
+	                    <a class="btn btn-primary btn-rounded" target="_blank" v-if="organization.linksWebpage" title="Official Page" :href="preProcessURL(organization.linksWebpage)"><i class="fa fa-link"></i></a>
 	                    <a class="btn btn-primary btn-rounded" target="_blank" v-if="organization.linksFacebook" title="Facebook" :href="preProcessURL(organization.linksFacebook)"><i class="fa fa-facebook"></i></a>
 
                     </td>

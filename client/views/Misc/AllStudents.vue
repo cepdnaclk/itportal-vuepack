@@ -30,7 +30,8 @@
                     <td class="text-center">
 	                    <a class="btn btn-primary btn-rounded btn-xsm" target="_blank" v-if="student.StudentDetails.linksLinkedin" title="Linkedin" :href="preProcessURL(student.StudentDetails.linksLinkedin)"><i class="fa fa-linkedin fa-small"></i></a>
 	                    <a class="btn btn-primary btn-rounded btn-xsm" target="_blank" v-if="student.StudentDetails.linksGithub" title="Github" :href="preProcessURL(student.StudentDetails.linksGithub)"><i class="fa fa-github fa-small"></i></a>
-	                    <a class="btn btn-primary btn-rounded btn-xsm" target="_blank" v-if="student.StudentDetails.linkswebpage" title="Official Page" :href="preProcessURL(student.StudentDetails.linkswebpage)"><i class="fa fa-link fa-small"></i></a>
+	                    <a class="btn btn-primary btn-rounded btn-xsm" target="_blank" v-if="student.StudentDetails.linksPortfolio" title="Portfolio page" :href="preProcessURL(student.StudentDetails.linksPortfolio)"><i class="fa fa-link fa-small"></i></a>
+	                    <a class="btn btn-primary btn-rounded btn-xsm" target="_blank" v-if="student.StudentDetails.linksStackoverflow" title="Stackoverflow page" :href="preProcessURL(student.StudentDetails.linksStackoverflow)"><i class="fa fa-stack-overflow fa-small"></i></a>
 	                    <a class="btn btn-primary btn-rounded btn-xsm" target="_blank" v-if="student.StudentDetails.linksFacebook" title="Facebook" :href="preProcessURL(student.StudentDetails.linksFacebook)"><i class="fa fa-facebook fa-small"></i></a>
 
                     </td>
