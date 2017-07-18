@@ -142,6 +142,8 @@ export default {
 	},
 	methods: {
 		getAllData: function(){
+
+			store.dispatch('showLoader', 'Retrieving user events..');
 			let vm = this;
             let _baseURL = Vue.rest.restBaseUrl;
 			Vue.axios.get(_baseURL + 'api/admin/userEvents')
@@ -151,6 +153,7 @@ export default {
             	vm.taskStudent_data = res.data.taskStudent_data;
             	vm.taskOrganizationRep_data = res.data.taskOrganizationRep_data;
 
+				store.dispatch('hideLoader');
                 store.dispatch('showMessage', 'Retrieved user task data');
                 
             })
