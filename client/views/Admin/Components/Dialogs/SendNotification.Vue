@@ -35,8 +35,8 @@
 		            </div>
 		            <!--Footer-->
 		            <div class="modal-footer text-center justify-content-center">
-		                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-		                <button @click.stop="sendMessage" type="button" class="btn btn-primary">Save changes</button>
+		                <button type="button" class="btn btn-warning" data-dismiss="modal">Dismiss</button>
+		                <button @click.stop="sendMessage" type="button" class="btn btn-primary">Send Notification</button>
 		            </div>
 		        </div>
 		        <!--/.Content-->
