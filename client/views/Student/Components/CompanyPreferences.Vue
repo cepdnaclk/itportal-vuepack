@@ -268,10 +268,10 @@
 
                     // console.log(_companies_selected_fromDB);
                    console.log('_companies_selected_fromDB', _companies_selected_fromDB);
-                    
 
-
-                    vm.companies_selected = _companies_selected_fromDB;
+                    vm.companies_selected = _.filter(_companies_selected_fromDB, function(o){
+                        return !_.isNull(o);
+                    });
                     store.dispatch('showMessage', 'Retrieved your existing preferences')
                     
                 })

@@ -20,7 +20,8 @@
                         <h6 class="h6-responsive mb-0 text-uppercase small">Profile updated {{moment(this.user.updatedAt)}}.</h6>
 
                         <div class="profile-cards d-flex m-auto grey lighten-5 mt-1 rounded">
-                            <a href="#" class="d-flex with-icon p-1" title="Send Message"><i class="material-icons responsive with">remove_red_eye</i> {{stats.profile_count}} profile views </a>
+                            <a href="#" class="d-flex with-icon p-1" :title="'You have received ' +  stats.profile_count  + ' profile views'"><i class="material-icons responsive with">remove_red_eye</i> {{stats.profile_count}} profile views </a>
+
                         </div>
                     </div>
                 </div> 
