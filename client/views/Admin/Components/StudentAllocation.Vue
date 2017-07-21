@@ -141,21 +141,26 @@ export default {
 				});;
 				_receiving_lock--;
 				if(_receiving_lock == 0){ store.dispatch('hideLoader'); }
+				Vue.axios.get(_baseURL + 'api/admin/companyPreferences')
+		            .then(function(res){
+
+		                let _company_preferences = res.data;
+
+		                console.log('_company_preferences', _company_preferences);
+
+		                vm.companyPreferences = _.filter(_company_preferences, function(o){
+		                	return !_.isNull(o.organization);
+		                });
+
+						_receiving_lock--;
+						if(_receiving_lock == 0){ store.dispatch('hideLoader'); }
+
+		                store.dispatch('showMessage', 'Retrieved existing student preferences')
+		                
+		            })
 			});
 
-			Vue.axios.get(_baseURL + 'api/admin/companyPreferences')
-            .then(function(res){
-
-                let _company_preferences = res.data;
-
-                vm.companyPreferences = _company_preferences;
-
-				_receiving_lock--;
-				if(_receiving_lock == 0){ store.dispatch('hideLoader'); }
-
-                store.dispatch('showMessage', 'Retrieved existing student preferences')
-                
-            })
+			
 		},
 		toggleAdminPreference: function(_id){
 			let _all_prefs = this.companyPreferences;
@@ -193,7 +198,7 @@ export default {
 			let _preferencesByCompany_sorted = [];
 			_.forEach(_preferencesByCompany, function(o){
 				let _o = _.sortBy(o, function(p){
-					return p.preference;
+					return p.preference + " " + (4-(vm.students[p.user._id].GPA));
 				})
 				_preferencesByCompany_sorted.push(_o);
 
