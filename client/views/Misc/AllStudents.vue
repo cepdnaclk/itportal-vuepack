@@ -3,7 +3,7 @@
 			<h1 class="col-md-6">
 				All Students
 			</h1>
-			<div class="col-md-6 text-right">
+			<div class="col-md-6 text-right mobile-left">
 				<div class="btn-group align-items-center">
 					<span class="mr-1">Sorted by {{(sort_by_alpha?"Alphabetic order": "Last Modified")}}</span>
 					<a class="btn btn-sm btn-primary" :class="{'active': sort_by_last_modified}" @click="setSort('last_modified')"><i class="material-icons">date_range</i></a>
@@ -21,11 +21,11 @@
 			<table class="table" v-show="view_list">
 				<tr v-for="student in students_sorted" class="data-bar my-1">
 					<td>
-						<img class="rounded-circle" :src="student.StudentDetails.photo ? (restUrl + 'photo/user/large-' + student.StudentDetails.photo) : '/img/user.png'" style="height: 3em; height: 3em; border-radius: 6em" alt="" />
+						<img class="rounded-circle profile-image" :src="student.StudentDetails.photo ? (restUrl + 'photo/user/large-' + student.StudentDetails.photo) : '/img/user.png'" style="border-radius: 6em" alt="" />
 					</td>
-					<td>{{student.StudentDetails.name}}</td>
+					<td class="mobile-name">{{student.StudentDetails.name}}</td>
 					<td class="text-center">
-	                    <span v-if="student.StudentDetails.phone" class="d-flex align-content-center"><i class="material-icons responsive mr-1">call</i> {{student.StudentDetails.phone}}</span>
+	                    <span v-if="student.StudentDetails.phone" class="d-flex align-content-center mobile-center"><i class="material-icons responsive mr-1">call</i> {{student.StudentDetails.phone}}</span>
                     </td>
                     <td class="text-center">
 	                    <a class="btn btn-primary btn-rounded btn-xsm" target="_blank" v-if="student.StudentDetails.linksLinkedin" title="Linkedin" :href="preProcessURL(student.StudentDetails.linksLinkedin)"><i class="fa fa-linkedin fa-small"></i></a>
@@ -38,7 +38,7 @@
 					<td class="text-center"><router-link :to="'/profile/student/' + student._id" class="btn btn-primary btn-xsm">View Student Profile</router-link></td>
 				</tr>
 			</table>
-			<div class="col-sm-4 rounded" v-for="student in students_sorted" v-show="view_tiles">
+			<div class="col-md-6 col-lg-4 rounded" v-for="student in students_sorted" v-show="view_tiles">
 
 
 			<router-link :to="'/profile/student/' + student._id">
@@ -70,6 +70,31 @@
 	}
 	.data-bar td{
 		vertical-align: middle;
+	}
+	.profile-image{
+		height: 3em; width: 3em;
+	}
+
+	@media screen and (max-width: 767px){
+		.mobile-left{
+			text-align: left !important;
+		}
+		tr,td{
+			display: block !important;
+			text-align: center !important;
+		}
+
+		.profile-image{
+			height: 40%; width: 40%;
+			max-width: 256px;
+			max-height: 256px;
+		}
+		.mobile-center{
+			justify-content: center;
+		}
+		.mobile-name{
+			font-size: 2em;
+		}
 	}
 </style>
 <script>
@@ -151,6 +176,6 @@
 		},
 		created: function(){
 			this.getEntity();
-		}
+		},
 	}
 </script>

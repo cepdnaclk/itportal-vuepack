@@ -8,7 +8,7 @@
 	</router-link>
 	<div class="collapse navbar-collapse" id="navbarNav1">
 		<ul class="navbar-nav mr-auto">
-			<router-link tag="li" class="nav-item" to="/gettingstarted">
+			<router-link tag="li" class="nav-item mobile-top-margin" to="/gettingstarted">
 			<a class="nav-link">Getting started</a>
 			</router-link>
 			<router-link tag="li" class="nav-item" to="/all/students">
@@ -55,6 +55,28 @@
 	</div>
 </nav>
 </template>
+<style scoped>
+	
+	@media screen and (max-width: 991px){
+		.nav-item{
+			margin: 0 -2em !important;
+			padding: 0.5em 2em;
+			display: block;
+			box-sizing: border-box;
+			
+			&:hover, &.active{
+				border-left: solid #41b883 6px !important;
+				border-bottom: none !important;
+
+			}
+		}
+
+		.mobile-top-margin{
+			margin-top: 3em !important;
+		}
+	}
+
+</style>
 <script>
 import Vue from 'vue';
 import restconfig from 'config/rest';

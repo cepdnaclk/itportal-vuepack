@@ -3,6 +3,23 @@
 	.hover-link{
 		cursor: pointer;
 	}
+	span.description{
+		line-height: 1;
+	}
+	@media screen and (max-width: 540px){
+		.mobile-left{
+			text-align: left;
+		}
+		.mobile-top-margin{
+			margin-top: 3em;
+		}
+		.mobile-block{
+			display: block;
+		}
+		li{
+			padding: 1em;
+		}
+	}
 </style>
 <script>
 import Vue from 'vue';

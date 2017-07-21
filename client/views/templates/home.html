@@ -48,12 +48,12 @@
             <br><br>
             <div class="row">
                 <!--First column-->
-                <div class="col-lg-8 offset-lg-1 hidden-lg-down" v-if="content.home_footer_content" v-html="content.home_footer_content">
+                <div class="col-md-8 offset-md-1 mobile-left text-left" v-if="content.home_footer_content" v-html="content.home_footer_content">
                 </div>
                 <!--/.First column-->
                 <hr class="hidden-md-up">
                 <!--Second column-->
-                <div class="col-lg-2">
+                <div class="col-md-2 mobile-left text-left mobile-top-margin">
                     <h5 class="title">Quick Links</h5>
                     <ul>
                         <li><router-link to="/gettingstarted">Getting Started</router-link></li>
@@ -72,13 +72,13 @@
                     <p class="mb-0" style="font-size: large;">
                         <span v-if="content.training_start_date" >Industrial Training will be commenced on <b>{{moment(content.training_start_date)}}</b>. </span>
                         Sign up your organization
-                        <a target="_blank" href="/auth/signup-company" rel="nofollow" class="btn btn-info">Sign up now</a>
+                        <a target="_blank" href="/auth/signup-company" rel="nofollow" class="btn btn-info mobile-block">Sign up now</a>
                     </p>
             </div>
             <br>
         </div>
         <div class="call-to-action blue-grey darken-4">
-            <div>
+            <div class="container">
                 <p>
                     <img src="/img/logo_pera.png" alt="">
                     <h6 class="h6-responsive m-0 sma">An initiative of Department of Computer Engineering, University of Peradeniya</h6>
