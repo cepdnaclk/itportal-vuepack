@@ -37,23 +37,23 @@
         </nav>
         <div class="card">
             <a id="intro" class='spy-anchor' style="top: -300px;"></a>
-            <div class="card-block">
+            <div class="card-block mobile-intro">
                 <div class="row container">
                     <div class="col-lg-3 m-auto">
-                        <img class="rounded-circle m-auto large-profilePicture"
+                        <img class="rounded-circle m-auto large-profilePicture z-depth-1"
                         :src="user.photo ? restBaseUrl + 'photo/user/large-' + user.photo : '/img/user.png'" alt="">
                     </div>
                     <div class="col-lg-4">
-                        <h3 class="h3-responsive my-1">{{user.name}}</h3>
-                        <h5 class="h5-responsive text-uppercase grey-text text-darken-2">{{user.title}}</h5>
-                        <p class="tagline text-blue-grey text-darken-1">
+                        <h3 class="h3-responsive my-1 mobile-name">{{user.name}}</h3>
+                        <h5 v-show="user.title" class="h5-responsive text-uppercase grey-text text-darken-2">{{user.title}}</h5>
+                        <p v-show="user.tagline" class="tagline text-blue-grey text-darken-1">
                             {{user.tagline}}
                         </p>
                     </div>
                     <div class="col-lg-4 offset-lg-1 d-flex flex-column justify-content-center">
-                        <h4 class="h4-responsive my-1">Contact Information</h4>
-                        <p class="p-responsive d-flex with-icon"><i class="material-icons">email</i>{{user.email}}</p>
-                        <p class="p-responsive d-flex with-icon"><i class="material-icons">call</i>{{user.phone}}</p>
+                        <h4 class="h4-responsive my-1 mb-sm-2">Contact Information</h4>
+                        <p class="p-responsive d-inline-flex with-icon mobile-flex-center"><i class="material-icons">email</i>{{user.email}}</p>
+                        <p class="p-responsive d-inline-flex with-icon mobile-flex-center"><i class="material-icons">call</i>{{user.phone}}</p>
                         <div class="flex">
                             <a class="btn btn-primary btn-rounded" target="_blank" v-if="user.linksLinkedin" title="Linkedin" :href="preProcessURL(user.linksLinkedin)"><i class="fa fa-linkedin"></i></a>
                             <a class="btn btn-primary btn-rounded" target="_blank" v-if="user.linksStackoverflow" title="Stackoverflow" :href="preProcessURL(user.linksStackoverflow)"><i class="fa fa-stack-overflow"></i></a>
@@ -142,6 +142,19 @@
         line-height: 1em;
         margin-right: 3pt;
         margin-right: 0;
+    }
+</style>
+<style scoped>
+    @media screen and (max-width: 991px){
+        .mobile-intro{
+            text-align: center !important;
+        }
+        .mobile-name{
+            font-size: 2em !important;
+        }
+        .mobile-flex-center{
+            justify-content: center;
+        }
     }
 </style>
 <script>
