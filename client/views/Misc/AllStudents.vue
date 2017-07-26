@@ -5,7 +5,7 @@
 			</h1>
 			<div class="col-md-6 text-right mobile-left">
 				<div class="btn-group align-items-center">
-					<span class="mr-1">Sorted by {{(sort_by_alpha?"Alphabetic order": "Last Modified")}}</span>
+					<span class="mr-1">Sorted by {{(sort_by_alpha?"Registration Number": "Last Modified")}}</span>
 					<a class="btn btn-sm btn-primary" :class="{'active': sort_by_last_modified}" @click="setSort('last_modified')"><i class="material-icons">date_range</i></a>
 					<a class="btn btn-sm btn-primary" :class="{'active': sort_by_alpha}" @click="setSort('alpha')"><i class="material-icons">sort_by_alpha</i></a>
 				</div>

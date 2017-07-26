@@ -7,7 +7,7 @@
 		</button> Send custom email notifications
 
 		<!-- Modal -->
-		<div class="modal fade" :id="'send_notification'" tabindex="-1" role="dialog" :aria-labelledby="send_notification_title" aria-hidden="true">
+		<div class="modal fade" :id="'send_notification'" tabindex="-1" role="dialog" aria-labelledby="send_notification_title" aria-hidden="true">
 		    <div class="modal-dialog" role="document">
 		        <!--Content-->
 		        <div class="modal-content">
@@ -18,7 +18,7 @@
 		                </button>
 		                <div class="clearfix"></div>
 		                <div class="text-center">
-			                <h5 class="modal-title w-100 font-weight-bold" :id="send_notification_title" >Send Custom Notifications</h5>
+			                <h5 class="modal-title w-100 font-weight-bold" id="send_notification_title" >Send Custom Notifications</h5>
 		                </div>
 		            </div>
 		            <!--Body-->

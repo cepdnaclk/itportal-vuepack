@@ -1,7 +1,7 @@
 <template>
 <div v-if="visible" class="row my-3">
     <div class="col-md-2">
-        <img src="/img/awards.png" class="rounded-circle mx-auto align-content-center" style="width:100px; height: 100px;">
+        <img src="/img/awards.png" class="rounded-circle mx-auto align-content-center" style="width:100px;">
     </div>
     <div class="col-md-6">
         <hr class="hidden-sm-up">

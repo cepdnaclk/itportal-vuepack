@@ -135,6 +135,11 @@ export default {
 			this.companies.push(res);
 		},
 		deleteItem: function(_entity, _id){
+
+			if(prompt('Are you sure you want to delete this entry?') == false){
+				return;
+			}
+			
 			let vm = this;
 			let _url = vm.restBaseUrl + 'api/admin/deleteEntry';
 			let _data = {

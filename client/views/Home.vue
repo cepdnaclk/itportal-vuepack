@@ -24,6 +24,8 @@
 <script>
 import Vue from 'vue';
 import AppHeaderLinks from 'components/Navigation/AppHeaderLinks'
+import store from 'store';
+
 export default {
 	components:{
 		AppHeaderLinks
@@ -48,12 +50,15 @@ export default {
 		let _baseUrl = Vue.rest.restBaseUrl;
 		let vm = this;
 
+
+        store.dispatch('showLoader', 'Waiting for data server...');
 		Vue.axios.get(_baseUrl + 'api/home/getData')
 		.then(function(res){
 			let _data = res.data;
 			vm.counts = _data.count;
 			vm.content = _data.content;
 			console.log(_data);
+	        store.dispatch('hideLoader');
 		})
 		.catch(function(err){console.log(err)})
 	}

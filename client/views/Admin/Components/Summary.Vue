@@ -12,7 +12,7 @@
 						<th>Email</th>
 					</tr>
 					<tr v-for="student in students">
-						<td ><img class="rounded-circle" :src="student.StudentDetails.photo ? (restUrl + 'photo/user/large-' + student.StudentDetails.photo) : '/img/user.png'" style="height: 3em; border-radius: 3em; width: 3em" alt=""/></td>
+						<td ><img class="rounded-circle" :src="student.StudentDetails.photo ? (restUrl + 'photo/user/large-' + student.StudentDetails.photo) : '/img/user.png'" style="height: 3em; width: 3em; border-radius: 3em; width: 3em" alt=""/></td>
 						<td style="padding-top:15px">{{student.StudentDetails.name}}</td>
 						<td style="padding-top:15px" >{{student.StudentDetails.email}}</td>
 						
@@ -29,7 +29,7 @@
 						<th>Email</th>
 					</tr>
 					<tr v-for="company in companies">
-						<td ><img class="rounded-circle" :src="company.photo ? (restUrl + 'photo/organization/large-' + company.photo) : '/img/company.png'" style="height: 3em; border-radius: 3em; width: 3em" alt=""/></td>
+						<td ><img class="rounded-circle" :src="company.photo ? (restUrl + 'photo/organization/large-' + company.photo) : '/img/company.png'" style="height: 3em; width: 3em; border-radius: 3em; width: 3em" alt=""/></td>
 						<td style="padding-top:15px">{{company.name}}</td>
 						<td style="padding-top:15px">{{company.organizationRepEmails}}</td>
 					</tr>
@@ -49,7 +49,7 @@
 						<th>Email</th>
 					</tr>
 					<tr v-for="companyRep in companyReps">
-						<td ><img class="rounded-circle" :src="companyRep.OrganizationRepDetails.photo ? (restUrl + 'photo/user/large-' + companyRep.OrganizationRepDetails.photo) : '/img/user.png'" style="height: 3em; border-radius: 3em; width: 3em" alt=""/></td>
+						<td ><img class="rounded-circle" :src="companyRep.OrganizationRepDetails.photo ? (restUrl + 'photo/user/large-' + companyRep.OrganizationRepDetails.photo) : '/img/user.png'" style="height: 3em; width: 3em; border-radius: 3em; width: 3em" alt=""/></td>
 						<td style="padding-top:15px">{{companyRep.OrganizationRepDetails.name}}</td>
 						<td style="padding-top:15px">{{companyRep.email}}</td>
 					</tr>
