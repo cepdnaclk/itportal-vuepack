@@ -27,7 +27,7 @@
         </div>
 
         <div class="card p-2" v-if="reps.length>0">
-            <h4>Organization Representatives {{reps.length}}</h4>
+            <h4>Organization Representatives ({{reps.length}})</h4>
             <div class="row">
                 <div class="col-sm-4 rounded" v-for="rep in reps">
 
@@ -95,7 +95,14 @@ export default {
 
 
 
-        }
+        },
+
+        preProcessURL: function(url){
+            if(url.indexOf('//')<0){
+                return '//' + url;
+            }
+            return url;
+        },
     },
     mounted: function(){
         this.getData();

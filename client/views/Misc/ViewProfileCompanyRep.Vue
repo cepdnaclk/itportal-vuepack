@@ -159,7 +159,14 @@ export default {
             })
             .catch(function(err){console.error(err)});
 
-        }
+        },
+        
+        preProcessURL: function(url){
+            if(url.indexOf('//')<0){
+                return '//' + url;
+            }
+            return url;
+        },
     },
     mounted: function(){
         this.getData();
