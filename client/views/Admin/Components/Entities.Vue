@@ -122,7 +122,8 @@ export default {
 			Vue.axios.post(_url, _data)
 			.then(function(res){
 				console.log(res);
-				store.dispatch('showMessage', 'Request of company representative to join, accepted')
+				if(_accept) store.dispatch('showMessage', 'Request of company representative to join, accepted')
+				if(!_accept) store.dispatch('showMessage', 'Request of company representative to join, rejected')
 				setTimeout(function(){
 					vm.getAllData();
 				},300);
