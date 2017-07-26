@@ -6,14 +6,50 @@
             <div class="col-md-12 container px-3">
                 <h2 class="h2-responsive">Decision Desk</h2>
                 <div class="container blue-grey lighten-5 py-2">
-                    <div class="row decision-header mb-1">
-                        <div class="col-md-7">Students <span class="text-uppercase small">(0 Students)</span></div>
-                        <div class="col-md-1">Viewed <span class="text-uppercase small">(0)</span></div>
-                        <div class="col-md-1">Interview Scheduled <span class="text-uppercase small">(0)</span></div>
-                        <div class="col-md-1">Accepted <span class="text-uppercase small">(0)</span></div>
-                        <div class="col-md-2">Actions <span class="text-uppercase small">(0)</span></div>
-                    </div>
-                    <div class="container decision-student white z-depth-1 p-2 my-1 mb-1"  v-for="preference in companyPreferences">
+                    <table class="table">
+                        <tr>
+                            <th colspan="2">Students <span class="text-uppercase small">(0 Students)</span></th>
+                            <th><span class="small">GPA</span></th>
+                            <th><span class="small">Favourites</span></th>
+                            <th>Viewed <span class="text-uppercase small">(0)</span></th>
+                            <th>Interview Scheduled <span class="text-uppercase small">(0)</span></th>
+                            <th>Accepted <span class="text-uppercase small">(0)</span></th>
+                            <th>Actions <span class="text-uppercase small">(0)</span></th>
+                        </tr>
+                        <tr v-show="companyPreferences.length == 0">
+                            <td colspan="8" class="text-center"><div class="alert alert-info mb-0">Students have not yet been allocated</div></td>
+                        </tr>
+                        <tr v-for="preference in companyPreferences">
+                            <td>
+                                <img class="img rounded-circle" :src="(preference.user.photo)? (baseUrl+'photo/user/small-' + preference.user.photo) :'/img/user.png'" alt="">
+                            </td>
+                            <td>
+                                <div class="name">{{preference.user.name}}</div>
+                            </td>
+
+                            <td class="desc">
+                                <span class="title">GPA</span>
+                                <span class="content">{{student_profiles[preference.user._id].GPA}}</span>
+                            </td>
+                            <td class="desc">
+                                <span class="title">Favourite</span>
+                                <span class="content">
+                                    <span v-if="student_profiles[preference.user._id].FrequentSkills.length == 0">[Not Added]</span>
+                                    <span v-else class="badge badge-primary" v-for="skill in student_profiles[preference.user._id].FrequentSkills">{{skill.name}}</span>
+                                </span>
+                            </td>
+                                
+                            <td class="col-md-1 status"><span class="dot"></span></td>
+                            <td class="col-md-1 status"><span class="dot"></span></td>
+                            <td class="col-md-1 status"><span class="dot"></span></td>
+                            <td class="col-md-2 actions">
+                                <router-link :to="'/profile/student/' + student_profiles[preference.user._id]._id" class="btn btn-primary btn-sm btn-block">View</router-link>
+                                <a class="btn btn-primary btn-sm btn-block" @click="addNewInterview(preference.user)">Inverview</a>
+                                <a class="btn btn-primary btn-sm btn-block" @click="addNewOffer(preference.user)">Accept</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- <div class="container decision-student white z-depth-1 p-2 my-1 mb-1"  v-for="preference in companyPreferences">
                         <div class="row">
                             <div class="col-md-7 student-details">
                                 <img class="img rounded-circle" :src="(preference.user.photo)? (baseUrl+'photo/user/small-' + preference.user.photo) :'/img/user.png'" alt="">
@@ -41,7 +77,7 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div> -->
                 </div>
 				<hr class="mt-2">
             </div>
