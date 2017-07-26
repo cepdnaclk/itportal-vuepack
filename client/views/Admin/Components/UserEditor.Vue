@@ -41,7 +41,7 @@
 				<tr v-for="company in companies">
 					<td class="img-cell"><img :src="company.photo ? (restBaseUrl + 'photo/organization/small-' + company.photo) : '/img/user.png'" class="rounded-circle" style="width: 40px; height: 40px;"></td>
 					<td>{{company.name}}</td>
-					<td>{{company.organizationRepEmails.length}} Represntatives</td>
+					<td>{{company.organizationRepEmails.length}} Representative(s)</td>
 					<td>
 						<div class="btn btn-danger btn-xsm">Delete</div>
 					</td>
@@ -161,7 +161,7 @@ export default {
 		deleteItem: function(_entity, _id){
 
 
-			if(prompt('Are you sure you want to delete this entry?') == false){
+			if(confirm('Are you sure you want to delete this entry?') == false){
 				return;
 			}
 			

@@ -136,7 +136,7 @@ export default {
 		},
 		deleteItem: function(_entity, _id){
 
-			if(prompt('Are you sure you want to delete this entry?') == false){
+			if(confirm('Are you sure you want to delete this entry?') == false){
 				return;
 			}
 			
