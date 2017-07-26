@@ -100,7 +100,7 @@
                     <h3>Interests</h3>
                     <hr class="my-1">
                     <div v-if="interests.length == 0" class="flex-center h5 text-warning"><i class="material-icons responsive">info</i> No awards to show</div>
-                    <view-interest is-on-profile="true" v-for="(interest, index) in interests" :interest="interest" :key="'interest'+index"></view-interest>
+                    <view-interest is-on-profile="true" v-for="(interest, index) in interests" :interest="interest" :key="'interest'+index"  @interestremoved="interestRemove"></view-interest>
                     <hr class="my-1">
                     <edit-interest @interest-uploaded="interestUpload" :current-interests="interests" :all-interests="all_interests"></edit-interest>
                 </div>
@@ -112,6 +112,7 @@
 <script>
     import Vue from 'vue';
     import restconfig from 'config/rest'
+    import store from 'store';
 
     import ViewProject from 'components/Profile/ViewProject'
     import ViewAward from 'components/Profile/ViewAward'
@@ -120,6 +121,7 @@
     import EditProject from 'components/Profile/EditProject'
     import EditAward from 'components/Profile/EditAward'
     import EditInterest from 'components/Profile/EditInterest'
+
 
     function getOffsetTop( elem )
     {
@@ -165,6 +167,8 @@
                 user: Vue.auth.getUser(),
                 editingSection: null,
                 restbaseurl: restconfig.url,
+
+                organizationRep_id: null,
 
                 projects: [],
                 awards: [],
@@ -238,6 +242,7 @@
                 let vm = this;
 
                 Vue.rest.getData('organizationRep', '?query={"email":"' + this.user.email + '"}', function(_companyRep){
+
                     console.log(_companyRep[0]);
                     console.log(_companyRep[0]._id);
                     vm.organizationRep_id = _companyRep[0]._id;
@@ -307,6 +312,32 @@
             },
             interestUpload: function(e){
                 this.interests.push(e);
+            },
+
+            interestRemove: function(e){
+
+                let vm = this;
+                let _baseURL = Vue.rest.restBaseUrl;
+                
+                let _interest_data = {
+                    companyId: vm.organizationRep_id,
+                    interestId: e
+                }
+
+                store.dispatch('showLoader', 'Removing interest..');
+                Vue.axios.post(_baseURL + 'api/companyRep/interest/remove', _interest_data)
+                .then(function(res){
+                    console.log(res.data);
+                    store.dispatch('hideLoader');
+                    store.dispatch('showMessage', 'Interview removed');
+
+                    vm.interests = _.filter(vm.interests, function(o){
+                        return o._id != e;
+                    })
+
+                })
+                .catch(function(err){console.log(err)});
+
             }
         },
         watch: {
