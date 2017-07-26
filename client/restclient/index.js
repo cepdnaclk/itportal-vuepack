@@ -17,27 +17,29 @@ var rest = {
 
     getData(model, options, cb) {
         let _url = this.getRestUrl(model, options);
+        let vm = this;
 
-        if(this.loaderCount == 0) store.dispatch('showLoader', 'Retrieving Data');
-        this.loaderCount++;
+        if(vm.loaderCount == 0) store.dispatch('showLoader', 'Retrieving Data');
+        vm.loaderCount++;
 
         Vue.axios.get(
             _url
         ).then(res => {
+            console.log(res);
             let _data = (res.data);
             // store.dispatch('showMessage', 'Received ' + _data.length + ' ' + model + '(s)');
             cb(_data);
 
-            this.loaderCount--;
-            if(this.loaderCount == 0) store.dispatch('hideLoader');
+            vm.loaderCount--;
+            if(vm.loaderCount == 0) store.dispatch('hideLoader');
 
 
         }).catch(function(err) {
             console.log(err);
             var _err = err.response.data;
 
-            this.loaderCount--;
-            if(this.loaderCount == 0) store.dispatch('hideLoader');
+            vm.loaderCount--;
+            if(vm.loaderCount == 0) store.dispatch('hideLoader');
 
             store.dispatch('showMessage', _err.flashMessage || _err);
 
@@ -53,22 +55,29 @@ var rest = {
                 setTimeout(function() {
                     cb(model);
                 }, 1000);
+            } else {
+
+                setTimeout(function() {
+                    Vue.auth.logout();
+                }, 1000);
+
             }
         });
     },
     insertData(data, model, options, cb) {
         let _url = this.getRestUrl(model, options);
+        let vm = this;
 
-        if(this.loaderCount == 0) store.dispatch('showLoader', 'Adding new data');
-        this.loaderCount++;
+        if(vm.loaderCount == 0) store.dispatch('showLoader', 'Adding new data');
+        vm.loaderCount++;
 
         Vue.axios.post(
             _url, data
         ).then(res => {
             let _data = (res.data);
 
-            this.loaderCount--;
-            if(this.loaderCount == 0) store.dispatch('hideLoader');
+            vm.loaderCount--;
+            if(vm.loaderCount == 0) store.dispatch('hideLoader');
 
             store.dispatch('showMessage', 'Data updated');
             if (cb) cb(_data);
@@ -79,8 +88,8 @@ var rest = {
             if (err.response) {
                 var _err = err.response.data;
 
-                this.loaderCount--;
-                if(this.loaderCount == 0) store.dispatch('hideLoader');
+                vm.loaderCount--;
+                if(vm.loaderCount == 0) store.dispatch('hideLoader');
 
                 store.dispatch('showMessage', _err.flashMessage || _err);
                 if (!(_err.signedIn)) {
@@ -103,14 +112,15 @@ var rest = {
     },
     updateData(data, model, options, cb) {
         let _url = this.getRestUrl(model, options);
+        let vm = this;
 
         Vue.axios.patch(
             _url, data
         ).then(res => {
             let _data = (res);
 
-            this.loaderCount--;
-            if(this.loaderCount == 0) store.dispatch('hideLoader');
+            vm.loaderCount--;
+            if(vm.loaderCount == 0) store.dispatch('hideLoader');
 
             store.dispatch('showMessage', 'Data updated');
             if (cb) cb(_data);
@@ -119,8 +129,8 @@ var rest = {
         }).catch(function(err) {
             console.log(err);
 
-            this.loaderCount--;
-            if(this.loaderCount == 0) store.dispatch('hideLoader');
+            vm.loaderCount--;
+            if(vm.loaderCount == 0) store.dispatch('hideLoader');
 
             if (err.response) {
                 var _err = err.response.data;
@@ -145,13 +155,13 @@ var rest = {
     },
     putImageUpload(data, model, cb) {
         let _url = this.getPhotoUploadUrl(model);
-
+        let vm = this;
         if(!data.photo){
             store.dispatch('showMessage', 'Photo not selected for upload');
         }
 
-        if(this.loaderCount == 0) {store.dispatch('showLoader', 'Uploading Image');}
-        this.loaderCount++;
+        if(vm.loaderCount == 0) {store.dispatch('showLoader', 'Uploading Image');}
+        vm.loaderCount++;
 
 
         var _data = new FormData();
@@ -169,8 +179,8 @@ var rest = {
         ).then(res => {
             let _data = (res.data);
 
-            this.loaderCount--;
-            if(this.loaderCount == 0) store.dispatch('hideLoader');
+            vm.loaderCount--;
+            if(vm.loaderCount == 0) store.dispatch('hideLoader');
 
             store.dispatch('showMessage', _data.flashMessage || 'Photo updated');
             if (cb) cb(_data);
@@ -181,8 +191,8 @@ var rest = {
             if (err.response) {
                 var _err = err.response.data;
 
-                this.loaderCount--;
-                if(this.loaderCount == 0) store.dispatch('hideLoader');
+                vm.loaderCount--;
+                if(vm.loaderCount == 0) store.dispatch('hideLoader');
 
                 store.dispatch('showMessage', _err.flashMessage || _err);
                 if (_err.signedIn === false) {
