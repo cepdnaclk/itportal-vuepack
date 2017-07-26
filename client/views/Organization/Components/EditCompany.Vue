@@ -3,9 +3,11 @@
     <div class="card-block">
         <!--Body-->
         <div class="row">
-            <div class="col-md-12 container px-3">
+            <div class="col-md-12 container px-3" id="mycompany_top">
                 <h2 class="h2-responsive">My Company Profile</h2>
+                <edit-company-profile v-if="company" :company="company"></edit-company-profile>
                 <hr class="my-1 mb-2">
+                <h3>Change your company</h3>
                 <div class="align-self-center">
                     <router-link :to="{name: 'Organization_dashboard_editcompany_create'}" tag="span" class="btn btn-primary col-sm-3">Create Company</router-link>
                     <span class="d-inline-block">Create a brand new profile for your company on ITPortal</span>
@@ -20,7 +22,6 @@
                 <hr class="mt-2">
             </div>
 
-            <edit-company-profile v-if="company" :company="company"></edit-company-profile>
             
         </div>
     </div>

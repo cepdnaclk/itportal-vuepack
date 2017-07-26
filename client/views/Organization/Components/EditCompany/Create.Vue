@@ -152,6 +152,8 @@ export default{
                     vm.$emit('company-uploaded', res);
                     vm.resetFormData();
                     vm.isEditing = false;
+                    document.getElementById('mycompany_top').scrollIntoView();
+                    location.reload();
                 }
             });
         },
@@ -164,10 +166,15 @@ export default{
                 name: '',
                 photo: '',
                 description: '',
+                email: '',
                 phone: '',
                 address: '',
-                link1: '',
-                link2: '',
+                salary: '',
+
+                linksFacebook: '',
+                linksLinkedin: '',
+                linksGithub: '',
+                linksWebpage: '',
                 organizationRepEmails: [Vue.auth.getUser().email],
             };
         }
