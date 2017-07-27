@@ -18,15 +18,34 @@
             >
         </photo-upload>
 	    <h2 class="h2-responsive">
-	    <live-edit v-model="i_company.name" :editable="isEditing" placeholder="Your Company Name"></live-edit>
+		    <label>
+		    	Company Name
+		    </label>
+		    <live-edit v-model="i_company.name" :editable="isEditing" placeholder="Your Company Name"></live-edit>
 	    </h2>
-	    <h5 class="h5-responsive">
-	    	<live-edit v-model="i_company.description" :editable="isEditing" placeholder="A short description about your company"></live-edit>
-	    </h5>
+	    <div class="row container">
+	    	<div :class="{'col-md-6': isEditing, 'col-md-auto': !isEditing}">
+		    	<label>Company Description
+		    		<div v-show="isEditing" class="alert alert-info my-1">
+		    			You may use Markdown for basic formatting. <br>
+		    			For help, try this <a href="http://commonmark.org/help/" target="_blank">cheatsheet</a>
+		    		</div>
+	    		</label>
+		    	<live-edit class="" v-show="isEditing" v-model="i_company.description" :editable="isEditing" placeholder="A short description about your company" multiline="true" @input="update_description"></live-edit>
+	    	</div>
+	    	<div class="col-md-6">
+	    		<span class="badge badge-primary mb-1" v-show="isEditing">Preview</span>
+		    	<div id="rich_desc" class="rich_desc" v-html="compiledMarkdown_description"></div>
+	    	</div>
+	    </div>
+	    <hr>
 	    <p class="p-responsive d-flex with-icon">
 	    	Salary for interns : Rs.
 	    	<live-edit v-model="i_company.salary" :editable="isEditing" placeholder="0.00"></live-edit>
 	    </p>
+	    <hr>
+    	<h6>Links</h6>
+
 	    <p class="p-responsive d-flex with-icon">
 	    	<i class="material-icons">email</i>
 	    	<live-edit v-model="i_company.email" :editable="isEditing" placeholder="[Official Email Address]"></live-edit>
@@ -66,10 +85,38 @@
 	    <hr class="mt-2">
 	</div>
 </template>
-<style>
-	
-</style>
 
+<style>
+    
+#rich_desc{
+    *{
+        font-size: 1em !important;
+    }
+    h1, h2, h3, h4, h5, h6{
+        font-weight: bold;
+        font-size: 1.2em !important;
+    }
+    ul, ol{
+        list-style: auto;
+        padding-left: 4em;
+
+        li{
+            list-style: disc;
+            
+        }
+    }
+    blockquote p{
+        border-left: solid thick #ccc !important;
+    }
+    hr{
+    	border-top: solid thin #ccc;
+    }
+    code{
+    	font-family: consolas;
+    }
+}
+
+</style>
 <script>
 	
 	import Vue from 'vue'
@@ -85,6 +132,7 @@
 				restbaseurl: Vue.rest.restBaseUrl,
 				isEditing: false,
 				i_company: this.company,
+				input: this.company.description,
 			}
 		},
 		methods: {
@@ -132,9 +180,15 @@
             	let _defaultImage = (this.i_company.photo ? (this.restbaseurl + 'photo/organization/large-' + this.i_company.photo) : '/img/company.png');
 	            	console.log('[editcompanyprofile] _defaultImage', _defaultImage)
             	return _defaultImage;
-            }
+            },
+			update_description: _.debounce(function (e) {
+				this.input = e.target.value
+			}, 300)
 		},
 		computed: {
+			compiledMarkdown_description: function(){
+				return marked(this.i_company.description, { sanitize: true });
+			}
 		},
 		mounted: function(){
 			this.i_company = this.company;
