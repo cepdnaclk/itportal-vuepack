@@ -26,7 +26,7 @@
                     <router-link :to="{name: 'Admin_dashboard_UserEditor'}" exact class="nav-link with-icon flex-center"><i class="material-icons">edit</i>User Editor</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link :to="{name: 'Admin_dashboard_Entities'}" exact class="nav-link with-icon flex-center"><i class="material-icons">edit</i>Entity Editor</router-link>
+                    <router-link :to="{name: 'Admin_dashboard_Entities'}" exact class="nav-link with-icon flex-center"><i class="material-icons">edit</i>Company Editor</router-link>
                 </li>
                 <li class="nav-item">
                     <router-link :to="{name: 'Admin_dashboard_ContentEditor'}" exact class="nav-link with-icon flex-center"><i class="material-icons">edit</i>Content Editor</router-link>
