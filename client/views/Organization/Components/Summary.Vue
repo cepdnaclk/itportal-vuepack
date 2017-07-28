@@ -40,7 +40,7 @@
                         </div>
                         <router-link
                             tag="div"
-                            :to="{name: 'Student_dashboard_editprofile'}"
+                            :to="{name: 'Organization_dashboard_editprofile'}"
                             class="btn btn-primary d-flex with-icon darken-1 text-center mr-1 px-2"
                             v-if="stats.tasks_list_user && !stats.tasks_list_user.add_intro"
                             >
@@ -48,7 +48,7 @@
                         </router-link>
                         <router-link
                             tag="div"
-                            :to="{name: 'Student_dashboard_editprofile'}"
+                            :to="{name: 'Organization_dashboard_editprofile'}"
                             class="btn btn-primary d-flex with-icon darken-2 text-center mr-1 px-2"
                             v-if="stats.tasks_list_user && !stats.tasks_list_user.add_phone"
                             >
@@ -57,7 +57,7 @@
 
                         <router-link
                             tag="div"
-                            :to="{name: 'Student_dashboard_editprofile'}"
+                            :to="{name: 'Organization_dashboard_editprofile'}"
                             class="btn btn-primary d-flex with-icon darken-3 text-center mr-1 px-2"
                             v-if="stats.tasks_list_user && !stats.tasks_list_user.add_profilepic"
                             >
