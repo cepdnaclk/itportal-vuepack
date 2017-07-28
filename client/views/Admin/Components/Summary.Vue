@@ -42,7 +42,7 @@
 			<div class="section col-12">
 				<h4 class="h4-responsive" style="margin-left:20px">Company Representatives ({{companyReps.length}})</h4>
 
-				<table class="table table-sm" style="margin-left:20px; padding-right:40px">
+				<table class="table table-sm table-responsive" style="margin-left:20px; padding-right:40px">
 					<tr>
 						<th>Name</th>
 						<th>&nbsp;</th>
@@ -53,7 +53,7 @@
 					<tr v-for="companyRep in companyReps">
 						<td ><img class="rounded-circle" :src="companyRep.OrganizationRepDetails.photo ? (restUrl + 'photo/user/large-' + companyRep.OrganizationRepDetails.photo) : '/img/user.png'" style="height: 3em; width: 3em; border-radius: 3em; width: 3em" alt=""/></td>
 						<td style="padding-top:15px">{{companyRep.OrganizationRepDetails.name}}</td>
-						<td style="padding-top:15px">{{companyRep.email}}</td>
+						<td style="padding-top:15px; padding-right: 15px;">{{companyRep.email}}</td>
 						<td v-if="getCompany(companyRep.company)"><img class="rounded-circle" :src="getCompany(companyRep.company).photo ? (restUrl + 'photo/organization/large-' + getCompany(companyRep.company).photo) : '/img/company.png'" style="height: 3em; width: 3em; border-radius: 3em; width: 3em" alt=""/></td>
 						<td v-if="getCompany(companyRep.company)" style="padding-top:15px">{{getCompany(companyRep.company).name}}</td>
 						<td v-if="!getCompany(companyRep.company)" style="padding-top:15px" colspan="2"><span class="badge badge-warning">Not Joined yet</span></td>
