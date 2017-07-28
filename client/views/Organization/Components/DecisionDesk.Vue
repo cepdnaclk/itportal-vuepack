@@ -12,14 +12,14 @@
                             <th colspan="2">Students <span class="text-uppercase small">({{companyPreferences.length}} Student(s))</span></th>
                             <th class="text-center">GPA</th>
                             <th class="text-center">Favourites</th>
-                            <th class="text-center">Viewed <span class="text-uppercase small">(0)</span></th>
-                            <th class="text-center">Interview scheduled <span class="text-uppercase small">(0)</span></th>
-                            <th class="text-center">Internship offered <span class="text-uppercase small">(0)</span></th>
-                            <th class="text-center">Student accepted <span class="text-uppercase small">(0)</span></th>
+                            <th class="text-center">Viewed <span class="text-uppercase small">({{totalViewed}})</span></th>
+                            <th class="text-center">Interview scheduled <span class="text-uppercase small">({{totalScheduled}})</span></th>
+                            <th class="text-center">Internship offered <span class="text-uppercase small">({{totalOffered}})</span></th>
+                            <th class="text-center">Student accepted <span class="text-uppercase small">({{0}})</span></th>
                             <th class="text-right">Actions</th>
                         </tr>
                         <tr v-show="companyPreferences.length == 0">
-                            <td colspan="8" class="text-center"><div class="alert alert-info mb-0">Students have not yet been allocated</div></td>
+                            <td colspan="9" class="text-center"><div class="alert alert-info mb-0">Students have not yet been allocated</div></td>
                         </tr>
                         <tr v-for="preference in companyPreferences">
                             <td style="min-width: 4em; vertical-align: middle;">
@@ -324,6 +324,20 @@
                 } else {
                     this.local_stats = {};
                 }
+            },
+        },
+        computed: {
+            totalViewed: function(){
+                let _count = _.countBy(this.local_stats, function(o){return o.viewed})["true"]
+                return _count | 0;
+            },
+            totalScheduled: function(){
+                let _count = _.countBy(this.local_stats, function(o){return o.interview_scheduled})["true"]
+                return _count | 0;
+            },
+            totalOffered: function(){
+                let _count = _.countBy(this.local_stats, function(o){return o.offered})["true"]
+                return _count | 0;
             },
         },
         mounted: function(){
