@@ -30,6 +30,7 @@
 				<div class="d-block" @click="scrollIntoSelected">
                     <span class="mr-2"><img class="rounded-circle d-inline" :src="company.photo ? (restUrl + 'photo/organization/small-' + company.photo) : '/img/company.png'" style="height: 3em; width: 3em !important; border-radius: 3em; width: 3em" alt=""/></span>
                     <span style="padding-top:15px">{{company.name}}</span>
+                    <a class="btn btn-primary btn-sm d-inline-flex align-content-center with-icon float-right">Request to Join</a>
                     <router-link class="btn btn-primary btn-sm d-inline-flex align-content-center with-icon float-right" :to="'/profile/organization/' + company._id"><i class="material-icons responsive">remove_red_eye</i> View Company</router-link>
 
                 </div>

@@ -177,12 +177,36 @@ export default {
 			let vm = this;
             let _baseURL = Vue.rest.restBaseUrl;
 
-			Vue.axios.post(_baseURL + 'api/admin/companyPreferences/set', {data: vm.companyPreferences})
-            .then(function(res){
-            	vm.preferencesChanged = false;
-                store.dispatch('showMessage', 'Company-Student preferences were saved');
-            })
-            .catch(function(err){console.log(err)});
+
+            let _chunked_preferences = _.chunk(vm.companyPreferences, 10);
+            let _num_chunks = _.size(_chunked_preferences);
+            
+            let _loader_count = 0;
+            store.dispatch('showLoader', 'Saving student preferences, (' + (Math.ceil(((1.0*_loader_count)/_num_chunks)*10000))/100 + '%)');
+            for (let itr = _num_chunks - 1; itr >= 0; itr--) {
+            	let _t_preferences = _chunked_preferences[itr];
+
+            	setTimeout(function(){
+					Vue.axios.post(_baseURL + 'api/admin/companyPreferences/set', {data: _t_preferences})
+		            .then(function(res){
+		            	vm.preferencesChanged = false;
+
+		                _loader_count++;
+			            store.dispatch('showLoader', 'Saving student preferences, (' + (Math.ceil(((1.0*_loader_count)/_num_chunks)*10000))/100 + '%)');
+
+		                if(_loader_count == (_num_chunks-1)){
+			            	store.dispatch('hideLoader');
+			                store.dispatch('showMessage', 'Company-Student preferences were saved');
+		                	
+		                }
+		            })
+		            .catch(function(err){console.log(err)});
+            		
+            	}, 30*itr);
+
+            }
+
+
 		}
 	},
 	computed: {

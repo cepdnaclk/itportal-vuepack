@@ -4,7 +4,7 @@
         <!--Body-->
         <div class="row">
             <div class="col-md-12 container px-3" id="mycompany_top">
-                <h2 class="h2-responsive">My Company Profile</h2>
+                <h2 class="h2-responsive container">My Company Profile</h2>
                 <edit-company-profile v-if="company" :company="company"></edit-company-profile>
                 <hr class="my-1 mb-2">
                 <h3>Change your company</h3>

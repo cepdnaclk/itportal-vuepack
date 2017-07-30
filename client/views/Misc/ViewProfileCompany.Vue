@@ -9,15 +9,15 @@
                     :src="profile.photo ? restBaseUrl + 'photo/organization/large-' + profile.photo : '/img/company.png'" alt="">
                 </div>
                 <div class="col-lg-4  d-flex flex-column justify-content-center company-desc" :class="{'notExpanded': (!description_expanded && profile.description)}" @click="toggleExpansion">
-                    <h3 class="h3-responsive my-1">{{profile.name}}</h3>
-                    <p class="">{{profile.description}}</p>
-                    <div class="show-more-wrapper" v-if="profile.description && profile.description.length >= 255">
+                    <h3 class="my-1">{{profile.name}}</h3>
+                    <div id="rich_desc" v-html="marked(profile.description)"></div>
+                    <div class="show-more-wrapper" v-if="profile.description && profile.description.length >= 50">
                         <div class="btn btn-primary btn-sm btn-show-more-less" v-show="!description_expanded">Read More</div>
                         <div class="btn btn-primary btn-sm btn-show-more-less" v-show="description_expanded">Read Less</div>
                     </div>
                 </div>
                 <div class="col-lg-4 offset-lg-1 d-flex flex-column justify-content-center">
-                    <h4 class="h4-responsive my-1">Contact Information</h4>
+                    <h4 class="h4-responsive my-1" v-if="profile.phone || profile.address || profile.linksLinkedin || profile.linksGithub || profile.linkswebpage || profile.linksFacebook">Contact Information</h4>
                     <span v-if="profile.phone" class="d-flex align-content-center mt-1"><i class="mr-1 material-icons">call</i> {{profile.phone}}</span>
                     <span v-if="profile.address" class="mt-1 d-flex align-content-center"><i class="mr-1 fa fa-address-card-o" aria-hidden="true"></i> {{profile.address}}</span>
                     <div class="flex">
@@ -92,13 +92,38 @@
 }
 
 .company-desc{
-    padding-bottom: 30px;
+    padding-bottom: 60px;
 }
 .show-more-wrapper{
     position: absolute;
     width: 100%;
     bottom: 0px;
 }
+</style>
+<style>
+    
+#rich_desc{
+    *{
+        font-size: 1em !important;
+    }
+    h1, h2, h3, h4, h5, h6{
+        font-weight: bold;
+        font-size: 1.2em !important;
+    }
+    ul, ol{
+        list-style: auto;
+        padding-left: 4em;
+
+        li{
+            list-style: disc;
+            
+        }
+    }
+    blockquote p{
+        border-left: solid thick #ccc !important;
+    }
+}
+
 </style>
 <script>
 import Vue from 'vue'
@@ -148,8 +173,11 @@ export default {
 
 
         },
+        marked: function(e){
+            return marked(e);
+        },
         toggleExpansion: function(){
-            if(!this.profile.description || this.profile.description.length < 255){
+            if(!this.profile.description || this.profile.description.length < 50){
                 return;
             }
             this.description_expanded = !this.description_expanded;

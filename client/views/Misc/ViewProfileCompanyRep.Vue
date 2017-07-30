@@ -37,17 +37,17 @@
                         <img class="rounded-circle m-auto large-profilePicture"
                         :src="user.photo ? restBaseUrl + 'photo/user/large-' + user.photo : '/img/user.png'" alt="">
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 my-auto">
                         <h3 class="h3-responsive my-1">{{user.name}}</h3>
-                        <h5 class="h5-responsive text-uppercase grey-text text-darken-2">{{user.title}}</h5>
-                        <p class="tagline text-blue-grey text-darken-1">
+                        <h5 v-show="user.title" class="h5-responsive text-uppercase grey-text text-darken-2">{{user.title}}</h5>
+                        <p v-show="user.tagline" class="tagline text-blue-grey text-darken-1">
                             {{user.tagline}}
                         </p>
                     </div>
                     <div class="col-lg-4 offset-lg-1 d-flex flex-column justify-content-center">
-                        <h4 class="h4-responsive my-1">Contact Information</h4>
-                        <p class="p-responsive d-flex with-icon"><i class="material-icons">email</i>{{user.email}}</p>
-                        <p class="p-responsive d-flex with-icon"><i class="material-icons">call</i>{{user.phone}}</p>
+                        <h4 class="h4-responsive my-1" v-if="profile.phone || profile.address || user.linksLinkedin || user.linksStackoverflow || user.linksGithub || user.linksPortfolio || user.linksFacebook">Contact Information</h4>
+                        <p v-if="user.email" class="p-responsive d-flex with-icon"><i class="material-icons">email</i>{{user.email}}</p>
+                        <p v-if="user.phone" class="p-responsive d-flex with-icon"><i class="material-icons">call</i>{{user.phone}}</p>
                         <div class="flex">
                             <a class="btn btn-primary btn-rounded" target="_blank" v-if="user.linksLinkedin" title="Linkedin" :href="user.linksLinkedin"><i class="fa fa-linkedin"></i></a>
                             <a class="btn btn-primary btn-rounded" target="_blank" v-if="user.linksStackoverflow" title="Stackoverflow" :href="user.linksStackoverflow"><i class="fa fa-stack-overflow"></i></a>
@@ -69,12 +69,27 @@
                     style="height: 100px; width: 100px" 
                     :src="profile.company.photo ? restBaseUrl + 'photo/organization/large-' + profile.company.photo : '/img/company.png'" alt="">
                 </div>
-                <div class="col-lg-4  d-flex flex-column justify-content-center">
-                    <h3 class="h3-responsive my-1">{{profile.company.name}}</h3>
-                    <p class="">{{profile.company.description}}</p>
+                <div class="col-lg-4  d-flex flex-column justify-content-center company-desc" :class="{'notExpanded': (!description_expanded && profile.company.description)}" @click="toggleExpansion">
+                    <label class="small mb-0">Organization information</label>
+                    <h3 class="my-1">{{profile.company.name}}
+                        <router-link class="btn btn-primary btn-sm d-inline-flex align-content-center with-icon" :to="'/profile/organization/' + profile.company._id"><i class="material-icons responsive">remove_red_eye</i> View Company</router-link>
+                    </h3>  
+                    <p class="" id="rich_desc" v-html="marked(profile.company.description)"></p>
+                    <div class="show-more-wrapper" v-if="profile.company.description && profile.company.description.length >= 50">
+                        <div class="btn btn-primary btn-sm btn-show-more-less" v-show="!description_expanded">Read More</div>
+                        <div class="btn btn-primary btn-sm btn-show-more-less" v-show="description_expanded">Read Less</div>
+                    </div>
                 </div>
                 <div class="col-lg-4 offset-lg-1 d-flex flex-column justify-content-center">
-                    <h4 class="h4-responsive my-1">Contact Information</h4>
+                    <h4 class="h4-responsive my-1" v-if="profile.phone || profile.address || profile.linksLinkedin || profile.linksGithub || profile.linkswebpage || profile.linksFacebook">Contact Information</h4>
+                    <span v-if="profile.phone" class="d-flex align-content-center mt-1"><i class="mr-1 material-icons">call</i> {{profile.phone}}</span>
+                    <span v-if="profile.address" class="mt-1 d-flex align-content-center"><i class="mr-1 fa fa-address-card-o" aria-hidden="true"></i> {{profile.address}}</span>
+                    <div class="flex">
+                        <a class="btn btn-primary btn-rounded" target="_blank" v-if="profile.linksLinkedin" title="Linkedin" :href="preProcessURL(profile.linksLinkedin)"><i class="fa fa-linkedin"></i></a>
+                        <a class="btn btn-primary btn-rounded" target="_blank" v-if="profile.linksGithub" title="Github" :href="preProcessURL(profile.linksGithub)"><i class="fa fa-github"></i></a>
+                        <a class="btn btn-primary btn-rounded" target="_blank" v-if="profile.linkswebpage" title="Official Page" :href="preProcessURL(profile.linkswebpage)"><i class="fa fa-link"></i></a>
+                        <a class="btn btn-primary btn-rounded" target="_blank" v-if="profile.linksFacebook" title="Facebook" :href="preProcessURL(profile.linksFacebook)"><i class="fa fa-facebook"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -110,6 +125,49 @@
     </div>
 </div>
 </template>
+<style scoped>
+.btn-show-more-less{
+    cursor: pointer;
+}
+.company-desc .btn-show-more-less{
+    opacity: 0.2;
+}
+.company-desc:hover .btn-show-more-less{
+    opacity: 1;
+    
+}
+.notExpanded{
+    height: 200px;
+    padding-bottom: 50px;
+    justify-content: flex-start !important;
+    overflow: hidden;
+    .btn-show-more-less{
+        bottom: -10px;
+    }
+    .show-more-wrapper{
+        background: rgba(255,255,255,0);
+        background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+        background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(100%, rgba(255,255,255,1)));
+        background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+        background: -o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+        background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+        background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0 );
+    }
+    .company-desc{
+        padding-bottom: 0px;
+    }
+}
+
+.company-desc{
+    padding-bottom: 60px;
+}
+.show-more-wrapper{
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+}
+</style>
 <script>
 import Vue from 'vue'
 
@@ -140,6 +198,7 @@ export default {
             restBaseUrl: Vue.rest.restBaseUrl,
 
             activeSection: 'intro',
+            description_expanded:false,
 
         }
     },
@@ -166,6 +225,16 @@ export default {
                 return '//' + url;
             }
             return url;
+        },
+        marked: function(e){
+            return marked(e);
+        },
+        toggleExpansion: function(){
+            if(!this.profile.company.description || this.profile.company.description.length < 50){
+                return;
+            }
+            this.description_expanded = !this.description_expanded;
+            console.log(this.description_expanded);
         },
     },
     mounted: function(){

@@ -30,6 +30,8 @@
 					</td>
 					<td style="">
 						<router-link class="btn btn-primary btn-xsm" :to="'/profile/organization/' + company._id">View Company</router-link>
+						<a class="btn btn-primary btn-xsm" @click="addRepresentative(company._id)">Add New Rep</a>
+						<a class="btn btn-warning btn-xsm" @click="removeRepresentative(company._id)">Remove Rep</a>
 						<a class="btn btn-danger btn-xsm" @click="deleteItem('company', company._id)">Delete</a>
 					</td>
 				</tr>
@@ -193,6 +195,66 @@ export default {
 				console.error(err);
 			});
 		},
+		addRepresentative: function(_company_id){
+			let vm = this;
+			let _url = vm.restBaseUrl + 'api/admin/joinCompany_forced';
+
+			let _rep_email = prompt('Enter New Representative Email to add:');
+			if(!_rep_email){
+				return;
+			}
+
+			let _data = {
+				organization_id: _company_id,
+				organizationRep_email: _rep_email,
+			}
+
+			store.dispatch('showLoader', 'Adding company representative');
+			Vue.axios.post(_url, _data)
+			.then(function(res){
+				console.log(res);
+				store.dispatch('hideLoader');
+				store.dispatch('showMessage', 'New company representative added')
+				setTimeout(function(){
+					vm.getAllData();
+				},300);
+			})
+			.catch(function(err){
+				console.error(err);
+			});
+		},
+		removeRepresentative: function(_company_id){
+			let vm = this;
+			let _url = vm.restBaseUrl + 'api/admin/removeFromCompany_forced';
+
+			let _rep_email = prompt('Enter New Representative Email to remove:');
+			if(!_rep_email){
+				return;
+			}
+
+			if(!confirm('Are you sure, you want to remove ' + _rep_email + ' from this company?')){
+				return;
+			}
+
+			let _data = {
+				organization_id: _company_id,
+				organizationRep_email: _rep_email,
+			}
+
+			store.dispatch('showLoader', 'Adding company representative');
+			Vue.axios.post(_url, _data)
+			.then(function(res){
+				console.log(res);
+				store.dispatch('hideLoader');
+				store.dispatch('showMessage', 'New company representative added')
+				setTimeout(function(){
+					vm.getAllData();
+				},300);
+			})
+			.catch(function(err){
+				console.error(err);
+			});
+		}
 	},
 	mounted: function(){
 		this.getAllData();
