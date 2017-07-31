@@ -47,6 +47,10 @@
     	<h6>Links</h6>
 
 	    <p class="p-responsive d-flex with-icon">
+	    	No.of vacancies available : 
+	    	<live-edit type="number" v-model="i_company.vacancies" :editable="isEditing" placeholder="0" ></live-edit>
+	    </p>
+	    <p class="p-responsive d-flex with-icon">
 	    	<i class="material-icons">email</i>
 	    	<live-edit v-model="i_company.email" :editable="isEditing" placeholder="[Official Email Address]"></live-edit>
 	    </p>

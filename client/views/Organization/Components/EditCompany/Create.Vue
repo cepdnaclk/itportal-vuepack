@@ -4,34 +4,7 @@
         Create Company</h1>
 		<form @submit.prevent="addFormData">
 
-            <!-- <label>Company Name<input type="text" class="" v-model="company.name" placeholder="Your company name"></label>
-            <label class="mt-1">Company Description<textarea type="text" class="md-textarea" v-model="company.description" placeholder="Description of your company"></textarea></label>
-            <label>
-                <i class="material-icons">call</i><input type="text" class="" v-model="company.phone" placeholder="[Phone number]">
-            </label>
-            <label class="mt-1">
-                <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                <textarea type="text" class="md-textarea" v-model="company.address" placeholder="[Company Address]"></textarea>
-            </label>
-            <label>
-                <i class="fa fa-globe" aria-hidden="true"></i>
-                <input type="text" class="" v-model="company.linksWebpage" placeholder="[Company Official Site]">
-            </label>
-            <label>
-                <i class="fa fa-linkedin-square"></i>
-                <input type="text" class="" v-model="company.linksLinkedin" placeholder="[Company LinkedIn account]"></label>
-            <label>
-                <i class="fa fa-facebook-official" aria-hidden="true"></i>
-                <input type="text" class="" v-model="company.linksFacebook" placeholder="[Company Facebook account]">
-            </label>
-            <label>
-                <i class="fa fa-github" aria-hidden="true"></i>
-                <input type="text" class="" v-model="company.linksGithub" placeholder="[Company Github account]">
-            </label>
-            <label>Salary (for interns) Rs.
-                <input type="number" class="" v-model="company.salary" placeholder="0.00">
-            </label>
-			<input class="btn btn-primary text-uppercase" type="submit" value="Create Company"> -->
+            
             <div class="card-block">
                     <div class="row container">
                         <div class="col-lg-3 m-auto">
@@ -51,14 +24,21 @@
                             <h4 class="h4-responsive my-1">About Company</h4>
                             <h3 class="h3-responsive my-1">
                                 <label>Company Name</label>
-                                <input type="text" class="" v-model="company.name" placeholder="Your company name">
+                                <input type="text" class="" v-model="company.name" placeholder="Your company name" v-on:keydown.enter.prevent="focusOnNext('description')">
                             </h3>
-                            <p class="text-blue-grey text-darken-1">
-                                <label>Company Description<textarea type="text" class="md-textarea" v-model="company.description" placeholder="Description of your company"></textarea></label>
+                            <p class="text-blue-grey text-darken-1" >
+                                <label>Company Description
+                                    <textarea type="text" id='description' class="md-textarea" v-model="company.description" placeholder="Description of your company" v-on:keydown.enter.prevent="focusOnNext('salary')"></textarea>
+                                </label>
                             </p>
                             <p>
                                 <label>Salary (for interns) Rs.
-                                    <input type="number" class="" v-model="company.salary" placeholder="0.00">
+                                    <input type="number" id="salary" class="" v-model="company.salary" placeholder="0.00" step="500" v-on:keydown.enter.prevent="focusOnNext('vacancies')">
+                                </label>
+                            </p>
+                            <p>
+                                <label>No. of vacancies available
+                                    <input type="number" id="vacancies" class="" v-model="company.vacancies" placeholder="0" v-on:keydown.enter.prevent="focusOnNext('email')">
                                 </label>
                             </p>
                         </div>
@@ -66,37 +46,37 @@
                             <h4 class="h4-responsive my-1">Contact Information</h4>
                             <p class="p-responsive d-flex with-icon">
                                 <i class="material-icons">email</i>
-                                <input type="text" class="" v-model="company.email" placeholder="[Official Email Address]">
+                                <input type="text" id="email" class="" v-model="company.email" placeholder="[Official Email Address]" v-on:keydown.enter.prevent="focusOnNext('phone')">
                             </p>
                             <p class="p-responsive d-flex with-icon">
                                 <i class="material-icons">call</i>
-                                <input type="text" class="" v-model="company.phone" placeholder="[Phone number]">
+                                <input type="text" id="phone" class="" v-model="company.phone" placeholder="[Phone number]" v-on:keydown.enter.prevent="focusOnNext('address')">
                             </p>
                             <p class="p-responsive d-flex with-icon">
                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                                <textarea type="text" class="md-textarea" v-model="company.address" placeholder="[Company Address]"></textarea>
+                                <textarea type="text" id="address" class="md-textarea" v-model="company.address" placeholder="[Company Address]" v-on:keydown.enter.prevent="focusOnNext('website')"></textarea>
                             </p>
                             <p class="p-responsive d-flex with-icon">
                                 <i class="fa fa-globe" aria-hidden="true"></i>
-                                <input type="text" class="" v-model="company.linksWebpage" placeholder="[Company Official Site]">
+                                <input type="text" id="website" class="" v-model="company.linksWebpage" placeholder="[Company Official Site]" v-on:keydown.enter.prevent="focusOnNext('linkedIn')">
                             </p>
                             <p class="p-responsive d-flex with-icon">
                                 <i class="fa fa-linkedin-square"></i>
-                                <input type="text" class="" v-model="company.linksLinkedin" placeholder="[Company LinkedIn account]"></label>
+                                <input type="text" id="linkedIn" class="" v-model="company.linksLinkedin" placeholder="[Company LinkedIn account]" v-on:keydown.enter.prevent="focusOnNext('facebook')"></label>
                             </p>
                             <p class="p-responsive d-flex with-icon">
                                 <i class="fa fa-facebook-official" aria-hidden="true"></i>
-                                <input type="text" class="" v-model="company.linksFacebook" placeholder="[Company Facebook account]">
+                                <input type="text" id="facebook" class="" v-model="company.linksFacebook" placeholder="[Company Facebook account]" v-on:keydown.enter.prevent="focusOnNext('github')">
                             </p>
                             <p class="p-responsive d-flex with-icon">
-                                <i class="fa fa-github" aria-hidden="true"></i>
-                                <input type="text" class="" v-model="company.linksGithub" placeholder="[Company Github account]">
+                                <i class="fa fa-github"  aria-hidden="true"></i>
+                                <input type="text" id="github" class="" v-model="company.linksGithub" placeholder="[Company Github account]" v-on:keydown.enter.prevent="focusOnNext('submitButton')">
                             </p>                            
                         </div>
                         
                     </div>
                     <div class="offset-lg-1 d-flex flex-column justify-content-center">
-                        <input class="btn btn-primary text-uppercase" type="submit" value="Create Company">
+                        <input class="btn btn-primary text-uppercase" id="submitButton" type="submit" value="Create Company" >
                     </div>
                 </div>
 		</form>
@@ -131,6 +111,7 @@ export default{
                 phone: '',
                 address: '',
                 salary: '',
+                vacancies: '',
 
                 linksFacebook: '',
                 linksLinkedin: '',
@@ -170,6 +151,7 @@ export default{
                 phone: '',
                 address: '',
                 salary: '',
+                vacancies: '',
 
                 linksFacebook: '',
                 linksLinkedin: '',
@@ -177,6 +159,31 @@ export default{
                 linksWebpage: '',
                 organizationRepEmails: [Vue.auth.getUser().email],
             };
+        },
+        photo_upload: function(e, file){
+                console.log(e, file);
+                let vm = this;
+
+                if(file){
+                    let _payload = {
+                        photo: file,
+                        email: vm.i_company._id,
+                        organizationId: vm.i_company._id
+                    }
+
+                    console.log('[photo_upload][payload]', _payload);
+
+                    Vue.rest.putImageUpload(_payload,
+                    'organization', function(data){
+                        console.log(data);
+                    });
+                }
+        },
+        photo_changed: function(e){
+            console.log('photo_changed', e)
+        },
+        focusOnNext: function(id){
+            document.getElementById(id).focus();
         }
     }
 }
