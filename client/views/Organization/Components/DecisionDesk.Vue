@@ -74,8 +74,11 @@
                             <div class="col-md-1 status"><span class="dot"></span></div>
                             <div class="col-md-2 actions">
                                 <router-link :to="'/profile/student/' + student_profiles[preference.user._id]._id" class="btn btn-primary btn-sm btn-block">View</router-link>
-                                <a class="btn btn-primary btn-sm btn-block" @click="addNewInterview(preference.user)">Inverview</a>
+                                
+                                <!-- <a class="btn btn-primary btn-sm btn-block" @click="addNewInterview(preference.user)">Inverview</a> -->
+                                <add-interview :_user="preference.user"></add-interview>
                                 <a class="btn btn-primary btn-sm btn-block" @click="addNewOffer(preference.user)">Accept</a>
+
                             </div>
                         </div>
 
@@ -140,8 +143,11 @@
 </style>
 
 <script>
-    import Vue from 'vue'
-    import store from 'store'
+    import Vue from 'vue';
+    import store from 'store';
+
+    import AddInterview from './Dialogs/AddInterview';
+
 
     export default{
         data: () => {

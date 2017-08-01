@@ -3,13 +3,13 @@
 	<div class="fluid-container white lighten-5 p-2">
 		
 		<h4>Student Allocation
+			<router-link class="btn btn-primary" :to="{name: 'Admin_dashboard_StudentAllocation_SetRules'}">Set Rules</router-link>
+			<router-link class="btn btn-primary" :to="{name: 'Admin_dashboard_StudentAllocation_SetRulesCompanies'}">Set Company Rules</router-link>
 			<div class="d-inline small float-right" v-if="preferencesChanged">
 				There are changes in preferences, not applied yet <a class="btn btn-warning"  @click="applyAdminPreferences">Save Preferences</a>
 			</div>
 		</h4>
-
 		<div class="section col">
-				
 				<h4 class="h4-responsive">Company Preferences ({{companyPreferences.length}} records)</h4>
 				<div>
 

@@ -22,6 +22,8 @@ import AdminDashboard_ContentEditor from '../views/Admin/Components/ContentEdito
 import AdminDashboard_Entities from '../views/Admin/Components/Entities'
 import AdminDashboard_UserEditor from '../views/Admin/Components/UserEditor'
 import AdminDashboard_StudentAllocation from '../views/Admin/Components/StudentAllocation'
+import AdminDashboard_StudentAllocation_SetRules from '../views/Admin/Components/SubComponents/SetRules'
+import AdminDashboard_StudentAllocation_SetRulesCompanies from '../views/Admin/Components/SubComponents/SetCompanyRules'
 import AdminDashboard_Tasks from '../views/Admin/Components/Tasks'
 import AdminDashboard_Timeline from '../views/Admin/Components/Timeline'
 import AdminDashboard_UserEvents from '../views/Admin/Components/UserEvents'
@@ -223,6 +225,8 @@ var router = new Router({
                 {name: 'Admin_dashboard_Entities', path: 'entites', component: AdminDashboard_Entities },
                 {name: 'Admin_dashboard_UserEditor', path: 'userEditor', component: AdminDashboard_UserEditor },
                 {name: 'Admin_dashboard_StudentAllocation', path: 'studentAllocation', component: AdminDashboard_StudentAllocation },
+                {name: 'Admin_dashboard_StudentAllocation_SetRules', path: 'studentAllocation_setRules', component: AdminDashboard_StudentAllocation_SetRules },
+                {name: 'Admin_dashboard_StudentAllocation_SetRulesCompanies', path: 'studentAllocation_setRules_company', component: AdminDashboard_StudentAllocation_SetRulesCompanies },
                 {name: 'Admin_dashboard_Tasks', path: 'tasks', component: AdminDashboard_Tasks },
                 {name: 'Admin_dashboard_Timeline', path: 'timeline', component: AdminDashboard_Timeline },
                 {name: 'Admin_dashboard_UserEvents', path: 'userEvents', component: AdminDashboard_UserEvents },
