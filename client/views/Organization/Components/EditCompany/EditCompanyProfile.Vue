@@ -39,17 +39,18 @@
 	    	</div>
 	    </div>
 	    <hr>
-	    <p class="p-responsive d-flex with-icon">
+	    <h6>Internship summary</h6>
+	    <p class="p-responsive d-flex align-items-center">
 	    	Salary for interns : Rs.
 	    	<live-edit v-model="i_company.salary" :editable="isEditing" placeholder="0.00"></live-edit>
 	    </p>
-	    <hr>
-    	<h6>Links</h6>
-
-	    <p class="p-responsive d-flex with-icon">
+	    <p class="p-responsive d-flex align-items-center">
 	    	No.of vacancies available : 
 	    	<live-edit type="number" v-model="i_company.vacancies" :editable="isEditing" placeholder="0" ></live-edit>
 	    </p>
+	    <hr>
+
+    	<h6>Links</h6>
 	    <p class="p-responsive d-flex with-icon">
 	    	<i class="material-icons">email</i>
 	    	<live-edit v-model="i_company.email" :editable="isEditing" placeholder="[Official Email Address]"></live-edit>
