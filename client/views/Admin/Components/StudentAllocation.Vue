@@ -17,7 +17,7 @@
 					<table class="table table-sm">
 						<template v-for="(preference, index) in preferenceByCompany">
 		
-							<tr>
+							<tr :id="'company_' +  preference[0].organization._id">
 								<th colspan="5" class="py-1 pt-3">
 									<img class="rounded-circle d-inline mr-1" :src="preference[0].organization.photo ? (restUrl + 'photo/organization/large-' + preference[0].organization.photo) : '/img/company.png'" style="height: 3em; border-radius: 3em; width: 3em" alt=""/>
 									{{preference[0].organization.name}}
@@ -37,6 +37,7 @@
 								<td>
 									<img class="rounded-circle d-inline mr-1" :src="students[pref.user._id].StudentDetails.photo ? (restUrl + 'photo/user/large-' + students[pref.user._id].StudentDetails.photo) : '/img/user.png'" style="height: 3em; border-radius: 3em; width: 3em" alt=""/>
 									{{pref.user.name}}
+									<a class="btn btn-primary btn-sm" :href="'#student_' + pref.user._id"><i class="material-icons responsive">remove_red_eye</i></a>
 								</td>
 								<td class="text-center">{{students[pref.user._id].GPA}}</td>
 								<td class="text-center"><span class="badge" :class="{
@@ -62,7 +63,7 @@
 					<h4>By Student</h4>
 					<table class="table table-sm">
 						<template v-for="(preference, index) in preferenceByUser">
-							<tr>
+							<tr :id="'student_' + preference[0].user._id">
 								<th colspan="4" class="py-1 pt-3">
 									<img class="rounded-circle d-inline mr-1" :src="students[preference[0].user._id].StudentDetails.photo ? (restUrl + 'photo/user/large-' + students[preference[0].user._id].StudentDetails.photo) : '/img/user.png'" style="height: 3em; border-radius: 3em; width: 3em" alt=""/>
 									{{preference[0].user.name}}
@@ -80,6 +81,7 @@
 								<td>
 									<img class="rounded-circle d-inline mr-1" :src="pref.organization.photo ? (restUrl + 'photo/organization/large-' + pref.organization.photo) : '/img/company.png'" style="height: 3em; border-radius: 3em; width: 3em" alt=""/>
 									{{pref.organization.name}}
+									<a class="btn btn-primary btn-sm" :href="'#company_' + pref.organization._id"><i class="material-icons responsive">remove_red_eye</i></a>
 								</td>
 								<td class="text-center"><span class="badge" :class="{
 									'badge-primary': (pref.preference < 3),
@@ -108,7 +110,11 @@
 
 	</div>
 </template>
-
+<style scoped>
+	.btn-sm{
+	    padding: 0.3em 1em;
+	}
+</style>
 <script>
 	
 import Vue from 'vue';

@@ -51,38 +51,6 @@
                             </td>
                         </tr>
                     </table>
-                    <!-- <div class="container decision-student white z-depth-1 p-2 my-1 mb-1"  v-for="preference in companyPreferences">
-                        <div class="row">
-                            <div class="col-md-7 student-details">
-                                <img class="img rounded-circle" :src="(preference.user.photo)? (baseUrl+'photo/user/small-' + preference.user.photo) :'/img/user.png'" alt="">
-                                <div class="name">{{preference.user.name}}</div>
-                                <div class="desc">
-                                    <span class="title">GPA</span>
-                                    <span class="content">{{student_profiles[preference.user._id].GPA}}</span>
-                                </div>
-                                <div class="desc">
-                                    <span class="title">Favourite</span>
-                                    <span class="content">
-                                        <span v-if="student_profiles[preference.user._id].FrequentSkills.length == 0">[Not Added]</span>
-                                        <span v-else class="badge badge-primary" v-for="skill in student_profiles[preference.user._id].FrequentSkills">{{skill.name}}</span>
-                                    </span>
-                                </div>
-                                
-                            </div>
-                            <div class="col-md-1 status"><span class="dot"></span></div>
-                            <div class="col-md-1 status"><span class="dot"></span></div>
-                            <div class="col-md-1 status"><span class="dot"></span></div>
-                            <div class="col-md-2 actions">
-                                <router-link :to="'/profile/student/' + student_profiles[preference.user._id]._id" class="btn btn-primary btn-sm btn-block">View</router-link>
-                                
-                                <!-- <a class="btn btn-primary btn-sm btn-block" @click="addNewInterview(preference.user)">Inverview</a> -->
-                                <add-interview :_user="preference.user"></add-interview>
-                                <a class="btn btn-primary btn-sm btn-block" @click="addNewOffer(preference.user)">Accept</a>
-
-                            </div>
-                        </div>
-
-                    </div> -->
                 </div>
 				<hr class="mt-2">
             </div>
