@@ -25,9 +25,44 @@
         <div class="col-md-9" v-else>
         	<div class="alert alert-warning">You are required to add your LDAP account. Please contact Administrator</div>
         </div>
+
+	    <div class="printable">
+	    	<h1>{{student.GPA}} <small>GPA</small> <small>(E/12/206)</small></h1>
+	    	<div>
+				<span 
+					v-for="result in studentResults">
+				<span>{{result.field}}</span>
+				<span>{{result.grade}}</span>
+				</span>
+	    		
+	    	</div>
+	    </div>
     </div>
 </template>
 <style></style>
+<style scoped>
+	
+    @media only screen{
+        .printable{
+            display: none !important;
+        }
+    }
+    @media only print {
+
+        *:not(.printable){
+            display: none;
+        }
+        .printable{
+        	display: block;
+            padding: 10pt;
+            background: #fff;
+
+            * {
+            	display: initial !important;
+            }
+        }
+    }
+</style>
 <script>
 	import Vue from 'vue'
 
