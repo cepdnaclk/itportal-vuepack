@@ -79,6 +79,14 @@
                 </div>
             </div>
             <div class="card" >
+                <a id="resume" class='spy-anchor'></a>
+                <div class="card-block">
+                    <h3 class="h3-responsive marginless">Resume</h3>
+                    <hr class="my-2">
+                    <edit-resume v-if="student_id" :student_id="student_id" :student_resume="student_resume_name"></edit-resume>
+                </div>
+            </div>
+            <div class="card" >
                 <a id="academic" class='spy-anchor'></a>
                 <div class="card-block">
                     <h3 class="h3-responsive marginless">Academic</h3>
@@ -178,6 +186,7 @@
     import ViewExtracurricular from 'components/Profile/ViewExtracurricular'
     import ViewInterest from 'components/Profile/ViewInterest'
 
+    import EditResume from 'components/Profile/EditResume'
     import EditAcademics from 'components/Profile/EditAcademics'
     import EditProject from 'components/Profile/EditProject'
     import EditCompetition from 'components/Profile/EditCompetition'
@@ -225,6 +234,7 @@
             ViewInterest,
 
 
+            EditResume,
             EditAcademics,
             EditCompetition,
             EditAward,
@@ -239,6 +249,7 @@
                 activeSection: 'intro',
                 user: Vue.auth.getUser(),
                 student_id: null,
+                student_resume_name: null,
                 editingSection: null,
 
                 projects:[],
@@ -319,6 +330,7 @@
                 Vue.rest.getData('student', '?query={"email":"' + this.user.email + '"}', function(_student){
                     console.log(_student[0]._id);
                     vm.student_id = _student[0]._id;
+                    vm.student_resume_name = _student[0].resume;
 
                     Vue.rest.getData('student', '/' + vm.student_id + '?populate=["projects","competitions","awards","cocurriculars","extracurriculars"]', function(_student){
                         

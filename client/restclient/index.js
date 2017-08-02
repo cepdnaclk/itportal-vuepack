@@ -14,6 +14,9 @@ var rest = {
     getPhotoUploadUrl: function(model) {
         return this.restBaseUrl + 'api/photo/' + model;
     },
+    getResumeUploadUrl: function() {
+        return this.restBaseUrl + 'api/resume/student';
+    },
 
     getData(model, options, cb) {
         let _url = this.getRestUrl(model, options);
@@ -205,6 +208,67 @@ var rest = {
                     var cb = this.getData;
                     setTimeout(function() {
                         cb(model);
+                    }, 1000);
+                }
+
+            } else {
+                store.dispatch('showMessage', 'Something was not right, when updating your data');
+            }
+        });
+    },
+    putResumeUpload(data, cb) {
+        let _url = this.getResumeUploadUrl();
+        let vm = this;
+        if(!data.resume){
+            store.dispatch('showMessage', 'Photo not selected for upload');
+        }
+
+        if(vm.loaderCount == 0) {store.dispatch('showLoader', 'Uploading your resume...');}
+        vm.loaderCount++;
+
+
+        var _data = new FormData();
+        _data.append('student_id', data.student_id);
+        _data.append('email', data.student_id);
+        _data.append('resume', data.resume);
+        var config = {
+            onUploadProgress: function(progressEvent) {
+                var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                console.log(percentCompleted);
+            }
+        };
+
+        Vue.axios.put(
+            _url, _data
+        ).then(res => {
+            let _data = (res.data);
+
+            vm.loaderCount--;
+            if(vm.loaderCount == 0) store.dispatch('hideLoader');
+
+            store.dispatch('showMessage', _data.flashMessage || ' Resume updated.');
+            if (cb) cb(_data);
+            return;
+
+        }).catch(function(err) {
+            console.log(err);
+            if (err.response) {
+                var _err = err.response.data;
+
+                vm.loaderCount--;
+                if(vm.loaderCount == 0) store.dispatch('hideLoader');
+
+                store.dispatch('showMessage', _err.flashMessage || _err);
+                if (_err.signedIn === false) {
+                    setTimeout(function() {
+                        Vue.auth.logout();
+                    }, 1000);
+                } else if (_err.tokenValid === false) {
+                    Vue.auth.refreshToken();
+
+                    var cb = this.getData;
+                    setTimeout(function() {
+                        cb();
                     }, 1000);
                 }
 

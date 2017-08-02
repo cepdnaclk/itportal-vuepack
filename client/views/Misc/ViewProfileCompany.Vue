@@ -15,12 +15,18 @@
                         <div class="btn btn-primary btn-sm btn-show-more-less" v-show="!description_expanded">Read More</div>
                         <div class="btn btn-primary btn-sm btn-show-more-less" v-show="description_expanded">Read Less</div>
                     </div>
+                    <div v-if="profile.vacancies || profile.salary">
+                        <span v-show="profile.vacancies" class="badge badge-default"><h4 class="d-inline-flex align-items-center mb-0"><i class="material-icons responsive">people</i> <span class="pr-1">{{profile.vacancies}}</span></h4><br> internship positions left</span>
+                        <span v-show="profile.salary" class="badge badge-primary"> <h4 class="d-inline-flex align-items-center mb-0"><i class="material-icons responsive">redeem</i> <span class="pr-1">{{profile.salary}}</span></h4> <br> Average salary </span>
+                        
+                    </div>
                 </div>
                 <div class="col-lg-4 offset-lg-1 d-flex flex-column justify-content-center">
                     <h4 class="h4-responsive my-1" v-if="profile.phone || profile.address || profile.linksLinkedin || profile.linksGithub || profile.linkswebpage || profile.linksFacebook">Contact Information</h4>
                     <span v-if="profile.phone" class="d-flex align-content-center mt-1"><i class="mr-1 material-icons">call</i> {{profile.phone}}</span>
+                    <span v-if="profile.email" class="d-flex align-content-center mt-1"><i class="mr-1 material-icons">email</i> {{profile.email}}</span>
                     <span v-if="profile.address" class="mt-1 d-flex align-content-center"><i class="mr-1 fa fa-address-card-o" aria-hidden="true"></i> {{profile.address}}</span>
-                    <div class="flex">
+                    <div class="flex pt-1">
                         <a class="btn btn-primary btn-rounded" target="_blank" v-if="profile.linksLinkedin" title="Linkedin" :href="preProcessURL(profile.linksLinkedin)"><i class="fa fa-linkedin"></i></a>
                         <a class="btn btn-primary btn-rounded" target="_blank" v-if="profile.linksGithub" title="Github" :href="preProcessURL(profile.linksGithub)"><i class="fa fa-github"></i></a>
                         <a class="btn btn-primary btn-rounded" target="_blank" v-if="profile.linkswebpage" title="Official Page" :href="preProcessURL(profile.linkswebpage)"><i class="fa fa-link"></i></a>

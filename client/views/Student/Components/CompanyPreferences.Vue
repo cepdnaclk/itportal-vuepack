@@ -258,7 +258,13 @@
                 .then(function(res){
 
                     let _data = res.data;
-                    let _companies_selected_fromDB = _.map(_data, function(o){
+                    console.log('_data', _data);
+
+                    let _data_sorted = _.sortBy(_data, function(o){
+                        return o.preference;
+                    })
+
+                    let _companies_selected_fromDB = _.map(_data_sorted, function(o){
                         return o.organization;
                     });
 
@@ -288,7 +294,6 @@
 
                 _not_selected = _.map(vm.companies, function(o){
                     if(!_.includes(_selected_ids, o._id)){
-                        console.log('id', _selected_ids, o._id)
                         return o;
                     }
                     

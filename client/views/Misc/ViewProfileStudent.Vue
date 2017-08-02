@@ -65,6 +65,19 @@
                 </div>
             </div>
         </div>
+
+        <div class="card" v-if="profile">
+            <a id="resume" class='spy-anchor'></a>
+            <div class="card-block">
+                <h3 class="h3-responsive marginless">My Resume</h3>
+                <hr class="my-2">
+                Download my resume
+                <a v-if="profile.resume" target="_blank" :href="restBaseUrl + '/api/all/student/cv/'+ (profile.resume)" class="btn btn-primary d-inline-flex align-items-center with-icon"><i class="material-icons">perm_identity</i> Download My Resume</a>
+                <a class="btn btn-primary d-inline-flex align-items-center with-icon" @click="makeAPrint"><i class="material-icons">print</i> Print this page</a>
+
+            </div>
+        </div>
+
         <div class="card" >
             <a id="academic" class='spy-anchor'></a>
             <div class="card-block">
@@ -123,7 +136,7 @@
         </div>
 
 
-        <div class="card"v-if="profile.interests.length>0">
+        <div class="card" v-if="profile.interests.length>0">
             <a id="interests" class='spy-anchor'></a>
             <div class="card-block">
                 <h3>Interests</h3>
@@ -132,6 +145,56 @@
             </div>
         </div>
     </div>
+    <div class="printable">
+        <h5>Introduction</h5>
+        <img class="rounded-circle large-profilePicture" :src="user.photo ? restBaseUrl + 'photo/user/large-' + user.photo : '/img/user.png'" alt="">
+        <h3 class="h3-responsive my-1 mobile-name">{{user.name}}</h3>
+        <h5 v-show="user.title" class="h5-responsive text-uppercase grey-text text-darken-2">{{user.title}}</h5>
+        <p v-show="user.tagline" class="tagline text-blue-grey text-darken-1">
+            {{user.tagline}}
+        </p>
+        <hr>
+
+        <h5>Contact Information</h5>
+        <p v-show="user.email"><i class="material-icons">email</i> {{user.email}}</p>
+        <p v-show="user.phone"><i class="material-icons">call</i> {{user.phone}}</p>
+        <p v-show="user.linksLinkedin"><i class="fa fa-linkedin"></i></i> {{user.linksLinkedin}}</p>
+        <p v-show="user.linksStackoverflow"><i class="fa fa-stack-overflow"></i> {{user.linksStackoverflow}}</p>
+        <p v-show="user.linksGithub"><i class="fa fa-github"></i></i> {{user.linksGithub}}</p>
+        <p v-show="user.linksPortfolio"><i class="fa fa-link"></i></i> {{user.linksPortfolio}}</p>
+        <p v-show="user.linksFacebook"><i class="fa fa-facebook"></i></i> {{user.linksFacebook}}</p>
+        <hr>
+
+        <h5>Academic Information</h5>
+        <view-academics v-if="profile" :student="profile" :results="academics"></view-academics>
+        <hr>
+
+        <h5>Projects</h5>
+        <view-project v-for="(project, index) in profile.projects" :project="project" :key="'project'+index"></view-project>
+        <hr>
+
+        <h5>Competitions</h5>
+        <view-competition v-for="(competition, index) in profile.competitions" :competition="competition" :key="'competition'+index"></view-competition><hr>
+        <hr>
+
+        <h5>Awards</h5>
+        <view-award v-for="(award, index) in profile.awards" :award="award" :key="'award'+index"></view-award>        
+        <hr>
+
+        <h5>Co-curricular</h5>
+        <view-cocurricular v-for="(cocurricular, index) in profile.cocurriculars" :cocurricular="cocurricular" :key="'cocurricular'+index"></view-cocurricular>        
+        <hr>
+
+        <h5>Extra-curricular</h5>
+        <view-extracurricular v-for="(extracurricular, index) in profile.extracurriculars" :extracurricular="extracurricular" :key="'extracurricular'+index"></view-extracurricular>        
+        <hr>
+
+        <h5>Interests</h5>
+        <view-interest v-for="(interest, index) in profile.interests" :interest="interest" :key="'interest'+index"></view-interest>        
+        <hr>
+
+
+    </div>
 </div>
 </template>
 
@@ -139,9 +202,11 @@
     .btn-rounded{
         padding: 10pt;
         border-radius: 50%;
-        line-height: 1em;
+        line-height: 1.5em;
         margin-right: 3pt;
         margin-right: 0;
+        height: 32pt;
+        width: 32pt;
     }
 </style>
 <style scoped>
@@ -154,6 +219,28 @@
         }
         .mobile-flex-center{
             justify-content: center;
+        }
+    }
+    @media only screen{
+        .printable{
+            display: none !important;
+        }
+    }
+    @media only print {
+        .printable{
+
+            padding: 10pt;
+            background: #fff;
+
+        }
+        .card{
+            &:not(.printable){
+                display: none;
+            }
+            .tagline{
+                background: #455a64;
+                padding-left: 256px;
+            }
         }
     }
 </style>
@@ -215,6 +302,9 @@ export default {
                 return '//' + url;
             }
             return url;
+        },
+        makeAPrint: function(){
+            window.print();
         }
     },
     mounted: function(){
