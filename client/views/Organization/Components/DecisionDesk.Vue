@@ -40,14 +40,14 @@
                                 </span>
                             </td>
                                 
-                            <td class="col-md-1 status"><span class="dot d-inline-block" :class="{'active': (local_stats[preference.user._id] && local_stats[preference.user._id].viewed)}"></span></td>
-                            <td class="col-md-1 status"><span class="dot d-inline-block" :class="{'active': (local_stats[preference.user._id] && local_stats[preference.user._id].interview_scheduled)}"></span></td>
-                            <td class="col-md-1 status"><span class="dot d-inline-block" :class="{'active': (local_stats[preference.user._id] && local_stats[preference.user._id].offered)}"></span></td>
-                            <td class="col-md-1 status"><span class="dot d-inline-block" :class="{'active': (local_stats[preference.user._id] && local_stats[preference.user._id].accepted)}"></span></td>
+                            <td class="col-md-1 status"><span class="dot d-inline-block" :class="{'active': preference.company_accepted}"></span></td>
+                            <td class="col-md-1 status"><span class="dot d-inline-block" :class="{'active': preference.company_interviewed}"></span></td>
+                            <td class="col-md-1 status"><span class="dot d-inline-block" :class="{'active': preference.company_viewed}"></span></td>
+                            <td class="col-md-1 status"><span class="dot d-inline-block" :class="{'active': preference.student_accepted}"></span></td>
                             <td class="col-md-2 actions">
-                                <router-link :to="'/profile/student/' + student_profiles[preference.user._id]._id" class="btn btn-primary btn-sm btn-block" @click.native="setViewed(preference.user._id)">View</router-link>
-                                <a class="btn btn-primary btn-sm btn-block" @click="addNewInterview(preference.user)">Inverview</a>
-                                <a class="btn btn-primary btn-sm btn-block" @click="addNewOffer(preference.user)">Accept</a>
+                                <router-link :to="'/profile/student/' + student_profiles[preference.user._id]._id" class="btn btn-primary btn-sm btn-block" @click.native="setViewed(preference)">View</router-link>
+                                <add-interview :preference="preference" :curruser="preference.user" @setinterviewed="setInterviewed"></add-interview>
+                                <a class="btn btn-primary btn-sm btn-block" @click="addNewOffer(preference)">Accept</a>
                             </td>
                         </tr>
                     </table>
@@ -118,6 +118,9 @@
 
 
     export default{
+        components: {
+            AddInterview
+        },
         data: () => {
             return {
                 company: Vue.auth.getUser(),
@@ -148,34 +151,9 @@
 
                 })
             },
-            addNewInterview: function(user){
+            addNewOffer: function(preference){
 
-                let vm = this;
-                let _baseURL = Vue.rest.restBaseUrl;
-                
-                let _interview_data = {
-                    companyRepEmail: vm.company.email,
-                    studentId: user._id
-                }
-
-                if(!confirm('Schedule an interview for this student?')){
-                    return;
-                }
-
-                Vue.axios.post(_baseURL + 'api/company/interview/new', _interview_data)
-                .then(function(res){
-                    
-                    console.log(res.data);
-
-                    vm.setInterviewed(user._id);
-                    store.dispatch('showMessage', 'New Interview Added');
-                    
-
-                })
-                .catch(function(err){console.log(err)});
-
-            },
-            addNewOffer: function(user){
+                let user = preference.user;
 
                 let vm = this;
                 let _baseURL = Vue.rest.restBaseUrl;
@@ -192,7 +170,7 @@
                 Vue.axios.post(_baseURL + 'api/company/offer/new', _offer_data)
                 .then(function(res){
                     console.log(res.data);
-                    vm.setAccepted(user._id);
+                    vm.setAccepted(preference);
                     store.dispatch('showMessage', 'New Offer Sent');
                 })
                 .catch(function(err){console.log(err)});
@@ -246,7 +224,11 @@
                 .catch(function(err){console.log(err)});
 
             },
-            setViewed: function(_id){
+            setViewed: function(preference){
+
+                let _id = preference.user._id;
+                preference.company_viewed = true;
+
                 let vm = this;
                 let _locals = vm.local_stats;
 
@@ -256,25 +238,34 @@
                 _locals[_id].viewed = true;
 
                 Vue.set(vm.local_stats, _locals);
+                delete vm.local_stats['[object Object]'];
                 
-                vm.saveLocalStats();
+                preference.company_viewed = true;
+                vm.savePreferenceStats(preference);
                 console.log('[local_stats]', vm.local_stats);
             },
-            setInterviewed: function(_id){
+            setInterviewed: function(preference){
+
+                let _id = preference.user._id;
                 let vm = this;
                 let _locals = vm.local_stats;
 
+                // console.log(preference, _id)
                 if(!_locals[_id]) {
                     _locals[_id] = {};
                 }
                 _locals[_id].interview_scheduled = true;
 
                 Vue.set(vm.local_stats, _locals);
+                delete vm.local_stats['[object Object]'];
                 
-                vm.saveLocalStats();
+                preference.company_interviewed = true;
+                vm.savePreferenceStats(preference);
                 console.log('[local_stats]', vm.local_stats);
             },
-            setAccepted: function(_id){
+            setAccepted: function(preference){
+
+                let _id = preference.user._id;
                 let vm = this;
                 let _locals = vm.local_stats;
 
@@ -284,12 +275,19 @@
                 _locals[_id].offered = true;
 
                 Vue.set(vm.local_stats, _locals);
+                delete vm.local_stats['[object Object]'];
                 
-                vm.saveLocalStats();
+                preference.company_accepted = true;
+                vm.savePreferenceStats(preference);
                 console.log('[local_stats]', vm.local_stats);
             },
-            saveLocalStats: function(){
+            savePreferenceStats: function(preference){
                 localStorage.setItem('local_company_decision_stats', JSON.stringify(this.local_stats));
+                console.log(preference);
+                let vm = this;
+                Vue.rest.updatePreferences_state(preference, function(){
+                    vm.getCompanyPreferences();
+                });
             },
             getLocalStats: function(){
                 let _locals = JSON.parse(localStorage.getItem('local_company_decision_stats'));
@@ -299,6 +297,9 @@
                     this.local_stats = {};
                 }
             },
+            hasAndNotUndefined: function(e){
+                return !_.isNull(e) && !_.isUndefined(e);
+            }
         },
         computed: {
             totalViewed: function(){

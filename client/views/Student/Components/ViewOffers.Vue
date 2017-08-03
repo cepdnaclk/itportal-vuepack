@@ -1,20 +1,24 @@
 <template>
-	<div class="container mt-2">
+	<div class="container mt-2" v-show="offers.length > 0">
         <div class="row">
             <div class="form col-md-12 dashboard-itportal">
-                <h2>My Offers ({{offers.length}})</h2>
-                <ol>
-	                <li v-for="offer in offers">
-	                	<h4>
-		                	{{offer.company.name}}
-		                	<span class="small">({{(new Date(offer.updatedAt)).toLocaleString()}})</span>
-		                	<div class="btn btn-danger" :class="{'faded': (offer.accepted==true)}" @click="rejectOffer(offer)">{{!offer.accepted?'Rejected':'Reject'}}</div>
-		                	<div class="btn btn-success" :class="{'faded': (offer.accepted==false)}" @click="acceptOffer(offer)">{{offer.accepted?'Accepted':'Accept'}}</div>
-	                	</h4>
-	                	
-	                </li>
-                	
-                </ol>
+                <h4>My Offers ({{offers.length}})</h4>
+                <table class="table">
+	                <tr>
+	                	<td colspan="2">Company</td>
+	                	<td>Date offered</td>
+	                	<td class="right">Actions</td>
+	                </tr>
+                	<tr v-for="offer in offers">
+						<td class="align-middle"><img class="rounded-circle" :src="offer.company.photo ? (restUrl + 'photo/organization/large-' + offer.company.photo) : '/img/company.png'" style="height: 3em; width: 3em !important; border-radius: 3em; width: 3em" alt=""/></td>
+	                	<td class="align-middle">{{offer.company.name}}</td>
+	                	<td class="align-middle small">{{(new Date(offer.updatedAt)).toLocaleString()}}</td>
+	                	<td class="align-middle">
+	                		<span class="btn btn-danger" :class="{'faded': (offer.accepted==true)}" @click="rejectOffer(offer)">{{!offer.accepted?'Rejected':'Reject'}}</span>
+		                	<span class="btn btn-success" :class="{'faded': (offer.accepted==false)}" @click="acceptOffer(offer)">{{offer.accepted?'Accepted':'Accept'}}</span>
+	                	</td>
+                	</tr>
+                </table>
             </div>
         </div>
 	</div>
@@ -34,6 +38,8 @@ export default {
 	data: ()=> {
 		return {
 			offers: [],
+
+			restUrl: Vue.rest.restBaseUrl,
 		}
 	},
 	methods: {
@@ -46,7 +52,9 @@ export default {
                 let _interview_data = res.data;
                 console.log('_interview_data', _interview_data);
 
-                vm.offers = _interview_data;
+                vm.offers = _.filter(_interview_data, function(o){
+                	return !_.isNull(o.company);
+                });
 
                 store.dispatch('showMessage', 'Retrieved offers')
                 

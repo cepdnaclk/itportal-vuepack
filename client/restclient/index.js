@@ -278,6 +278,27 @@ var rest = {
         });
     },
 
+
+    updatePreferences_state(_preference, cb) {
+        let _url = this.restBaseUrl + '/api/company/companyPreferences/set/status';
+        let vm = this;
+
+        let _data = {
+            preference: _preference
+        };
+        Vue.axios.post(
+            _url, _data
+        ).then(res => {
+            let _data = (res);
+            console.log('updated preference state data...')
+            console.log(_data);
+            cb();
+            return;
+        }).catch(function(err) {
+            console.log(err);
+        });
+    },
+
 }
 
 export default rest;

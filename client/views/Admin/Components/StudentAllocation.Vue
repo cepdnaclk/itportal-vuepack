@@ -220,6 +220,8 @@ export default {
 			let vm = this;
 			let _preferences = vm.companyPreferences;
 
+
+            store.dispatch('showLoader', 'Evaluating preferences...');
 			// push users to companies;
 			let _preferencesByCompany = _.groupBy(_preferences, function(o){
 				return o.organization._id;
@@ -234,6 +236,8 @@ export default {
 
 			})
 			
+
+            store.dispatch('hideLoader');
 			return _preferencesByCompany_sorted;
 		},
 		preferenceByUser: function(){

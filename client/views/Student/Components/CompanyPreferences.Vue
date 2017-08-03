@@ -18,7 +18,8 @@
 
                     <hr class="my-1">
                     <div class="container companies-selected" v-if="companies_selected.length>0">
-                        <h5 class="my-1">Liked Companies <span class="badge badge-success">{{companies_selected.length}} Companies</span> <span class="badge badge-default">selected preference {{activeSlot + 1}}</span></h5>
+                        <h5 class="my-1">Liked Companies <span class="badge badge-success">{{companies_selected.length}} Companies</span> <span class="badge badge-default">selected slot {{activeSlot + 1}}</span></h5>
+                        <div class="alert alert-info">Select a company from the list as your <b>choice {{activeSlot + 1}}</b> <span v-show="companies_selected.length>0">or select a slot from below</span></div>
                         <div v-if="companies_selected.length==0" class="alert alert-warning">Select your preferred companies from below</div>
                         <transition-group name="component-fade" mode="out-in">
                             <div v-for="(company, index) in companies_selected"
@@ -29,8 +30,16 @@
                                 >
 
                                 <span class="preference">{{index + 1}}</span>
-                                <img src="/img/user.png" alt="" class="image">
+                                <img class="rounded-circle image" :src="company.photo ? (restUrl + 'photo/organization/large-' + company.photo) : '/img/company.png'" style="height: 2em; width: 2em !important; border-radius: 2em;" alt=""/>
                                 <span class="company">{{company.name}}</span>
+
+                                <span class="tip faded float-right pl-3 small d-inline-block align-content-center">Click here and select this slot to add a preference as choice {{index + 1}}</span>
+                                <span class="status" v-if="company_preferences[company._id]">
+                                    <span class="padded"><span class="dot" :class="{'active': company_preferences[company._id].admin_approved}" :title="(company_preferences[company._id].admin_approved?'':'Not ') + 'Allocated to Company'"></span></span>
+                                    <span class="padded"><span class="dot" :class="{'active': company_preferences[company._id].company_viewed}" :title="(company_preferences[company._id].company_viewed?'':'Not ') + 'Viewed by Company'"></span></span>
+                                    <span class="padded"><span class="dot" :class="{'active': company_preferences[company._id].company_interviewed}" :title="(company_preferences[company._id].company_interviewed?'':'Not ') + 'Scheduled an Interview'"></span></span>
+                                    <span class="padded"><span class="dot" :class="{'active': company_preferences[company._id].company_accepted}" :title="(company_preferences[company._id].company_accepted?'':'Not ') + 'Accepted by the Company'"></span></span>
+                                </span>
                                 <div class="remove" v-show="company" @click="removeSelected(company)">
                                     <span>X</span>
                                 </div>
@@ -38,23 +47,30 @@
                         </transition-group>
                     </div>
                     <hr class="my-1">
-                    <div class="container companies-not-selected" v-if="sorted_notSelected.length>0">
+                    <div class="container companies-not-selected">
 
                         <h5 class="my-1">Other Companies</h5>
-                        <p>Choose a company for the selected slot (<span class="badge badge-success">{{activeSlot + 1}}</span>) above, from the following list</p>
-                        <transition-group name="component-fade" mode="out-in">
-                        	<div v-for="company in sorted_notSelected" 
-                            :id="company"
-                            :key="company"
-                            @click="addSelected(company)"
-                            class="company-not-selected">
-                                <img src="/img/user.png" alt="" class="image">
-                                <span class="company">{{company.name}}</span>
-                            </div >
-                        </transition-group>
-                    </div>
-                    <div class="container" v-else>
-                        All companies are set. Remove a company to re-order.
+                        <p>Choose a company for the selected slot (<span class="badge badge-success">{{activeSlot + 1}}</span>) above, from the following list
+                        <input class="form-control mt-1" type="text" placeholder="Type to search for a company" v-model="company_not_selected_search">
+                        </p>
+
+                        <div v-if="sorted_notSelected.length>0" class="pt-1">
+                            <transition-group name="component-fade" mode="out-in">
+                            	<div v-for="company in sorted_notSelected" 
+                                :id="'company' + company._id"
+                                :key="company"
+                                @click="addSelected(company)"
+                                class="company-not-selected align-content-center">
+                                    <img class="rounded-circle image" :src="company.photo ? (restUrl + 'photo/organization/large-' + company.photo) : '/img/company.png'" style="height: 2em; width: 2em !important; border-radius: 2em;" alt=""/>
+                                    <span class="company">{{company.name}}</span>
+                                    <span class="tip faded float-right pl-3 small d-inline-block align-content-center">Click to add this company as choice {{activeSlot + 1}}</span>
+                                </div >
+                            </transition-group>
+                        </div>
+                        <div class="container pt-1" v-else>
+                            <span v-if="company_not_selected_search != ''">No company found. Clear the search and try again.</span>
+                            <span v-else>All companies are set. Remove a company to re-order.</span>
+                        </div>
                     </div>
                     <hr>
                 </div>
@@ -77,19 +93,22 @@
         border-radius: 4px;
         border: solid thin #ccc;
         margin: 2px;
+        width: 49%;
+        align-content: center;
 
         .image{
-            height: 1.5em;
             float: left;
-            padding-right: 1em;
-
         }
 
         .company{
-
+            padding-left: 1em;
             overflow: hidden;
             text-overflow: hidden;
             white-space: nowrap;
+        }
+
+        .tip{
+            align-self: center;
         }
 
         &:hover{
@@ -102,13 +121,15 @@
         margin: 0.2rem;
         border-radius: 4px;
         background: #fff;
-        display: inline-flex;
+        display: flex;
+        align-content: center;
+        justify-content: justify;
         border: dashed thin #ccc;
-        width: 300px;
+        width: 100%;
         position: relative;
         align-content: flex-start;
         overflow: hidden;
-            cursor: pointer;
+        cursor: pointer;
 
         .image{
             height: 2em;
@@ -133,6 +154,39 @@
             margin-right: 4px;
 
         }
+
+        .tip{
+            align-self: center;
+        }
+
+        .status{
+            position: absolute;
+            top: 0;
+            right: 60px;
+            height: 100%;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.5);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+         
+            .padded{
+                padding: 0 0.3em;
+            }
+            .dot{
+                display: block;
+                width: 2em;
+                height: 2em;
+                padding: 0 0.5em;
+                border-radius: 50%;
+                background: #ccc;
+                border: solid thin #fff;
+                &.active{
+                    background: #29AE81;
+                }
+            }
+        }
         .remove{
             position: absolute;
             top: 0;
@@ -156,13 +210,12 @@
     }
 
     .component-fade-enter-active, .component-fade-leave-active {
-        transition: all .3s ease, width .2s ease, padding .2s ease, margin .2s ease;
-        width: 300px;
-        transform: translateX(0px) scale(1,1);
+        transition: all .3s cubic-bezier(0.07, 0.63, 0.25, 1);
+        transform: translateY(0px) scale(1,1);
     }
     .component-fade-enter, .component-fade-leave-to{
-        width: 0px;
-        transform: translateX(-30px) scale(0.5,0.5);
+        height: 0px;
+        transform: translateY(-10px) scale(0.5,0.5);
         opacity: 0;
         padding: 0;
         margin: 0;
@@ -182,11 +235,15 @@
                 state: this.$store.state,
                 user: Vue.auth.getUser(),
                 restbaseurl: restconfig.url,
+                restUrl: Vue.rest.restBaseUrl,
 
                 companies: [],
                 companies_selected: [],
-                activeSlot: -1,
+                activeSlot: 0,
                 dataChanged: false,
+                company_not_selected_search: '',
+
+                company_preferences: [],
             }
         },
         methods: {
@@ -227,13 +284,10 @@
                 }
 
                 let _baseURL = Vue.rest.restBaseUrl;
-                
-                console.log(_baseURL);
 
                 // TODO update post url
                 Vue.axios.post(_baseURL + 'api/student/companyPreferences', _data)
                 .then(function(res){
-                    console.log(res.data)
                     store.dispatch('showMessage', 'Preferences Updated')
                     
                 })
@@ -260,9 +314,17 @@
                     let _data = res.data;
                     console.log('_data', _data);
 
+
                     let _data_sorted = _.sortBy(_data, function(o){
                         return o.preference;
                     })
+
+                    _data_sorted = _.filter(_data_sorted, function(o){
+                        return !_.isNull(o.organization);
+                    });
+                    vm.company_preferences = _.keyBy(_data_sorted, function(o){
+                        return o.organization._id;
+                    });
 
                     let _companies_selected_fromDB = _.map(_data_sorted, function(o){
                         return o.organization;
@@ -288,15 +350,27 @@
             sorted_notSelected:function(){
                 let vm = this;
                 let _not_selected;
+
                 let _selected_ids = _.map(vm.companies_selected, function(o){
                     return o._id;
                 });
 
-                _not_selected = _.map(vm.companies, function(o){
+                let _not_selected_companies_filtered;
+                if(vm.company_not_selected_search != ''){
+
+                    _not_selected_companies_filtered = _.filter(vm.companies, function(o){
+                        return o.name.toLowerCase().indexOf(vm.company_not_selected_search.toLowerCase()) >= 0;
+                    })
+
+                } else {
+                    _not_selected_companies_filtered = vm.companies;
+                }
+
+
+                _not_selected = _.map(_not_selected_companies_filtered, function(o){
                     if(!_.includes(_selected_ids, o._id)){
                         return o;
                     }
-                    
                 })
 
 

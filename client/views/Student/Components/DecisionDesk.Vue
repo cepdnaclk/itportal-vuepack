@@ -7,9 +7,9 @@
             <div class="col-md-12 container px-3">
                 <h2 class="h2-responsive">Student Decision Desk</h2>
                 
-                <company-preferences></company-preferences>
-                <view-interviews></view-interviews>
               	<view-offers></view-offers>
+                <view-interviews></view-interviews>
+                <company-preferences></company-preferences>
             </div>
         </div>
     </div>
