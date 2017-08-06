@@ -6,12 +6,17 @@
                 <form @submit.prevent="resume_submit">
                     
                     <label for="resume">Select your resume file to upload</label><br>
-                    <input
-                        id="vue-resume-upload-file-input"
-                        type="file"
-                        @change="resume_change">
-                    <input type="submit" class="btn btn-primary" :value="upload_button_txt">
-                    <a v-if="student_resume || uploaded_file_name" target="_blank" :href="restBaseUrl + '/api/all/student/cv/'+ (uploaded_file_name || student_resume)" class="btn btn-primary d-inline-flex align-items-center"><i class="material-icons">perm_identity</i> View Resume</a>
+                    <template v-if="!isEditing && (student_resume || uploaded_file_name)">
+                        <a class="btn btn-primary" @click="isEditing = true">Upload a new resume</a>
+                    </template>
+                    <template v-else>
+                        <input
+                            id="vue-resume-upload-file-input"
+                            type="file"
+                            @change="resume_change">
+                        <input type="submit" class="btn btn-primary" :value="upload_button_txt">
+                    </template>
+                    <a v-if="student_resume || uploaded_file_name" target="_blank" :href="restBaseUrl + 'api/all/student/cv/'+ (uploaded_file_name || student_resume)" class="btn btn-primary d-inline-flex align-items-center"><i class="material-icons">perm_identity</i> View Resume</a>
                 </form>
             </div>
         </div>    
@@ -44,6 +49,7 @@ export default{
             upload_button_txt: 'Upload Resume',
             uploaded_file_name: null,
 
+            isEditing: false,
         }
     },
      methods: {
