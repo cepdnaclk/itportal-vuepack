@@ -5,7 +5,7 @@
         <div class="card" v-if="profile">
             <div class="row container p-2">
                 <div class="col-lg-3 m-auto">
-                    <img class="rounded-circle m-auto large-profilePicture"
+                    <img class="rounded-circle m-auto large-profilePicture z-depth-1"
                     :src="profile.photo ? restBaseUrl + 'photo/organization/large-' + profile.photo : '/img/company.png'" alt="">
                 </div>
                 <div class="col-lg-4  d-flex flex-column justify-content-center company-desc" :class="{'notExpanded': (!description_expanded && profile.description)}" @click="toggleExpansion">
