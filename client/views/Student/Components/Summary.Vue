@@ -115,14 +115,24 @@ export default {
         getAllData: function(){
             let vm = this;
             let _baseURL = Vue.rest.restBaseUrl;
+
+            store.dispatch('showLoader', 'Retrieving data...');
             Vue.axios.get(_baseURL + 'api/student/summary')
             .then(function(res){
 
                 vm.stats = res.data;
+                store.dispatch('hideLoader');
                 store.dispatch('showMessage', 'Acquired stats summary for user');
                 
             })
-            .catch(function(err){console.log(err)});
+            .catch(function(err){
+                console.log(err)
+                store.dispatch('hideLoader');
+                store.dispatch('showMessage', 'Auth tokens expired, logging you out');
+                setTimeout(function(){
+                    Vue.auth.logout();
+                }, 1000);
+            });
         }
     },
     mounted: function(){

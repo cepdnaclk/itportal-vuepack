@@ -20,8 +20,8 @@
                         <h6 class="h6-responsive mb-0 text-uppercase small">Profile updated {{moment(this.user.updatedAt)}}.</h6>
 
                         <div class="profile-cards d-flex m-auto grey lighten-5 mt-1 rounded">
-                            <a href="#" class="d-flex with-icon p-1" title="Send Message"><i class="material-icons responsive with">remove_red_eye</i> {{stats.profile_views}} profile views </a>
-                            <a href="#" class="d-flex with-icon p-1" title="Send Message"><i class="material-icons responsive with">remove_red_eye</i> {{stats.profile_views_company}} company profile views </a>
+                            <a href="#" class="d-flex with-icon p-1" :title="stats.profile_views_count + ' users viewed your profile'"><i class="material-icons responsive with">remove_red_eye</i> {{stats.profile_views_count}} profile views </a>
+                            <a href="#" class="d-flex with-icon p-1" :title="stats.company_profile_views_count + ' users viewed your company profile'"><i class="material-icons responsive with">remove_red_eye</i> {{stats.company_profile_views_count}} company profile views </a>
                         </div>
                     </div>
                 </div> 
@@ -84,12 +84,13 @@
 <script>
 import Chartist from 'chartist'
 import Vue from 'vue'
+import store from 'store';
 import restconfig from 'config/rest';
 
 export default {
     data(){
         return {
-            state: this.$store.state,
+            state: store.state,
             user: Vue.auth.getUser(),
             restbaseurl: restconfig.url,
 
@@ -113,14 +114,24 @@ export default {
         getAllData: function(){
             let vm = this;
             let _baseURL = Vue.rest.restBaseUrl;
+
+            store.dispatch('showLoader', 'Retrieving data...');
             Vue.axios.get(_baseURL + 'api/company/summary')
             .then(function(res){
 
                 vm.stats = res.data;
+                store.dispatch('hideLoader');
                 store.dispatch('showMessage', 'Acquired stats summary for user');
                 
             })
-            .catch(function(err){console.log(err)});
+            .catch(function(err){
+                console.log(err)
+                store.dispatch('hideLoader');
+                store.dispatch('showMessage', 'Auth tokens expired, logging you out');
+                setTimeout(function(){
+                    Vue.auth.logout();
+                }, 1000);
+            });
         }
 
     },
