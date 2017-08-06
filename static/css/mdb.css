@@ -1996,23 +1996,23 @@
 .dropdown-menu,
 .badge,
 .chip, .pagination .active .page-link, .btn, .pager li a {
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16), 0 0px 4px 0 rgba(0, 0, 0, 0.12); }
 
 .z-depth-1-half, .media .media-left img, .tooltip .tooltip-inner, .section img,
 .section .view, .btn:hover, .btn:active, .btn:focus, .btn.active, .btn-secondary.active, .btn-secondary.dropdown-toggle, .btn-primary.active, .btn-default.active, .btn-success.active, .btn-info.active, .btn-warning.active, .btn-danger.active, .pager li a:hover, .btn-elegant.active, .btn-unique.active, .btn-pink.active, .btn-purple.active, .btn-deep-purple.active, .btn-indigo.active, .btn-cyan.active, .btn-light-green.active, .btn-dark-green.active, .btn-lime.active, .btn-yellow.active, .btn-amber.active, .btn-orange.active, .btn-deep-orange.active, .btn-brown.active, .btn-blue-grey.active, .btn-mdb.active, .card .form-header, ul.instagram-photos li img {
-  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.18), 0 0px 6px 0 rgba(0, 0, 0, 0.15); }
 
 .z-depth-2, .section .jumbotron {
-  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 0px 12px 0 rgba(0, 0, 0, 0.19); }
 
 .z-depth-3 {
-  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19); }
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24), 0 0px 18px 0 rgba(0, 0, 0, 0.19); }
 
 .z-depth-4 {
-  box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21); }
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.22), 0 0px 24px 0 rgba(0, 0, 0, 0.21); }
 
 .z-depth-5 {
-  box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22); }
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2), 0 0px 25px 0 rgba(0, 0, 0, 0.22); }
 
 .hoverable {
   transition: box-shadow .55s;
@@ -2020,7 +2020,7 @@
 
 .hoverable:hover {
   transition: box-shadow .45s;
-  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 16px 0 rgba(0, 0, 0, 0.19); }
 
 a {
   color: #0275d8;
@@ -6469,7 +6469,7 @@ ul.instagram-photos li {
 .nav-itportal {
   z-index: 9999;
   font-weight: normal !important;
-  box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.16), 0 0px 18px 0 rgba(0, 0, 0, 0.1); }
+  box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.16), 0 0px 2px 0 rgba(0, 0, 0, 0.1); }
   .nav-itportal .nav-item {
     border-bottom: solid transparent 6px !important;
     margin-bottom: calc(-1rem - 6px) !important;
@@ -6488,7 +6488,7 @@ ul.instagram-photos li {
   padding-bottom: 0.3rem;
   margin-right: -1rem;
   margin-left: -1rem;
-  box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.16), 0 0px 18px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 3px 0 rgba(0, 0, 0, 0.16), 0 2px 26px 0 rgba(0, 0, 0, 0.1);
   z-index: 2; }
   .nav-secondary-itportal .nav-link:hover,
   .nav-secondary-itportal .nav-link.active {

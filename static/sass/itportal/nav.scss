@@ -1,7 +1,7 @@
 .nav-itportal{
     z-index: 9999;
     font-weight: normal !important;
-    box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.16), 0 0px 18px 0 rgba(0, 0, 0, 0.10);
+    box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.16), 0 0px 2px 0 rgba(0, 0, 0, 0.10);
     .nav-item{
         border-bottom: solid rgba(0,0,0,0) 6px !important;
         margin-bottom: calc(-1rem - 6px) !important;
@@ -29,7 +29,7 @@
     padding-bottom: 0.3rem;
     margin-right: -1rem;
     margin-left: -1rem;
-    box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.16), 0 0px 18px 0 rgba(0, 0, 0, 0.10);
+    box-shadow: 0 0px 3px 0 rgba(0, 0, 0, 0.16), 0 2px 26px 0 rgba(0, 0, 0, 0.1);
     z-index: 2;
 
     .nav-link:hover,
