@@ -215,6 +215,9 @@ export default {
                 vm.user = _profile.OrganizationRepDetails;
 
                 console.log('vm.profile', vm.profile);
+                Vue.nextTick(function () {
+                    vm.setWindowScrollFeatures();
+                })
             })
             .catch(function(err){console.error(err)});
 
@@ -236,9 +239,31 @@ export default {
             this.description_expanded = !this.description_expanded;
             console.log(this.description_expanded);
         },
+        setWindowScrollFeatures: function(){
+            setWindowScrollFeatures();
+        },
     },
     mounted: function(){
         this.getData();
     }
+}
+
+function setWindowScrollFeatures(){
+    $(function () {
+        $('a[href*="#"]:not([href="#"])').click(function () {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top
+                    }, 300, 'easeInOutExpo');
+                    return false;
+                }
+            }
+
+
+        });
+    });
 }
 </script>

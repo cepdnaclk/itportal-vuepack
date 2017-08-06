@@ -17,19 +17,19 @@
                     <li class="nav-item">
                         <a class="nav-link" :class="{active: activeSection==='academic'}" href="#academic">Academic</a>
                     </li>
-                    <li class="nav-item" v-if="profile.projects.length>0">
+                    <li class="nav-item" v-show="profile.projects.length>0">
                         <a class="nav-link" :class="{active: activeSection==='projects'}" href="#projects">Projects</a>
                     </li>
-                    <li class="nav-item" v-if="profile.competitions.length>0">
+                    <li class="nav-item" v-show="profile.competitions.length>0">
                         <a class="nav-link" :class="{active: activeSection==='competitions'}" href="#competitions">Competitions</a>
                     </li>
-                    <li class="nav-item" v-if="profile.awards.length>0">
+                    <li class="nav-item" v-show="profile.awards.length>0">
                         <a class="nav-link" :class="{active: activeSection==='awards'}" href="#awards">Awards</a>
                     </li>
-                    <li class="nav-item" v-if="profile.cocurriculars.length>0 || profile.extracurriculars.length>0">
+                    <li class="nav-item" v-show="profile.cocurriculars.length>0 || profile.extracurriculars.length>0">
                         <a class="nav-link" :class="{active: activeSection==='extras'}" href="#co-curricular">Extras</a>
                     </li>
-                    <li class="nav-item" v-if="profile.interests.length>0">
+                    <li class="nav-item" v-show="profile.interests.length>0">
                         <a class="nav-link" :class="{active: activeSection==='interests'}" href="#interests">Interests</a>
                     </li>
                 </ul>
@@ -72,7 +72,7 @@
                 <h3 class="h3-responsive marginless">My Resume</h3>
                 <hr class="my-2">
                 Download my resume
-                <a v-if="profile.resume" target="_blank" :href="restBaseUrl + '/api/all/student/cv/'+ (profile.resume)" class="btn btn-primary d-inline-flex align-items-center with-icon"><i class="material-icons">perm_identity</i> Download My Resume</a>
+                <a v-if="profile.resume" target="_blank" :href="restBaseUrl + 'api/all/student/cv/'+ (profile.resume)" class="btn btn-primary d-inline-flex align-items-center with-icon"><i class="material-icons">perm_identity</i> Download My Resume</a>
                 <a class="btn btn-primary d-inline-flex align-items-center with-icon" @click="makeAPrint"><i class="material-icons">print</i> Print this page</a>
 
             </div>
@@ -293,6 +293,9 @@ export default {
 
 
                 console.log('vm.profile', vm.profile);
+                Vue.nextTick(function () {
+                    vm.setWindowScrollFeatures();
+                })
             })
             .catch(function(err){console.error(err)});
 
@@ -305,10 +308,32 @@ export default {
         },
         makeAPrint: function(){
             window.print();
-        }
+        },
+        setWindowScrollFeatures: function(){
+            setWindowScrollFeatures();
+        },
     },
     mounted: function(){
         this.getData();
     }
+}
+
+function setWindowScrollFeatures(){
+    $(function () {
+        $('a[href*="#"]:not([href="#"])').click(function () {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top
+                    }, 300, 'easeInOutExpo');
+                    return false;
+                }
+            }
+
+
+        });
+    });
 }
 </script>
