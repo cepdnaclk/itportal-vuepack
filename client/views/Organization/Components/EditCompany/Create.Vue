@@ -10,8 +10,8 @@
                         <div class="col-lg-3 m-auto">
                             <h4 class="h4-responsive my-1">Company Logo</h4>
                             <photo-upload 
-                                :enableEdits="true"
-                                :photoDefault="company.photo ? restbaseurl + 'photo/user/large-' + company.photo : '/img/user.png'"
+                                :enableEdits="false"
+                                :photoDefault="company.photo ? restbaseurl + 'photo/organization/large-' + company.photo : '/img/company.png'"
                                 :buttonClass="'btn btn-primary'"
                                 :showMessages="true"
                                 @photo-submit="photo_upload"
