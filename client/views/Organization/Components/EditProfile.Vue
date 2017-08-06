@@ -207,18 +207,6 @@
                 this.activeSection = section;
 
             },
-            handleScroll: function(e){
-
-                // edit_profile_organizationRep_top_intro = getCoords(document.getElementById('intro'));
-                // edit_profile_organizationRep_top_academic = getCoords(document.getElementById('academic'));
-                // edit_profile_organizationRep_top_projects = getCoords(document.getElementById('projects'));
-                // edit_profile_organizationRep_top_competitions = getCoords(document.getElementById('competitions'));
-                // edit_profile_organizationRep_top_awards = getCoords(document.getElementById('awards'));
-                // edit_profile_organizationRep_top_co = getCoords(document.getElementById('co-curricular'));
-                // edit_profile_organizationRep_top_interests = getCoords(document.getElementById('interests'));
-                // console.log(edit_profile_organizationRep_top_intro.top);
-
-            },
             setEditing: function(section){
                 if(this.getEditing(section) === true){
                     if(section === 'intro'){
@@ -345,20 +333,32 @@
                 this.$store.commit('CHANGE_USER', this.user);
             }
         },
-        created () {
-            window.addEventListener('scroll', this.handleScroll);
-        },
         mounted(){
             let _user_id = this.user._id;
             if(_user_id){
                 Vue.rest.getData('user', '/' + this.user._id , this.getUserInfo);
             }
-        },
-        destroyed () {
-            window.removeEventListener('scroll', this.handleScroll);
+
+            setWindowScrollFeatures();
         },
     }
 
+function setWindowScrollFeatures(){
+    $(function () {
+        $('a[href*="#"]:not([href="#"])').click(function () {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top
+                    }, 300, 'easeInOutExpo');
+                    return false;
+                }
+            }
+        });
+    });
+}
 </script>
 
 <style>
