@@ -1,0 +1,29 @@
+import Vue from 'vue';
+import router from 'router';
+import store from 'store';
+import config from 'config/rest'
+
+var sockets = {
+
+	init: function(){
+
+		let vm = this;
+		let _restBaseUrl = config.url;
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+			var socket = io(_restBaseUrl);
+			console.log("[Socket] initialized on ", _restBaseUrl);
+
+			socket.on('user_connected', function(res){
+				store.dispatch('setLiveUsers', res.user_count);
+			});
+
+			socket.on('user_disconnected', function(res){
+				store.dispatch('setLiveUsers', res.user_count);
+			});
+
+		});
+	}
+}
+
+export default sockets;

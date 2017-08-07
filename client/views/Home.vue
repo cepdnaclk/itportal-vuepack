@@ -3,8 +3,13 @@
 	.hover-link{
 		cursor: pointer;
 	}
-	span.description{
-		line-height: 1;
+	.intro-stats{
+		font-size: 0.8em;
+		span.description{
+			line-height: 1em;
+			font-size: 1em;
+		}
+		
 	}
 	@media screen and (max-width: 540px){
 		.mobile-left{
@@ -18,6 +23,23 @@
 		}
 		li{
 			padding: 1em;
+		}
+
+		.intro-stats{
+			font-size: 0.8em;
+			span.description{
+				line-height: 1em;
+				font-size: 1em;
+			}
+			
+		}
+	}
+	@media screen and (max-width: 540px){
+		.intro-stats{
+			li{
+				padding: 0.2em;
+				margin-bottom: 0.2em;
+			}
 		}
 	}
 </style>

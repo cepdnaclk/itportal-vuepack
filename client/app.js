@@ -10,6 +10,7 @@ import Multiselect from 'vue-multiselect'
 
 import auth from 'auth';
 import rest from 'restclient';
+import socket from 'socket'
 
 // import VeeValidate from 'vee-validate';
 
@@ -22,6 +23,8 @@ Vue.component(Multiselect)
 
 Vue.auth = auth;
 Vue.rest = rest;
+Vue.socket = socket;
+socket.init();
 
 var _loggedIn = Vue.auth.loggedIn()
 if(_loggedIn) store.commit('LOGIN');

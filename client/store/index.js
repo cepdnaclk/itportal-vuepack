@@ -10,6 +10,9 @@ const state = {
   snackbarVisible: false,
   snackbarLoaderVisible: false,
   user: JSON.parse(localStorage.getItem('user')),
+
+  socket_user_count: 0,
+
 }
 
 const mutations = {
@@ -18,6 +21,9 @@ const mutations = {
   },
   DECREMENT (state) {
     state.count--
+  },
+  SET_SOCKET_USER_COUNT (state, userCount) {
+    state.socket_user_count = userCount;
   },
   LOGIN (state) {
     state.loggedIn = true;
@@ -66,7 +72,10 @@ const actions = {
   hideLoader ({ commit }) {
     commit('HIDE_LOADER');
     commit('HIDE_MESSAGE')
-  }
+  },
+  setLiveUsers ({ commit }, userCount) {
+    commit('SET_SOCKET_USER_COUNT', userCount);
+  },
 }
 
 const store = new Vuex.Store({

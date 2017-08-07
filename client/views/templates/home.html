@@ -29,9 +29,10 @@
                 </li>
             </ul>
             <ul class="intro-stats">
-                <router-link tag="li" class="hover-link" to="/all/organizations"><span class="d-flex flex-center"><i class="material-icons">account_balance</i><big>{{counts.companies}}</big></span> <span class="description">Organizations</span></router-link>
-                <router-link tag="li" class="hover-link" to="/all/students"><span class="d-flex flex-center"><i class="material-icons">face</i><big>{{counts.students}}</big></span> <span class="description">Students</span></router-link>
-                <li class=""><span class="d-flex flex-center"><i class="material-icons">assignment_ind</i><big>{{counts.students_selected}}</big></span> <span class="description">Assigned Trainees</span></li>
+                <router-link tag="li" class="hover-link" to="/all/organizations"><span class="d-flex flex-center"><i class="material-icons responsive">account_balance</i><big>{{counts.companies}}</big></span> <span class="description">Organizations</span></router-link>
+                <router-link tag="li" class="hover-link" to="/all/students"><span class="d-flex flex-center"><i class="material-icons responsive">face</i><big>{{counts.students}}</big></span> <span class="description">Students</span></router-link>
+                <li class=""><span class="d-flex flex-center"><i class="material-icons responsive">assignment_ind</i><big>{{counts.students_selected}}</big></span> <span class="description">Assigned Trainees</span></li>
+                <li class=""><span class="d-flex flex-center"><i class="material-icons responsive">cast_connected</i><big>{{state.socket_user_count}}</big></span> <span class="description">Online users</span></li>
             </ul>
         </div>
     </div>
