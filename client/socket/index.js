@@ -6,7 +6,7 @@ import config from 'config/rest'
 var sockets = {
 
 	init: function(){
-
+		
 		let vm = this;
 		let _restBaseUrl = config.url;
 
@@ -20,6 +20,12 @@ var sockets = {
 
 			socket.on('user_disconnected', function(res){
 				store.dispatch('setLiveUsers', res.user_count);
+			});
+
+			socket.on('error', function(res){
+				console.error('[Socket] ERROR');
+				console.error(res);
+				socket.close();
 			});
 
 		});

@@ -2,9 +2,9 @@
 	<svg class="artwork">
 	<defs>
 		<linearGradient id="e" x1="0" :y1="0" :x2="y_width" :y2="x_height" gradientUnits="userSpaceOnUse">
-			<stop stop-color="#fff" offset="0" />
+			<stop stop-color="#0ff" offset="0" />
 			<stop stop-color="transparent" offset="0.5" />
-			<stop stop-color="#fff" offset="1" />
+			<stop stop-color="#0ff" offset="1" />
 		</linearGradient>
 	</defs>
 		<path :d="path" stroke="url(#e)" :stroke-width="strokeWidth" fill="transparent"></path>

@@ -5,7 +5,7 @@
             <span class="custom-badge primary-custom-badge align-content-end d-flex"><i class="material-icons responsive">face</i> {{getUserCount()}}</span>
             <span v-if="isOnProfile" class="custom-badge primary-custom-badge align-content-end d-flex hoverable" @click="removeInterest"><i class="material-icons responsive">close</i></span>
         </div>
-        <p class="text-truncate mx-2 my-auto">{{interest.description}}</p>
+        <p class="mx-2 my-auto">{{interest.description}}</p>
     </div>
 </template>
 <style scoped>
