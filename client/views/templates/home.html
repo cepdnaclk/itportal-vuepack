@@ -9,6 +9,11 @@
     
     <!--Mask-->
     <div class="view full-bg-img" style="position: relative; height: 100vh">
+        <div class="decorations">
+            <transition-group name="decorfade">
+                <home-decor v-for="i in getTrafficVolume(state.socket_user_count)" :seed="i" :key="i"></home-decor>
+            </transition-group>
+        </div>
         <div class="mask pattern-1">
         </div>
         <div class="full-bg-img d-flex flex-center flex-column white-text"  style="position: relative;">

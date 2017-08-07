@@ -42,15 +42,25 @@
 			}
 		}
 	}
+
+	.decorfade-enter-active, .decorfade-leave-active {
+	  transition: opacity .5s;
+	}
+	.decorfade-enter, .decorfade-leave-to {
+	  opacity: 0;
+	}
+
 </style>
 <script>
 import Vue from 'vue';
 import AppHeaderLinks from 'components/Navigation/AppHeaderLinks'
+import HomeDecor from 'components/HomeDecor'
 import store from 'store';
 
 export default {
 	components:{
-		AppHeaderLinks
+		AppHeaderLinks,
+		HomeDecor
 	},
 	data() {
 		return {
@@ -67,6 +77,13 @@ export default {
 		moment: function(date){
 			return moment(date).format('LL');
 		},
+		getTrafficVolume: function(volume){
+			let _volume = volume;
+			if(_volume < 2) { return 1; }
+			if(_volume < 5) { return 2; }
+			if(_volume < 10) { return 3; }
+			return 5;
+		}
 	},
 	mounted: function(){
 		let _baseUrl = Vue.rest.restBaseUrl;
