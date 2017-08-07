@@ -1,6 +1,6 @@
 <template>
-	<div class="row" v-if="student">
-		<template class="not-printable-inner container">
+	<div v-if="student">
+		<div class="not-printable-inner row container">
 		    <div class="col-md-3 m-auto">
 		        <h1 class="green-text display-3 m-auto text-center">{{student.GPA}}</h1>
 		        <h4 class="green-text h4-responsive m-auto text-center">GPA</h4>
@@ -26,7 +26,7 @@
 		    <div class="col-md-9" v-else>
 		    	<div class="alert alert-warning">You are required to add your LDAP account. Please contact Administrator</div>
 		    </div>
-	    </template>
+	    </div>
 
 	    <div class="printable-inner">
 	    	<h2 style="display: block !important;">GPA: <b>{{student.GPA}}</b></h2>
