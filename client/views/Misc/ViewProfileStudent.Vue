@@ -146,51 +146,87 @@
         </div>
     </div>
     <div class="printable">
-        <h5>Introduction</h5>
-        <img class="rounded-circle large-profilePicture" :src="user.photo ? restBaseUrl + 'photo/user/large-' + user.photo : '/img/user.png'" alt="">
-        <h3 class="h3-responsive my-1 mobile-name">{{user.name}}</h3>
-        <h5 v-show="user.title" class="h5-responsive text-uppercase grey-text text-darken-2">{{user.title}}</h5>
-        <p v-show="user.tagline" class="tagline text-blue-grey text-darken-1">
-            {{user.tagline}}
-        </p>
+        <img class="rounded-circle large-profilePicture float-left" :src="user.photo ? restBaseUrl + 'photo/user/large-' + user.photo : '/img/user.png'" alt="">
+        <hgroup style="margin-top: 10px;">
+            <h1 style="display: inline-block !important; font-size: 2em !important;">{{user.name}}</h1>
+            <h3 v-show="user.title" class="h3-responsive text-uppercase grey-text text-darken-2">{{user.title}}</h3>
+        </hgroup>
+        <p v-show="user.tagline">{{user.tagline}}</p>
+        <div class="clearfix"></div>
+        <hr>
+        <h3 class="sub-heading">Contact Information</h3>
+        <p v-show="user.email"><i class="icon material-icons">email</i> {{user.email}}</p>
+        <p v-show="user.phone"><i class="icon material-icons">call</i> {{user.phone}}</p>
+        <p v-show="user.linksLinkedin"><i class="icon fa fa-linkedin"></i></i> {{preProcessURL(user.linksLinkedin)}}</p>
+        <p v-show="user.linksStackoverflow"><i class="icon fa fa-stack-overflow"></i> {{preProcessURL(user.linksStackoverflow)}}</p>
+        <p v-show="user.linksGithub"><i class="icon fa fa-github"></i></i> {{preProcessURL(user.linksGithub)}}</p>
+        <p v-show="user.linksPortfolio"><i class="icon fa fa-link"></i></i> {{preProcessURL(user.linksPortfolio)}}</p>
+        <p v-show="user.linksFacebook"><i class="icon fa fa-facebook"></i></i> {{preProcessURL(user.linksFacebook)}}</p>
         <hr>
 
-        <h5>Contact Information</h5>
-        <p v-show="user.email"><i class="material-icons">email</i> {{user.email}}</p>
-        <p v-show="user.phone"><i class="material-icons">call</i> {{user.phone}}</p>
-        <p v-show="user.linksLinkedin"><i class="fa fa-linkedin"></i></i> {{user.linksLinkedin}}</p>
-        <p v-show="user.linksStackoverflow"><i class="fa fa-stack-overflow"></i> {{user.linksStackoverflow}}</p>
-        <p v-show="user.linksGithub"><i class="fa fa-github"></i></i> {{user.linksGithub}}</p>
-        <p v-show="user.linksPortfolio"><i class="fa fa-link"></i></i> {{user.linksPortfolio}}</p>
-        <p v-show="user.linksFacebook"><i class="fa fa-facebook"></i></i> {{user.linksFacebook}}</p>
-        <hr>
-
-        <h5>Academic Information</h5>
+        <h3 class="sub-heading">Academic Information</h3>
         <view-academics v-if="profile" :student="profile" :results="academics"></view-academics>
         <hr>
 
-        <h5>Projects</h5>
-        <view-project v-for="(project, index) in profile.projects" :project="project" :key="'project'+index"></view-project>
+        
+        <h3 class="sub-heading">
+        <img src="/img/project.png" class="rounded-circle" style="height: 3em; width: 3em; vertical-align: middle">
+        Projects
+        </h3>
+        <div v-for="project in profile.projects">
+            <h4>{{project.title}}</h4>
+            <p class="description">{{project.description}}</p>
+        </div>
         <hr>
 
-        <h5>Competitions</h5>
-        <view-competition v-for="(competition, index) in profile.competitions" :competition="competition" :key="'competition'+index"></view-competition><hr>
+
+        <h3 class="sub-heading">
+        <img src="/img/competitions.png" class="rounded-circle" style="height: 3em; width: 3em; vertical-align: middle">
+        Competitions
+        </h3>
+        <div v-for="competition in profile.competitions">
+            <h4>{{competition.title}}</h4>
+            <p class="description">{{competition.description}}</p>
+        </div>
         <hr>
 
-        <h5>Awards</h5>
-        <view-award v-for="(award, index) in profile.awards" :award="award" :key="'award'+index"></view-award>        
+        <h3 class="sub-heading">
+        <img src="/img/awards.png" class="rounded-circle" style="height: 3em; width: 3em; vertical-align: middle">
+        Awards
+        </h3>
+        <div v-for="award in profile.awards">
+            <h4>{{award.title}}</h4>
+            <p class="description">{{award.description}}</p>
+        </div>
         <hr>
 
-        <h5>Co-curricular</h5>
-        <view-cocurricular v-for="(cocurricular, index) in profile.cocurriculars" :cocurricular="cocurricular" :key="'cocurricular'+index"></view-cocurricular>        
+        <h3 class="sub-heading">
+        <img src="/img/cocurricular.png" class="rounded-circle" style="height: 3em; width: 3em; vertical-align: middle">
+        Co-curricular activities
+        </h3>
+        <div v-for="cocurricular in profile.cocurriculars">
+            <h4>{{cocurricular.title}}</h4>
+            <p class="description">{{cocurricular.description}}</p>
+        </div>
         <hr>
 
-        <h5>Extra-curricular</h5>
-        <view-extracurricular v-for="(extracurricular, index) in profile.extracurriculars" :extracurricular="extracurricular" :key="'extracurricular'+index"></view-extracurricular>        
+        <h3 class="sub-heading">
+        <img src="/img/extracurricular.png" class="rounded-circle" style="height: 3em; width: 3em; vertical-align: middle">
+        Extra-curricular activities
+        </h3>
+        <div v-for="extracurricular in profile.extracurriculars">
+            <h4>{{extracurricular.title}}</h4>
+            <p class="description">{{extracurricular.description}}</p>
+        </div>
         <hr>
 
-        <h5>Interests</h5>
-        <view-interest v-for="(interest, index) in profile.interests" :interest="interest" :key="'interest'+index"></view-interest>        
+        <h3 class="sub-heading">Interests</h3>
+        <table class="table">
+            <tr v-for="interest in profile.interests">
+                <td class="title align-top"><b>{{interest.name}}</b></td>
+                <td class="description align-top">{{interest.description}}</td>
+            </tr>
+        </table>
         <hr>
 
 
@@ -228,18 +264,61 @@
     }
     @media only print {
         .printable{
-
+    
+            font-size: 12pt !important;
             padding: 10pt;
             background: #fff;
+    
+            .large-profilePicture{
+                width: 100px;
+                margin-right: 20px;
+            }
+            .icon{
+                display: inline-block;
+                width: 30px;
+                text-align: center;
+                color: #4CAF50;
+            }
 
+            & > *{
+                display: block;
+            }
+            * {
+                font-size: 12pt !important;
+            }
+            h1,h2,h3,h4,h5,h6,p{
+                display: block;
+                margin-bottom: 0.1em !important;
+            }
+            h1,h2,h3,h4,h5,h6{
+                display: block !important;
+            }
+            
+            h1{ font-size: 1.20em !important; font-weight: bold !important;}
+            h2{ font-size: 1.15em !important; font-weight: bold !important;}
+            h3{ font-size: 1.10em !important; font-weight: bold !important;}
+            h4{ font-size: 1.05em !important; font-weight: bold !important;}
+            h5{ font-size: 1.0em !important; font-weight: bold !important;}
+            h6{ font-size: 1.0em !important; font-weight: bold !important;}
+    
+            .sub-heading{
+                margin-bottom: 0.5em !important;
+            }
+            p.description,
+            td.description
+            {
+                line-height: 1.2;
+                margin-bottom: 0.4em !important;
+            }
+
+            td.title{
+                line-height: 1.2;
+            }
+            
         }
         .card{
             &:not(.printable){
                 display: none;
-            }
-            .tagline{
-                background: #455a64;
-                padding-left: 256px;
             }
         }
     }
@@ -301,6 +380,9 @@ export default {
 
         },
         preProcessURL: function(url){
+            if(!url){
+                return '';
+            }
             if(url.indexOf('//')<0){
                 return '//' + url;
             }
