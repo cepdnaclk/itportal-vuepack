@@ -25,9 +25,12 @@ var sockets = {
 			socket.on('error', function(res){
 				console.error('[Socket] ERROR');
 				console.error(res);
-				// setTimeout(function(){
-				// 	socket.close();
-				// }, 5000)
+
+				// timeout and close the socket connection to avoid unwanted traffic,
+				// until the proxy forwarding is fixed
+				setTimeout(function(){
+					socket.close();
+				}, 10000)
 			});
 
 		});
