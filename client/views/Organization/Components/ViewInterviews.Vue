@@ -6,7 +6,7 @@
 	                <h4>Scheduled interviews <span class="small">({{interviews.length}})</span></h4>
 	                <table class="table table-striped white decision-student">
 		                <tr>
-		                	<td colspan="2">Company</td>
+		                	<td colspan="2">Student</td>
 		                	<td>updated on</td>
 		                	<td>Interview Date</td>
 		                	<td>Type</td>
@@ -14,8 +14,8 @@
 		                	<td class="text-right">Action</td>
 		                </tr>
 	                	<tr v-for="interview in interviews">
-							<td class="align-middle"><img class="rounded-circle" :src="interview.company.photo ? (restUrl + 'photo/organization/large-' + interview.company.photo) : '/img/company.png'" style="width: 3em !important; border-radius: 3em;" alt=""/></td>
-	                		<td class="align-middle">{{interview.company.name}}</td>
+							<td class="align-middle"><img class="rounded-circle" :src="studentphotos[interview.student] ? (restUrl + 'photo/user/small-' + studentphotos[interview.student]) : '/img/user.png'" style="width: 3em !important; border-radius: 3em;" alt=""/></td>
+	                		<td class="align-middle">{{studentnames[interview.student]}}</td>
 		                	<td class="align-middle small">{{(new Date(interview.updatedAt)).toLocaleString()}}</td>
 		                	<td class="align-middle">
 		                		<span class="d-block">{{interview.time}} {{interview.date}}</span>
@@ -34,7 +34,11 @@
 	            </div>
 	        </div>
 		</div>
-		<div v-else class="alert alert-info">No interviews. Go ahead and schedule one.</div>
+		<div v-else class="">
+            <h4>Scheduled interviews</h4>
+            <p class="alert alert-info">No interviews scheduled. Go ahead and schedule one.</p>
+			
+		</div>
 	</div>
 </template>
 <style scoped></style>
@@ -44,6 +48,10 @@ import Vue from 'vue'
 import store from 'store'
 
 export default {
+	props: [
+		"studentphotos",
+		"studentnames"
+	],
 	data: ()=> {
 		return {
 			interviews: [],
@@ -63,14 +71,18 @@ export default {
                 let _interview_data = res.data;
                 console.log('_interview_data', _interview_data);
 
-                vm.interviews = _.filter(_interview_data, function(o){
+                let _interview_data_filtered = _.filter(_interview_data, function(o){
                 	return !_.isNull(o.company);
                 });
+
+                vm.interviews = _.sortBy(_interview_data_filtered, function(o){
+                	return -o.updatedAt;
+                })
 
                 store.dispatch('showMessage', 	'Retrieved interviews')
                 
             })
-            .catch(function(err){console.log(err)});
+            .catch(function(err){console.error(err)});
 		},
 
 		removeInterview: function(_id){

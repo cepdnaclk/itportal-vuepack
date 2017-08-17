@@ -53,7 +53,7 @@
                         </tr>
                     </table>
                     <div>
-                        <view-interviews></view-interviews>
+                        <view-interviews :studentphotos="student_profilePictures" :studentnames="student_names"></view-interviews>
                     </div>
                 </div>
 				<hr class="mt-2">
@@ -134,6 +134,9 @@
                 student_profiles: {},
                 baseUrl: Vue.rest.restBaseUrl,
                 local_stats: {},
+
+                student_profilePictures: {},
+                student_names: {},
             }
         },
         methods: {
@@ -153,6 +156,8 @@
                     // generate student_profiles
                     _.forEach(_company_preferences, function(o){
                         vm.getStudentFromUserId(o.user._id)
+                        vm.student_profilePictures[o.user._id] = o.user.photo;
+                        vm.student_names[o.user._id] = o.user.name;
                     });
 
                 })

@@ -12,7 +12,7 @@
 	                	<td style="width:300px">Notes</td>
 	                </tr>
                 	<tr v-for="interview in interviews">
-						<td class="align-middle"><img class="rounded-circle" :src="interview.company.photo ? (restUrl + 'photo/organization/large-' + interview.company.photo) : '/img/company.png'" style="width: 3em !important; border-radius: 3em;" alt=""/></td>
+						<td class="align-middle"><img class="rounded-circle" :src="interview.company.photo ? (restUrl + 'photo/organization/small-' + interview.company.photo) : '/img/company.png'" style="width: 3em !important; border-radius: 3em;" alt=""/></td>
                 		<td class="align-middle">{{interview.company.name}}</td>
 	                	<td class="align-middle small">{{(new Date(interview.updatedAt)).toLocaleString()}}</td>
 	                	<td class="align-middle">
@@ -54,9 +54,13 @@ export default {
                 let _interview_data = res.data;
                 console.log('_interview_data', _interview_data);
 
-                vm.interviews = _.filter(_interview_data, function(o){
+                let _interview_data_filtered = _.filter(_interview_data, function(o){
                 	return !_.isNull(o.company);
                 });
+
+                vm.interviews = _.sortBy(_interview_data_filtered, function(o){
+                	return -o.updatedAt;
+                })
 
                 store.dispatch('showMessage', 	'Retrieved interviews')
                 
