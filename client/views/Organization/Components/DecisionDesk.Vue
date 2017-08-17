@@ -40,9 +40,9 @@
                                 </span>
                             </td>
                                 
-                            <td class="col-md-1 status"><span class="dot d-inline-block" :class="{'active': preference.company_accepted}"></span></td>
-                            <td class="col-md-1 status"><span class="dot d-inline-block" :class="{'active': preference.company_interviewed}"></span></td>
                             <td class="col-md-1 status"><span class="dot d-inline-block" :class="{'active': preference.company_viewed}"></span></td>
+                            <td class="col-md-1 status"><span class="dot d-inline-block" :class="{'active': preference.company_interviewed}"></span></td>
+                            <td class="col-md-1 status"><span class="dot d-inline-block" :class="{'active': preference.company_accepted}"></span></td>
                             <td class="col-md-1 status"><span class="dot d-inline-block" :class="{'active': preference.student_accepted}"></span></td>
                             <td class="col-md-2 actions">
                                 <router-link :to="'/profile/student/' + student_profiles[preference.user._id]._id" class="btn btn-primary btn-sm btn-block" @click.native="setViewed(preference)">View</router-link>
@@ -237,7 +237,7 @@
                 }
                 _locals[_id].viewed = true;
 
-                Vue.set(vm.local_stats, _locals);
+                Vue.set(vm.local_stats, _id, _locals[_id]);
                 delete vm.local_stats['[object Object]'];
                 
                 preference.company_viewed = true;
@@ -303,15 +303,28 @@
         },
         computed: {
             totalViewed: function(){
-                let _count = _.countBy(this.local_stats, function(o){return o.viewed})["true"]
+
+                let _count =  _.countBy(this.companyPreferences, function(o){
+                    return o.company_viewed == true;
+                })["true"];
+
+                // let _count = _.countBy(this.local_stats, function(o){return o.viewed})["true"]
                 return _count | 0;
             },
             totalScheduled: function(){
-                let _count = _.countBy(this.local_stats, function(o){return o.interview_scheduled})["true"]
+
+                let _count =  _.countBy(this.companyPreferences, function(o){
+                    return o.company_interviewed == true;
+                })["true"];
+                // let _count = _.countBy(this.local_stats, function(o){return o.interview_scheduled})["true"]
                 return _count | 0;
             },
             totalOffered: function(){
-                let _count = _.countBy(this.local_stats, function(o){return o.offered})["true"]
+
+                let _count =  _.countBy(this.companyPreferences, function(o){
+                    return o.company_accepted == true;
+                })["true"];
+                // let _count = _.countBy(this.local_stats, function(o){return o.offered})["true"]
                 return _count | 0;
             },
         },
