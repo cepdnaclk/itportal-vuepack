@@ -249,6 +249,34 @@ var auth = {
 
         return _roles;
     },
+    isStudent() {
+        let _user = this.getUser();
+        if(!_user) return false;
+
+        let _roles = _user.role;
+        return !(_roles.indexOf('STUDENT') < 0);
+    },
+    isAdmin() {
+        let _user = this.getUser();
+        if(!_user) return false;
+
+        let _roles = _user.role;
+        return !(_roles.indexOf('ADMIN') < 0);
+    },
+    isCompany() {
+        let _user = this.getUser();
+        if(!_user) return false;
+
+        let _roles = _user.role;
+        return !(_roles.indexOf('COMPANY') < 0);
+    },
+    isStaff() {
+        let _user = this.getUser();
+        if(!_user) return false;
+
+        let _roles = _user.role;
+        return !(_roles.indexOf('STAFF') < 0);
+    },
     getUserEmail() {
         let _user = this.getUser();
 

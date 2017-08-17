@@ -25,7 +25,9 @@ var sockets = {
 			socket.on('error', function(res){
 				console.error('[Socket] ERROR');
 				console.error(res);
-				socket.close();
+				// setTimeout(function(){
+				// 	socket.close();
+				// }, 5000)
 			});
 
 		});

@@ -24,10 +24,11 @@
 						<img class="rounded-circle profile-image" :src="student.StudentDetails.photo ? (restUrl + 'photo/user/large-' + student.StudentDetails.photo) : '/img/user.png'" style="border-radius: 6em" alt="" />
 					</td>
 					<td class="mobile-name">{{student.StudentDetails.name}}</td>
-					<td class="text-center">
+					<!-- Decided to remove phone numbers -->
+					<td class="text-center" v-if="viewInExtendedMode">
 	                    <span v-if="student.StudentDetails.phone" class="d-flex align-content-center mobile-center"><i class="material-icons responsive mr-1">call</i> {{student.StudentDetails.phone}}</span>
                     </td>
-                    <td class="text-center">
+                    <td class="text-right">
 	                    <a class="btn btn-primary btn-rounded btn-xsm" target="_blank" v-if="student.StudentDetails.linksLinkedin" title="Linkedin" :href="preProcessURL(student.StudentDetails.linksLinkedin)"><i class="fa fa-linkedin fa-small"></i></a>
 	                    <a class="btn btn-primary btn-rounded btn-xsm" target="_blank" v-if="student.StudentDetails.linksGithub" title="Github" :href="preProcessURL(student.StudentDetails.linksGithub)"><i class="fa fa-github fa-small"></i></a>
 	                    <a class="btn btn-primary btn-rounded btn-xsm" target="_blank" v-if="student.StudentDetails.linksPortfolio" title="Portfolio page" :href="preProcessURL(student.StudentDetails.linksPortfolio)"><i class="fa fa-link fa-small"></i></a>
@@ -35,7 +36,8 @@
 	                    <a class="btn btn-primary btn-rounded btn-xsm" target="_blank" v-if="student.StudentDetails.linksFacebook" title="Facebook" :href="preProcessURL(student.StudentDetails.linksFacebook)"><i class="fa fa-facebook fa-small"></i></a>
 
                     </td>
-					<td class="text-center"><router-link :to="'/profile/student/' + student._id" class="btn btn-primary btn-xsm">View Student Profile</router-link></td>
+                    <!-- Decided to remove public profiles as well -->
+					<td class="text-center"  v-if="viewInExtendedMode"><router-link :to="'/profile/student/' + student._id" class="btn btn-primary btn-xsm">View Student Profile</router-link></td>
 				</tr>
 			</table>
 			<div class="col-md-6 col-lg-4 rounded" v-for="student in students_sorted" v-show="view_tiles">
@@ -112,6 +114,8 @@
 				sort_by_last_modified: true,
 				view_tiles: false,
 				view_list: true,
+
+				viewInExtendedMode: Vue.auth.isStudent() || Vue.auth.isAdmin() || Vue.auth.isStaff(),
 			}
 		},
 		methods: {

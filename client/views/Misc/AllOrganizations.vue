@@ -25,17 +25,19 @@
 						<img class="rounded-circle profile-image z-depth-1" :src="organization.photo ? (restUrl + 'photo/organization/large-' + organization.photo) : '/img/company.png'" style="border-radius: 6em" alt="" />
 					</td>
 					<td class="mobile-name">{{organization.name}}</td>
-					<td class="text-center">
+					<!-- Decided to remove phone numbers for public view -->
+					<td class="text-center" v-if="viewInExtendedMode">
 	                    <span v-if="organization.phone" class="d-flex align-content-center mobile-center"><i class="material-icons responsive mr-1">call</i> {{organization.phone}}</span>
                     </td>
-                    <td class="text-center">
+                    <td class="text-right">
 	                    <a class="btn btn-primary btn-rounded" target="_blank" v-if="organization.linksLinkedin" title="Linkedin" :href="preProcessURL(organization.linksLinkedin)"><i class="fa fa-linkedin"></i></a>
 	                    <a class="btn btn-primary btn-rounded" target="_blank" v-if="organization.linksGithub" title="Github" :href="preProcessURL(organization.linksGithub)"><i class="fa fa-github"></i></a>
 	                    <a class="btn btn-primary btn-rounded" target="_blank" v-if="organization.linksWebpage" title="Official Page" :href="preProcessURL(organization.linksWebpage)"><i class="fa fa-link"></i></a>
 	                    <a class="btn btn-primary btn-rounded" target="_blank" v-if="organization.linksFacebook" title="Facebook" :href="preProcessURL(organization.linksFacebook)"><i class="fa fa-facebook"></i></a>
 
                     </td>
-					<td class="text-center"><router-link :to="'/profile/organization/' + organization._id" class="btn btn-primary btn-xsm">View Company Profile</router-link></td>
+                    <!-- Making the information not visible to the public -->
+					<td class="text-center" v-if="viewInExtendedMode"><router-link :to="'/profile/organization/' + organization._id" class="btn btn-primary btn-xsm">View Company Profile</router-link></td>
 				</tr>
 			</table>
 			<div class="col-md-6 col-lg-4 rounded" v-for="organization in organizations_sorted"  v-show="view_tiles">
@@ -124,6 +126,8 @@
 				sort_by_last_modified: true,
 				view_tiles: false,
 				view_list: true,
+
+				viewInExtendedMode: Vue.auth.isCompany() || Vue.auth.isAdmin() || Vue.auth.isStaff(),
 
 			}
 		},
