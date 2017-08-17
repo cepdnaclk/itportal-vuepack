@@ -16,7 +16,7 @@
                 		<td class="align-middle">{{interview.company.name}}</td>
 	                	<td class="align-middle small">{{(new Date(interview.updatedAt)).toLocaleString()}}</td>
 	                	<td class="align-middle">
-	                		<span class="d-block">{{interview.time}}-{{interview.date}}</span>
+	                		<span class="d-block">{{interview.time}} {{interview.date}}</span>
 	                		<span class="small text-success">{{getTimeRemaining(interview.time, interview.date)}}</span>
                 		</td>
 	                	<td class="align-middle">

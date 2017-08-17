@@ -5,8 +5,9 @@
         <div class="row">
             <div class="col-md-12 container px-3 mt-1">
                 <h2 class="h2-responsive">Decision Desk</h2>
-                <p>Student preferences <span class="small">({{companyPreferences.length}} student(s))</span></p>
-                <div class="container blue-grey lighten-5 py-2">
+                <div class="container blue-grey lighten-5 py-3">
+
+                    <h4>Student preferences <span class="small">({{companyPreferences.length}} student(s))</span></h4>
                     <table class="table table-striped white decision-student">
                         <tr>
                             <th colspan="2">Students <span class="text-uppercase small">({{companyPreferences.length}} Student(s))</span></th>
@@ -47,10 +48,13 @@
                             <td class="col-md-2 actions">
                                 <router-link :to="'/profile/student/' + student_profiles[preference.user._id]._id" class="btn btn-primary btn-sm btn-block" @click.native="setViewed(preference)">View</router-link>
                                 <add-interview :preference="preference" :curruser="preference.user" @setinterviewed="setInterviewed"></add-interview>
-                                <a class="btn btn-primary btn-sm btn-block" @click="addNewOffer(preference)">Accept</a>
+                                <a class="btn btn-warning btn-sm btn-block" @click="addNewOffer(preference)">Offer the internship</a>
                             </td>
                         </tr>
                     </table>
+                    <div>
+                        <view-interviews></view-interviews>
+                    </div>
                 </div>
 				<hr class="mt-2">
             </div>
@@ -115,11 +119,13 @@
     import store from 'store';
 
     import AddInterview from './Dialogs/AddInterview';
+    import ViewInterviews from './ViewInterviews';
 
 
     export default{
         components: {
-            AddInterview
+            AddInterview,
+            ViewInterviews
         },
         data: () => {
             return {
