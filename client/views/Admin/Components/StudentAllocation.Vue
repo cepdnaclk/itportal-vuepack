@@ -142,9 +142,11 @@ export default {
             _receiving_lock = 2;
 
 			Vue.rest.getData('student','?populate=StudentDetails', function(data){
+
 				vm.students = _.mapKeys(data, function(student) {
 				  return student.StudentDetails._id;
 				});;
+
 				_receiving_lock--;
 				if(_receiving_lock == 0){ store.dispatch('hideLoader'); }
 				Vue.axios.get(_baseURL + 'api/admin/companyPreferences')
@@ -155,6 +157,9 @@ export default {
 		                console.log('_company_preferences', _company_preferences);
 
 		                vm.companyPreferences = _.filter(_company_preferences, function(o){
+		                	if(_.isUndefined(vm.students[o.user._id])){
+		                		return false;
+		                	}
 		                	return !_.isNull(o.organization);
 		                });
 
@@ -213,29 +218,53 @@ export default {
             }
 
 
+		},
+		getNormalized(num){
+			if(num<10) {
+				return "00" + num;
+			}
+			if(num<100) {
+				return "0" + num;
+			}
+			
+			return num;
 		}
 	},
 	computed: {
 		preferenceByCompany: function(){
+
 			let vm = this;
 			let _preferences = vm.companyPreferences;
 
 
             store.dispatch('showLoader', 'Evaluating preferences...');
 			// push users to companies;
+
+
 			let _preferencesByCompany = _.groupBy(_preferences, function(o){
+				// console.log(vm.students[o.user._id]);
+				if(_.isUndefined(vm.students[o.user._id])){
+					return
+				}
 				return o.organization._id;
 			});
 
+			console.log("_preferencesByCompany.length", _.size(_preferencesByCompany));
 			let _preferencesByCompany_sorted = [];
 			_.forEach(_preferencesByCompany, function(o){
 				let _o = _.sortBy(o, function(p){
-					return p.preference + " " + (4-(vm.students[p.user._id].GPA));
-				})
+					// if(_.isUndefined(vm.students[p.user._id])){
+					// 	return;
+					// }
+					// console.log(p.preference, p.user._id, vm.students[p.user._id])
+					return vm.getNormalized(p.preference) + " " + (4-(vm.students[p.user._id].GPA));
+				});
+
 				_preferencesByCompany_sorted.push(_o);
 
 			})
-			
+
+			console.log("_preferencesByCompany_sorted.length", _preferencesByCompany_sorted.length);
 
             store.dispatch('hideLoader');
 			return _preferencesByCompany_sorted;
@@ -257,6 +286,8 @@ export default {
 				_preferencesByStudent_sorted.push(_o);
 
 			})
+
+			console.log(_preferencesByStudent_sorted);
 			return _preferencesByStudent_sorted;
 		}
 	},

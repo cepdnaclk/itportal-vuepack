@@ -79,10 +79,16 @@ export default {
                 	return -o.updatedAt;
                 })
 
+                
+	            if(!vm.studentnames || _.size(vm.studentnames) == 0){
+					setTimeout(function(){vm.$forceUpdate();}, 200);
+	            }
+
                 store.dispatch('showMessage', 	'Retrieved interviews')
                 
             })
             .catch(function(err){console.error(err)});
+
 		},
 
 		removeInterview: function(_id){
