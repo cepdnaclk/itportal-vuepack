@@ -410,7 +410,7 @@
                 .then(function(res){
                     console.log(res.data);
                     store.dispatch('hideLoader');
-                    store.dispatch('showMessage', 'Interview removed');
+                    store.dispatch('showMessage', 'Interest removed');
 
                     vm.interests = _.filter(vm.interests, function(o){
                         return o._id != e;
