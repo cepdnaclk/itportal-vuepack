@@ -68,6 +68,7 @@
 									<img class="rounded-circle d-inline mr-1" :src="students[preference[0].user._id].StudentDetails.photo ? (restUrl + 'photo/user/large-' + students[preference[0].user._id].StudentDetails.photo) : '/img/user.png'" style="height: 3em; border-radius: 3em; width: 3em" alt=""/>
 									{{preference[0].user.name}}
 									<router-link v-if="students[preference[0].user._id]" class="btn btn-primary btn-xsm" :to="'/profile/student/' + students[preference[0].user._id]._id">View Profile</router-link>
+									<span class="btn btn-info" v-show="matchedCompanies[preference[0].user._id]">Suggested: {{matchedCompanies[preference[0].user._id]}}</span>
 								</th>
 							</tr>
 							<tr>
@@ -126,6 +127,8 @@ export default {
 			companyPreferences: [],
 			preferencesChanged: false,
 			students: [],
+			companyMatchedWithSkills: {},
+			matchedCompanies: {},
 
 			restUrl: Vue.rest.restBaseUrl,
 		}
@@ -170,6 +173,46 @@ export default {
 		                
 		            })
 			});
+
+			Vue.axios.get(_baseURL + 'api/admin/get/student_skills')
+			.then(function(res){
+				let _student_skills = res.data;
+				console.log('[_student_skills]', _student_skills);
+
+				let _skills_mapping = {};
+				_.forEach(_student_skills, function(_student){
+					let _skills_array = _.map(_student.skills, 'name');
+					_skills_mapping[_student.StudentDetails] = {};
+					_skills_mapping[_student.StudentDetails].skill_string = _.join(_skills_array, ' ');
+					_skills_mapping[_student.StudentDetails].matched_company = '';
+
+					vm.matchedCompanies[_student.StudentDetails] = '';
+
+					let _data = {
+						skills: _skills_mapping[_student.StudentDetails].skill_string || "Java"
+					}
+					Vue.axios.post(_baseURL + 'api/trained/companyToSkills', _data)
+					.then(function(res){
+						vm.companyMatchedWithSkills[_student.StudentDetails].matched_company = _.split(res.data, '=>')[1].trim();
+
+						Vue.set(vm.companyMatchedWithSkills, _student.StudentDetails, vm.companyMatchedWithSkills[_student.StudentDetails]);
+						Vue.set(vm.matchedCompanies, _student.StudentDetails, _skills_mapping[_student.StudentDetails].matched_company);
+						console.log('[matched_company]', _skills_mapping[_student.StudentDetails].matched_company);
+
+						vm.$forceUpdate();
+					})
+					.catch(function(err){
+						console.log(err);
+					})
+					_skills_mapping[_student.StudentDetails].matched_company = '';
+				})
+
+			vm.companyMatchedWithSkills = _skills_mapping;
+				// console.log("[_skills_mapping]", _skills_mapping);
+			})
+			.catch(function(err){
+				console.log(err);
+			})
 
 			
 		},
@@ -226,7 +269,7 @@ export default {
 			if(num<100) {
 				return "0" + num;
 			}
-			
+
 			return num;
 		}
 	},
