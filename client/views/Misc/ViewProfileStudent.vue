@@ -326,13 +326,13 @@
 <script>
 import Vue from 'vue'
 
-import ViewAcademics from 'components/Profile/ViewAcademics'
-import ViewProject from 'components/Profile/ViewProject'
-import ViewCompetition from 'components/Profile/ViewCompetition'
-import ViewAward from 'components/Profile/ViewAward'
-import ViewCocurricular from 'components/Profile/ViewCocurricular'
-import ViewExtracurricular from 'components/Profile/ViewExtracurricular'
-import ViewInterest from 'components/Profile/ViewInterest'
+import ViewAcademics from '../../components/Profile/ViewAcademics'
+import ViewProject from '../../components/Profile/ViewProject'
+import ViewCompetition from '../../components/Profile/ViewCompetition'
+import ViewAward from '../../components/Profile/ViewAward'
+import ViewCocurricular from '../../components/Profile/ViewCocurricular'
+import ViewExtracurricular from '../../components/Profile/ViewExtracurricular'
+import ViewInterest from '../../components/Profile/ViewInterest'
 
 export default {
     components: {
