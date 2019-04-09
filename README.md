@@ -7,6 +7,11 @@ Get the ITPORTAL backend implementation using express from  [github.com/imadx/it
 
 ## Screenshots
 
+Home page
+![Home page](screenshots/home.png)
+
+Sign-in  page
+![Sign-in  page](screenshots/login.png)
 
 ## Installation
 To start:
